@@ -9,15 +9,16 @@ namespace LTMCB_Final
     {
       
 
-        public movielistitem()
+        public movielistitem(string title)
         {
             InitializeComponent();
             // Khởi tạo poster (nếu chưa có trong Designer)
             poster = new PictureBox();
             poster.SizeMode = PictureBoxSizeMode.StretchImage; // Điều chỉnh cách hiển thị ảnh
             this.Controls.Add(poster); // Thêm PictureBox vào UserControl
-            poster.Location = new Point(10, 10); // Vị trí của PictureBox (có thể điều chỉnh)
+            poster.Location = new Point(40, 10);
             poster.Size = new Size(100, 150); // Kích thước của poster (có thể điều chỉnh)
+            lbName.Text = title;
 
             // Optional: Initialize a loading label or progress bar
             loadingLabel = new Label();

@@ -38,7 +38,7 @@
             // 
             lbName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lbName.AutoSize = true;
-            lbName.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            lbName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbName.ForeColor = Color.Red;
             lbName.Location = new Point(3, 0);
             lbName.Name = "lbName";
@@ -64,7 +64,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(lbName, 0, 0);
             tableLayoutPanel1.Controls.Add(btnBook, 0, 1);
-            tableLayoutPanel1.Location = new Point(0, 225);
+            tableLayoutPanel1.Location = new Point(3, 155);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -76,9 +76,10 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLight;
             Controls.Add(tableLayoutPanel1);
             Name = "movielistitem";
-            Size = new Size(180, 324);
+            Size = new Size(185, 255);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

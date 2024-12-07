@@ -9,8 +9,8 @@ namespace LTMCB_Final
 {
     public partial class ChonPhim : Form
     {
-       
-     
+
+
         private string connectionString = "Data Source=LPK;Initial Catalog=CinemaManagement;Integrated Security=True;Trust Server Certificate=True";
 
         public ChonPhim()
@@ -45,7 +45,7 @@ namespace LTMCB_Final
                         {
                             ID = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            Image = reader.GetString(2) // Ensure this column contains a valid URL or path
+                            Image = reader.GetString(2)
                         };
                         movies.Add(movie);
                     }
@@ -68,7 +68,7 @@ namespace LTMCB_Final
             {
                 try
                 {
-                    movielistitem listItem = new movielistitem
+                    movielistitem listItem = new movielistitem(movie.Name)
                     {
                         Title = movie.Name,
                         URL = movie.Image
@@ -96,6 +96,8 @@ namespace LTMCB_Final
         {
             // This method can be left empty or customized as needed
         }
+
+     
     }
 
     public class Movie
