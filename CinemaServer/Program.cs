@@ -1,10 +1,7 @@
-﻿using LTMCB_Final.FunctionClass;
-
-namespace LTMCB_Final
+namespace CinemaServer
 {
     internal static class Program
     {
-        public static ClientTcpConnection tcpConnection; //Mỗi lần mở app tạo 1 Tcp Connection
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -14,10 +11,7 @@ namespace LTMCB_Final
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ChonPhim());
-
-            tcpConnection = new ClientTcpConnection();
-            tcpConnection.TcpConnect();
+            Application.Run(new Server());
         }
     }
 }
