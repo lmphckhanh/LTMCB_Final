@@ -27,9 +27,9 @@ namespace CinemaServer.FunctionClass
             return HashPassword;
         }
 
-        public List<Account> ToQuery(string query) //Query data in database
+        public List<object> ToQuery(string query) //Query data in database
         {
-            List<Account> DataList = new List<Account>(); //Contain users which meet the conditions
+            List<object> DataList = new List<object>(); //Contain users which meet the conditions
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 sqlConnection.Open();
@@ -58,22 +58,22 @@ namespace CinemaServer.FunctionClass
             }
         }
 
-        public Account GetObject(string query) //Get info
+        public object GetObject(string query) //Get info
         {
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
-                Account acc = new Account();
+                string content = "";
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
                 dataReader = cmd.ExecuteReader();
                 if (dataReader.Read())
                 {
-                    acc = new Account(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4), dataReader.GetDateTime(5).ToShortDateString());
+                    
                 }
 
                 sqlConnection.Close();
-                return acc;
+                return content;
             }
         }
     }
