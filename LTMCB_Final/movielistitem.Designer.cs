@@ -57,6 +57,7 @@
             btnBook.TabIndex = 1;
             btnBook.Text = "Đặt Vé";
             btnBook.UseVisualStyleBackColor = true;
+            btnBook.Click += btnBook_Click;
             // 
             // tableLayoutPanel1
             // 

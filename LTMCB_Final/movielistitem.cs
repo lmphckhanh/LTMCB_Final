@@ -7,7 +7,7 @@ namespace LTMCB_Final
 {
     public partial class movielistitem : UserControl
     {
-      
+
 
         public movielistitem(string title)
         {
@@ -91,6 +91,16 @@ namespace LTMCB_Final
         private void lbName_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBook_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            Movie selectedMovie = button.Tag as Movie; // Lấy thông tin phim từ nút
+
+            // Mở form đặt vé và truyền thông tin phim
+            //DatVeForm datVeForm = new DatVeForm(selectedMovie);
+            //datVeForm.Show(); // Hiển thị form đặt vé
         }
     }
 }

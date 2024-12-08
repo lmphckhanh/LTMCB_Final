@@ -36,13 +36,12 @@
             label3 = new Label();
             comboBox1 = new ComboBox();
             label2 = new Label();
+            btnHome = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            contextMenuStrip2 = new ContextMenuStrip(components);
-            contextMenuStrip3 = new ContextMenuStrip(components);
-            userToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
-            contextMenuStrip3.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -57,17 +56,18 @@
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
             tableLayoutPanel1.Controls.Add(comboBox1, 1, 1);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
-            tableLayoutPanel1.Location = new Point(-4, 1);
+            tableLayoutPanel1.Controls.Add(btnHome, 3, 0);
+            tableLayoutPanel1.Location = new Point(-4, -5);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.0827065F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 66.91729F));
-            tableLayoutPanel1.Size = new Size(1092, 133);
+            tableLayoutPanel1.Size = new Size(1105, 144);
             tableLayoutPanel1.TabIndex = 6;
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(502, 47);
+            dateTimePicker1.Location = new Point(515, 50);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(221, 27);
             dateTimePicker1.TabIndex = 4;
@@ -88,9 +88,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11F);
             label3.ImageAlign = ContentAlignment.BottomLeft;
-            label3.Location = new Point(502, 0);
+            label3.Location = new Point(515, 0);
             label3.Name = "label3";
-            label3.Size = new Size(358, 44);
+            label3.Size = new Size(358, 47);
             label3.TabIndex = 5;
             label3.Text = "Chọn Ngày";
             label3.TextAlign = ContentAlignment.BottomLeft;
@@ -99,22 +99,34 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Kinh Dị ", "Hài Hước ", "Lãng Mạn ", "Phiêu Lưu", "Khoa Học Viễn Tưởng" });
-            comboBox1.Location = new Point(256, 47);
+            comboBox1.Location = new Point(263, 50);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 2;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11F);
-            label2.Location = new Point(256, 0);
+            label2.Location = new Point(263, 0);
             label2.Name = "label2";
-            label2.Size = new Size(240, 44);
+            label2.Size = new Size(246, 47);
             label2.TabIndex = 3;
             label2.Text = "Thể Loại";
             label2.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // btnHome
+            // 
+            btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnHome.Location = new Point(1004, 3);
+            btnHome.Name = "btnHome";
+            btnHome.Size = new Size(98, 41);
+            btnHome.TabIndex = 6;
+            btnHome.Text = "Tùy Chọn";
+            btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += button1_Click;
             // 
             // flowLayoutPanel1
             // 
@@ -127,27 +139,16 @@
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
+            contextMenuStrip1.Size = new Size(126, 28);
             // 
-            // contextMenuStrip2
+            // toolStripMenuItem1
             // 
-            contextMenuStrip2.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip2.Name = "contextMenuStrip2";
-            contextMenuStrip2.Size = new Size(61, 4);
-            // 
-            // contextMenuStrip3
-            // 
-            contextMenuStrip3.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip3.Items.AddRange(new ToolStripItem[] { userToolStripMenuItem });
-            contextMenuStrip3.Name = "contextMenuStrip3";
-            contextMenuStrip3.Size = new Size(108, 28);
-            // 
-            // userToolStripMenuItem
-            // 
-            userToolStripMenuItem.Name = "userToolStripMenuItem";
-            userToolStripMenuItem.Size = new Size(107, 24);
-            userToolStripMenuItem.Text = "User";
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(125, 24);
+            toolStripMenuItem1.Text = "Logout";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // ChonPhim
             // 
@@ -161,7 +162,7 @@
             Load += ChonPhim_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            contextMenuStrip3.ResumeLayout(false);
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -175,9 +176,8 @@
         private DateTimePicker dateTimePicker1;
         private Label label3;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Button btnHome;
         private ContextMenuStrip contextMenuStrip1;
-        private ContextMenuStrip contextMenuStrip2;
-        private ContextMenuStrip contextMenuStrip3;
-        private ToolStripMenuItem userToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
