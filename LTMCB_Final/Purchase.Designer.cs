@@ -56,9 +56,9 @@
             lbPaymentMethod.AutoSize = true;
             lbPaymentMethod.Location = new Point(330, 348);
             lbPaymentMethod.Name = "lbPaymentMethod";
-            lbPaymentMethod.Size = new Size(210, 25);
+            lbPaymentMethod.Size = new Size(66, 25);
             lbPaymentMethod.TabIndex = 26;
-            lbPaymentMethod.Text = "Phương thức thanh toán:";
+            lbPaymentMethod.Text = "Momo";
             // 
             // label3
             // 

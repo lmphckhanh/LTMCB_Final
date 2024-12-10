@@ -1,0 +1,10 @@
+﻿Message betwen Client and Server:
+
+for Momo: "GETMOMO"
+for Database: <G|E|Q> + <Statement>
+				G: GetOject(string query) - Get information of 1 Object
+				E: Command(string query) - Excute Command (Don't Use DataCode) ex: 000000E....
+				Q: ToQuery(string query) - Query
+				Với Query(Q): Trong string trả về, mỗi record được ngăn cách bởi kí tự '\0'(sử dụng string.Split('\0'))
+----------------------------------------------------------------------------------
+Mọi người tự thêm DataCode và thao tác trong ManipulateDatabase.cs để lấy thông tin cần thiết!

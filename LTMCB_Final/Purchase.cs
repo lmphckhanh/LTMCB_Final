@@ -1,5 +1,6 @@
 ﻿using LTMCB_Final.FunctionClass;
 using LTMCB_Final.Momo;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,16 @@ namespace LTMCB_Final
     public partial class Purchase : Form
     {
         ClientTcpConnection tcpConnection = Program.tcpConnection;
+        
         MomoInfo momo = new MomoInfo();
         public Purchase()
         {
             InitializeComponent();
         }
-
+        //Khách hàng: Account "Select Name From dbo.Account Where AcccountID = " + AccountId
+        //Tổng tiền : TicketOnBill 
+        //Số lượng: TicketOnBill
+        //Phim: TicketOnBill -> Ticket -> Movie
         private void btnPurchase_Click(object sender, EventArgs e)
         {
 

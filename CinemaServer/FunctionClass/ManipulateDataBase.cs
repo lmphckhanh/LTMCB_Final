@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace CinemaServer.FunctionClass
 {
@@ -27,9 +28,11 @@ namespace CinemaServer.FunctionClass
             return HashPassword;
         }
 
-        public List<object> ToQuery(string query) //Query data in database
+        public string ToQuery(string query) //Query data in database (7th letter = Q)
         {
-            List<object> DataList = new List<object>(); //Contain users which meet the conditions
+            string rs = "";
+            query = query.Substring(1);
+
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 sqlConnection.Open();
@@ -38,16 +41,26 @@ namespace CinemaServer.FunctionClass
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read()) //Adding data into DataList
                 {
-                    //DataList.Add(/**/);
-                }//                             UserId                 Username                 Password(Encypted)         Email                    Fullname                Birthday       
+                    object[] arr = new object[dataReader.FieldCount];
+                    dataReader.GetValues(arr);
+                    JObject json = new JObject();
+
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
+                    }
+                    rs += json.ToString() + "\0";
+                }
 
                 sqlConnection.Close();
-                return DataList;
+                return rs;
             }
         }
 
         public void Command(string query) //Execute command
         {
+
+            query = query.Substring(1);
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 sqlConnection.Open();
@@ -58,22 +71,34 @@ namespace CinemaServer.FunctionClass
             }
         }
 
-        public object GetObject(string query) //Get info
+        public string GetObject(string query) //Get info
         {
+            query = query.Substring(1);
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
-                string content = "";
+                string rs = "";
+                string syntax = query.Substring(0, 6);
+                query = query.Substring(7);
+
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
                 dataReader = cmd.ExecuteReader();
                 if (dataReader.Read())
                 {
-                    
+                    object[] arr = new object[dataReader.FieldCount];
+                    dataReader.GetValues(arr);
+                    JObject json = new JObject();
+
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
+                    }
+                    rs = json.ToString();
                 }
 
                 sqlConnection.Close();
-                return content;
+                return rs;
             }
         }
     }

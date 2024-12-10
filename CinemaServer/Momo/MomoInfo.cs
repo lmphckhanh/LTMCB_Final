@@ -8,16 +8,16 @@ namespace CinemaServer.Momo
 {
     internal class MomoInfo
     {
-        string endpoint { get; set; } //Server
-        string partnerCode { get; set; } //Server
-        string accessKey { get; set; } //Server
-        string serectkey { get; set; } //Server
-        string redirectUrl { get; set; } //Server
-        string ipnUrl { get; set; } //Server
+        public string endpoint { get; set; } //Server
+        public string partnerCode { get; set; } //Server
+        public string accessKey { get; set; } //Server
+        public string serectkey { get; set; } //Server
+        public string redirectUrl { get; set; } //Server
+        public string ipnUrl { get; set; } //Server
         //string requestType { get; set; } //Client
         //"captureWallet"
-        string storeId; // Server
-        string partnerName; //Server
+        public string storeId; // Server
+        public string partnerName; //Server
 
         public MomoInfo()
         {
