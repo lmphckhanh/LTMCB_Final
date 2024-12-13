@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LTMCB_Final.Momo
 {
-    internal class MomoInfo
+    public class MomoInfo
     {
         public string endpoint { get; set; } //Server
         public string partnerCode { get; set; } //Server
@@ -32,7 +32,7 @@ namespace LTMCB_Final.Momo
             orderId = Guid.NewGuid().ToString();
             requestId = Guid.NewGuid().ToString();
             extraData = "";
-            orderInfo = "<Username> thanh toán";
+            orderInfo = "";
         }
     }
 }

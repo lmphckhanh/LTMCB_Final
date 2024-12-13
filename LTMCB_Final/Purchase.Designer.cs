@@ -56,9 +56,8 @@
             lbPaymentMethod.AutoSize = true;
             lbPaymentMethod.Location = new Point(330, 348);
             lbPaymentMethod.Name = "lbPaymentMethod";
-            lbPaymentMethod.Size = new Size(66, 25);
+            lbPaymentMethod.Size = new Size(0, 25);
             lbPaymentMethod.TabIndex = 26;
-            lbPaymentMethod.Text = "Momo";
             // 
             // label3
             // 
@@ -92,9 +91,8 @@
             lbTotal.AutoSize = true;
             lbTotal.Location = new Point(328, 406);
             lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(115, 25);
+            lbTotal.Size = new Size(0, 25);
             lbTotal.TabIndex = 22;
-            lbTotal.Text = "Tổng số tiền:";
             // 
             // lbBillId
             // 
@@ -110,27 +108,24 @@
             lbTicketAmount.AutoSize = true;
             lbTicketAmount.Location = new Point(329, 290);
             lbTicketAmount.Name = "lbTicketAmount";
-            lbTicketAmount.Size = new Size(89, 25);
+            lbTicketAmount.Size = new Size(0, 25);
             lbTicketAmount.TabIndex = 18;
-            lbTicketAmount.Text = "Số lượng:";
             // 
             // lbMovieName
             // 
             lbMovieName.AutoSize = true;
             lbMovieName.Location = new Point(329, 224);
             lbMovieName.Name = "lbMovieName";
-            lbMovieName.Size = new Size(56, 25);
+            lbMovieName.Size = new Size(0, 25);
             lbMovieName.TabIndex = 17;
-            lbMovieName.Text = "Phim:";
             // 
             // lbCustomer
             // 
             lbCustomer.AutoSize = true;
             lbCustomer.Location = new Point(330, 154);
             lbCustomer.Name = "lbCustomer";
-            lbCustomer.Size = new Size(108, 25);
+            lbCustomer.Size = new Size(0, 25);
             lbCustomer.TabIndex = 16;
-            lbCustomer.Text = "Khách hàng:";
             // 
             // lbBillTitle
             // 
