@@ -7,4 +7,6 @@ for Database: <G|E|Q> + <Statement>
 				Q: ToQuery(string query) - Query
 				Với Query(Q): Trong string trả về, mỗi record được ngăn cách bởi chuỗi "<*>"(sử dụng string.Split("<*>"))
 ----------------------------------------------------------------------------------
-Mọi người tự thêm DataCode và thao tác trong ManipulateDatabase.cs để lấy thông tin cần thiết!
+Do cần thời gian để lấy thông tin từ data base nên để đảm bảo data được lấy đầy đủ, khuyến khích mn sử dụng cú pháp:
+string temp = "";
+while ((temp = tcp.TcpRecieve()).IsNullOrEmpty()){} //tcp là object của class ClientTcpConnection
