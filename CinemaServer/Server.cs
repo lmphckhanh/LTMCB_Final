@@ -60,7 +60,7 @@ namespace CinemaServer
                 {
                     if (ns.CanWrite && mess != "")
                     {
-                        ns.WriteAsync(Encoding.ASCII.GetBytes(mess));
+                        ns.WriteAsync(Encoding.UTF8.GetBytes(mess));
                     }
                 }
                 catch (Exception ex)
@@ -79,7 +79,7 @@ namespace CinemaServer
             if (mess != string.Empty)
             {
                 ns = client.GetStream();
-                data = Encoding.ASCII.GetBytes(mess);
+                data = Encoding.UTF8.GetBytes(mess);
                 ns.WriteAsync(data);
             }
         }
@@ -92,6 +92,7 @@ namespace CinemaServer
             byte[] data = new byte[dataSize];
             string mess = "";
             int receivedBytes = 0;
+            List<byte> listBytes = new List<byte>();
 
             try
             {
@@ -100,9 +101,9 @@ namespace CinemaServer
                     do
                     {
                         receivedBytes = ns.ReadAsync(data, 0, data.Length).Result;
-                        mess += Encoding.ASCII.GetString(data);
+                        foreach (var item in data) listBytes.Add(item);
                     } while (ns.DataAvailable);
-
+                    mess += Encoding.UTF8.GetString(listBytes.ToArray());
                     if (mess != "")
                     {
                         string syntax = mess.Substring(0, 1);
@@ -135,7 +136,7 @@ namespace CinemaServer
                         }
                         else
                         {
-                            TcpSend(client, "Error");
+                            TcpSend(client, "Syntax Error");
                         }
                         mess = "";
                     }

@@ -41,7 +41,7 @@ namespace LTMCB_Final.FunctionClass
             try
             {
                 //NetworkStream ns = tcpClient.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes(mess);
+                byte[] data = Encoding.UTF8.GetBytes(mess);
                 ns.WriteAsync(data, 0, data.Length);
                 //ns.Close();
             }
@@ -59,6 +59,7 @@ namespace LTMCB_Final.FunctionClass
             string mess = "";
             byte[] data = new byte[dataSize];
             int ReceiveBytes = 0;
+            List<byte> listBytes = new List<byte>();
 
             try
             {
@@ -68,9 +69,10 @@ namespace LTMCB_Final.FunctionClass
                     do
                     {
                         ReceiveBytes = ns.ReadAsync(data, 0, data.Length).Result;
-                        mess += Encoding.ASCII.GetString(data);
+                        foreach (var item in data) listBytes.Add(item);
+                        
                     } while (ns.DataAvailable);
-
+                    mess += Encoding.UTF8.GetString(listBytes.ToArray());
                     if (mess != "")
                     {
                         return mess;

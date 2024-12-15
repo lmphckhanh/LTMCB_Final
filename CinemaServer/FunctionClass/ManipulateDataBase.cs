@@ -38,7 +38,14 @@ namespace CinemaServer.FunctionClass
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
-                dataReader = cmd.ExecuteReader();
+                try
+                {
+                    dataReader = cmd.ExecuteReader();
+                }
+                catch(SqlException ex)
+                {
+                    return ex.Message;
+                }
                 while (dataReader.Read()) //Adding data into DataList
                 {
                     object[] arr = new object[dataReader.FieldCount];
@@ -49,7 +56,9 @@ namespace CinemaServer.FunctionClass
                     {
                         json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
                     }
-                    rs += json.ToString() + "\0";
+                    rs += json.ToString() + "<*>";
+                    rs = rs.Replace("\r", "");
+                    rs = rs.Replace("\n", "");
                 }
 
                 sqlConnection.Close();
@@ -83,7 +92,14 @@ namespace CinemaServer.FunctionClass
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
-                dataReader = cmd.ExecuteReader();
+                try
+                {
+                    dataReader = cmd.ExecuteReader();
+                }
+                catch (SqlException ex)
+                {
+                    return ex.Message;
+                }
                 if (dataReader.Read())
                 {
                     object[] arr = new object[dataReader.FieldCount];
@@ -95,6 +111,8 @@ namespace CinemaServer.FunctionClass
                         json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
                     }
                     rs = json.ToString();
+                    rs = rs.Replace("\r", "");
+                    rs = rs.Replace("\n", "");
                 }
 
                 sqlConnection.Close();

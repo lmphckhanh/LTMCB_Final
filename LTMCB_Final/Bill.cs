@@ -19,7 +19,7 @@ namespace LTMCB_Final
         ClientTcpConnection tcpConnection = Program.tcpConnection;
 
         public static Bill instance;
-        public string BillID = "";
+        public string BillID {get; set;}
         public string AccountID = "";
 
         public Bill()
@@ -33,22 +33,27 @@ namespace LTMCB_Final
         {
             JObject json = new JObject();
             lbBillId.Text = BillID;
+            string temp = string.Empty;
 
             tcpConnection.TcpSend(@"GSELECT TOP 1 Name, Phone FROM dbo.Account WHERE AccountID = '" + AccountID + "';");
-            json = JObject.Parse(tcpConnection.TcpReceive());
+            while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { };
+            json = JObject.Parse(temp);
             lbCustomer.Text = json.GetValue("Name").ToString();
             lbNumber.Text = json.GetValue("Phone").ToString();
 
             tcpConnection.TcpSend(@"GSELECT TOP 1 Mov.Name FROM ((dbo.TicketOnBill TB JOIN dbo.Ticket TK ON	TK.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Movie Mov ON ST.MovieID = Mov.MovieID WHERE TB.BillID = '" + BillID + "';");
-            json = JObject.Parse(tcpConnection.TcpReceive());
+            while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
+            json = JObject.Parse(temp);
             lbMovieName.Text = json.GetValue("Name").ToString();
 
             tcpConnection.TcpSend(@"GSELECT COUNT(TicketID) AS Count FROM dbo.TicketOnBill WHERE BillID = '" + BillID + "'; ");
-            json = JObject.Parse(tcpConnection.TcpReceive());
+            while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
+            json = JObject.Parse(temp);
             lbTicketAmount.Text = json.GetValue("Count").ToString();
 
             tcpConnection.TcpSend(@"QSELECT R.RoomName, SL.Col, SL.Row, C.Address  FROM (((((dbo.TicketOnBill TB JOIN dbo.Ticket TK ON TK.TicketID = TB.TicketID) JOIN dbo.Slot SL ON TK.SlotID = SL.SlotID) JOIN dbo.SlotInRoom SR ON SR.SlotID = SL.SlotID) JOIN dbo.Room R ON SR.RoomID = R.RoomID) JOIN dbo.RoomInCinema RC ON RC.RoomID = R.RoomID) JOIN dbo.Cinema C ON C.CinemaID = RC.CinemaID WHERE TB.BillID = '" + BillID + "';");
-            string Q = tcpConnection.TcpReceive();
+            string Q = string.Empty;
+            while ((Q = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
             string[] rs = Q.Split('\0');
 
             if (!rs.IsNullOrEmpty())
@@ -65,7 +70,8 @@ namespace LTMCB_Final
             lbRoom.Text += ")";
 
             tcpConnection.TcpSend(@"GSELECT TOP 1 Date, Time, TotalPrice FROM dbo.Bill WHERE BillID = '" + BillID + "';");
-            json = JObject.Parse(tcpConnection.TcpReceive());
+            while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
+            json = JObject.Parse(temp);
 
             lbTotal.Text = json.GetValue("TotalPrice").ToString();
             lbDateTime.Text = json.GetValue("Date").ToString() + " " + json.GetValue("Time").ToString();
