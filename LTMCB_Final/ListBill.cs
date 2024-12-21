@@ -14,16 +14,21 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LTMCB_Final
 {
+
     public partial class ListBill : Form
     {
         public static ListBill instance;
         public string selectedBill;
+        string AccountID = "";
+        string BillStatus = "(1)";
         ClientTcpConnection tcp = Program.tcpConnection;
         public ListBill()
         {
             InitializeComponent();
+            cbBillStatus.SelectedIndex = 2;
             instance = this;
             LoadCollumns();
+            LoadBillList();
         }
         void LoadCollumns()
         {
@@ -37,8 +42,28 @@ namespace LTMCB_Final
         }
 
         void LoadBillList()
-        {
-            string query = @"SELECT DISTINCT B.BillID, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from ((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID) WHERE B.Status = 1 ORDER BY B.Date, B.Time DESC";
+        {   
+            switch (cbBillStatus.SelectedIndex)
+            {
+                case 0: BillStatus = "(1)";
+                    break;
+                case 1: BillStatus = "(0)";
+                    break;
+                case 2: BillStatus = "(0,1)";
+                    break;
+                default: BillStatus = "(0,1)";
+                    break;
+            }
+            string query = "";
+            if (tbDateFrom.Text.IsNullOrEmpty() && tbDateTo.Text.IsNullOrEmpty())
+            {
+                query = @"SELECT DISTINCT B.BillID, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from ((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID) WHERE B.Status IN " + BillStatus + " AND B.AccountID = '" + AccountID + "' ORDER BY B.Date, B.Time DESC";
+            }
+            else
+            {
+                query = @"SELECT DISTINCT B.BillID, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from ((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID) WHERE B.Status IN " + BillStatus + " AND B.AccountID = '" + AccountID + "' AND (Date BETWEEN '" + tbDateFrom + "' AND '" + tbDateTo + "') ORDER BY B.Date, B.Time DESC";
+            }
+
             string js = "";
 
             tcp.TcpSend(query);
@@ -73,9 +98,21 @@ namespace LTMCB_Final
 
         private void lsvList_ItemActivate(object sender, EventArgs e)
         {
-            Bill.instance.BillID = lsvList.SelectedItems[0].SubItems[1].Text;
-            Bill bill = new Bill();
+            string billId = lsvList.SelectedItems[0].SubItems[1].Text;
+            Bill bill = new Bill(billId);
             bill.ShowDialog();
+        }
+
+        private void dtpFrom_ValueChanged(object sender, EventArgs e)
+        {
+            tbDateFrom.Text = dtpFrom.Value.ToShortDateString();
+            if (tbDateTo.Text.IsNullOrEmpty()) dtpTo.Value = dtpFrom.Value;
+        }
+
+        private void dtpTo_ValueChanged(object sender, EventArgs e)
+        {
+            tbDateTo.Text = dtpTo.Value.ToShortDateString();
+            if (tbDateFrom.Text.IsNullOrEmpty()) dtpFrom.Value = dtpTo.Value;
         }
     }
 }

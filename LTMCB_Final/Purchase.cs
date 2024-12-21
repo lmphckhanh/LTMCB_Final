@@ -133,11 +133,12 @@ namespace LTMCB_Final
                 { "lang", "en" }
 
             };
-            string queryresponseFromMomo = MomoRequest.sendMomoRequest(queryendpoint, querymessage.ToString());
+            string queryresponseFromMomo = MomoRequest.sendCheckRequest(queryendpoint, querymessage.ToString());
             JObject jquerymessage = JObject.Parse(queryresponseFromMomo);
 
             if (Int32.Parse(jquerymessage.GetValue("resultCode").ToString()) == 0)
             {
+                string transId = jquerymessage.GetValue("transId").ToString();
                 try
                 {
                     MessageBox.Show("Thanh toán thành công, vé của bạn đã được đặt!\nChân thành cảm ơn quý kách",
@@ -145,7 +146,7 @@ namespace LTMCB_Final
                     for (int i = 0; i < Ticket.Length; i++)
                     {
                         string addRecord = "E"
-                            + @"EXEC dbo.Pro_Purchase @Bill = '" + orderId + "',@RequestID = '" + requestId + "', @Ticket = '" + Ticket[i] + "', @Account = '" + AccountID + "';";
+                            + @"EXEC dbo.Pro_Purchase @Bill = '" + orderId + "',@RequestID = '" + requestId + "',@TransID = '" + transId + "', @Ticket = '" + Ticket[i] + "', @Account = '" + AccountID + "';";
                         tcpConnection.TcpSend(addRecord);
                     }
                 }

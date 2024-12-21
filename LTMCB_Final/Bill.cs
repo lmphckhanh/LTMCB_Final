@@ -19,13 +19,20 @@ namespace LTMCB_Final
         ClientTcpConnection tcpConnection = Program.tcpConnection;
 
         public static Bill instance;
-        public string BillID {get; set;}
+        string BillID = "";
         public string AccountID = "";
 
         public Bill()
         {
             InitializeComponent();
             instance = this;
+            LoadInfo();
+        }
+        public Bill(string Bill)
+        {
+            InitializeComponent();
+            instance = this;
+            BillID = Bill;
             LoadInfo();
         }
 

@@ -227,6 +227,7 @@ CREATE TABLE Bill
 	Time TIME NOT NULL,
 	Status BIT NOT NULL, --1: Còn hiệu lực(chưa chiếu), 0: hết hiệu lực
 	RequestID VARCHAR(100) UNIQUE NOT NULL, --requestId
+	TransID VARCHAR(100) UNIQUE NOT NULL
 )
 
 CREATE TABLE TicketOnBill
@@ -430,7 +431,7 @@ BEGIN
 
 END
 GO
-ALTER TRIGGER Trig_TicketOnBill_Delete ON dbo.TicketOnBill
+CREATE TRIGGER Trig_TicketOnBill_Delete ON dbo.TicketOnBill
 FOR DELETE
 AS
 BEGIN
@@ -600,10 +601,10 @@ BEGIN
 END
 SELECT * FROM dbo.Slot;
 SELECT * FROM dbo.SlotInRoom;
-
+GO
 -------------------------------------------------------------------------------------------------------------
 CREATE PROC Pro_Purchase
-@Bill VARCHAR(100), @RequestID VARCHAR(100), @Ticket VARCHAR(100), @Account VARCHAR(100)
+@Bill VARCHAR(100), @RequestID VARCHAR(100),@TransID VARCHAR(100), @Ticket VARCHAR(100), @Account VARCHAR(100)
 AS
 BEGIN
 	BEGIN TRANSACTION
@@ -612,8 +613,8 @@ BEGIN
 		IF NOT EXISTS 
 		(SELECT TOP 1 BillID FROM dbo.Bill WHERE BillID = @Bill)
 		BEGIN
-		    INSERT INTO dbo.Bill (BillID,AccountID,TotalPrice,Date,Time,Status,RequestID) VALUES 
-			(@Bill, @Account, DEFAULT, DEFAULT, DEFAULT, DEFAULT,  @RequestID);
+		    INSERT INTO dbo.Bill (BillID,AccountID,TotalPrice,Date,Time,Status,RequestID, TransID) VALUES 
+			(@Bill, @Account, DEFAULT, DEFAULT, DEFAULT, DEFAULT,  @RequestID, @TransID);
 		END
 		INSERT INTO dbo.TicketOnBill (BillID, TicketID) VALUES (@Bill, @Ticket);
 		COMMIT TRANSACTION;

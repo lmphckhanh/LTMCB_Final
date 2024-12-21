@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace LTMCB_Final.Momo
@@ -115,6 +116,51 @@ namespace LTMCB_Final.Momo
             {
                 return e.Message;
             }
+        }
+        public static string Refund(string AccessKey, string transId, long Amount)
+        {
+            string endpoint = "https://test-payment.momo.vn/v2/gateway/api/refund";
+            string accessKey = AccessKey;
+            string partnerCode = "MOMO5RGX20191128";
+            string orderId = Guid.NewGuid().ToString(); //orderID;
+            string momoTransId = transId;
+            string requestId = Guid.NewGuid().ToString();
+            string description = "";
+            string lang = "vi";
+            long amount = Amount;
+            string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+
+
+            //get hash
+            MomoSecurity crypto = new MomoSecurity();
+
+            string rawHash = "accessKey=" + accessKey +
+                    "&amount=" + amount +
+                    "&description=" + description +
+                    "&orderId=" + orderId +
+                    "&partnerCode=" + partnerCode +
+                    "&requestId=" + requestId +
+                    "&transId=" + momoTransId;
+
+            string signature = crypto.signSHA256(rawHash, serectkey);
+
+            JObject message = new JObject
+            {
+                {"partnerCode", partnerCode },
+                {"orderId", orderId },
+                {"requestId", requestId },
+                {"amount", amount },
+                {"transId", momoTransId },
+                {"lang", lang },
+                {"description", description },
+                {"signature", signature }
+            };
+            //request to MoMo
+
+            //response from MoMo
+            string responseFromMomo = MomoRequest.sendMomoRequest(endpoint, message.ToString());
+            JObject jmessage = JObject.Parse(responseFromMomo);
+            return jmessage.ToString();
         }
     }
 }
