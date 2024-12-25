@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LTMCB_Final
 {
-    public partial class Login : Form
+    public partial class login : Form
     {
-        public Login()
+        public login()
         {
             InitializeComponent();
         }

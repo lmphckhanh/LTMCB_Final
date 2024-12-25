@@ -59,7 +59,7 @@ namespace LTMCB_Final
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Login registerForm = new Login();
+            login registerForm = new login();
             registerForm.ShowDialog();
         }
     }

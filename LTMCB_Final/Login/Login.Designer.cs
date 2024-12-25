@@ -1,6 +1,6 @@
 ﻿namespace LTMCB_Final
 {
-    partial class Login
+    partial class login
     {
         /// <summary>
         /// Required designer variable.

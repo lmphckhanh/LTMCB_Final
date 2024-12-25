@@ -93,15 +93,20 @@ namespace LTMCB_Final
         {
             try
             {
-                tcpConnection.TcpSend(@"EEXEC dbo.Proc_DeleleBill @BillID = '" + BillID +"';");
+                tcpConnection.TcpSend(@"EEXEC dbo.Proc_DeleleBill @BillID = '" + BillID + "';");
                 //Refund
-                MessageBox.Show("Hủy vé thành công!\nBạn sẽ được hoàn tiền trong thời gian sớm nhất!","Thành công",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Hủy vé thành công!\nBạn sẽ được hoàn tiền trong thời gian sớm nhất!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+
                 MessageBox.Show("Hủy vé thất bại!\n" + ex.Message, "Thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void lbCustomer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
