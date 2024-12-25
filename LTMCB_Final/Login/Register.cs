@@ -25,7 +25,7 @@ namespace LTMCB_Final
             string email = mail.Text.Trim();
             string password = pw.Text.Trim();
             string confirmPassword = cfpw.Text.Trim();
-            
+
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
             {
@@ -59,8 +59,12 @@ namespace LTMCB_Final
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            login registerForm = new login();
-            registerForm.ShowDialog();
+            this.Hide();
+        }
+
+        private void Register_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
