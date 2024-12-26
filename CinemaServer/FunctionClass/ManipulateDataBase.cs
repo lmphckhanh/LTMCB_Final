@@ -66,7 +66,21 @@ namespace CinemaServer.FunctionClass
             }
         }
 
-        public void Command(string query) //Execute command
+        //public void Command(string query) //Execute command
+        //{
+
+        //    query = query.Substring(1);
+        //    using (SqlConnection sqlConnection = DataBaseConnection.Connect())
+        //    {
+        //        sqlConnection.Open();
+
+        //        cmd = new SqlCommand(query, sqlConnection);
+        //        cmd.ExecuteNonQuery();
+        //        sqlConnection.Close();
+        //    }
+        //}
+
+        public int Execute(string query) //Execute command
         {
 
             query = query.Substring(1);
@@ -75,8 +89,9 @@ namespace CinemaServer.FunctionClass
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
-                cmd.ExecuteNonQuery();
+                int rs = cmd.ExecuteNonQuery();
                 sqlConnection.Close();
+                return rs;
             }
         }
 

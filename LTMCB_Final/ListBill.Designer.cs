@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             lsvList = new ListView();
+            STT = new ColumnHeader();
+            BillID = new ColumnHeader();
+            MovieName = new ColumnHeader();
+            Price = new ColumnHeader();
+            Date = new ColumnHeader();
+            Time = new ColumnHeader();
+            Status = new ColumnHeader();
             btnRefresh = new Button();
             btnDeleteBill = new Button();
             label1 = new Label();
@@ -40,11 +47,13 @@
             tbDateTo = new TextBox();
             cbBillStatus = new ComboBox();
             label4 = new Label();
+            btnClearDate = new Button();
             SuspendLayout();
             // 
             // lsvList
             // 
-            lsvList.Location = new Point(12, 116);
+            lsvList.Columns.AddRange(new ColumnHeader[] { STT, BillID, MovieName, Price, Date, Time, Status });
+            lsvList.Location = new Point(12, 146);
             lsvList.MultiSelect = false;
             lsvList.Name = "lsvList";
             lsvList.Size = new Size(677, 431);
@@ -52,23 +61,49 @@
             lsvList.UseCompatibleStateImageBehavior = false;
             lsvList.ItemActivate += lsvList_ItemActivate;
             // 
+            // BillID
+            // 
+            BillID.Text = "Mã hóa đơn";
+            // 
+            // MovieName
+            // 
+            MovieName.Text = "Tên phim";
+            // 
+            // Price
+            // 
+            Price.Text = "Tổng tiền";
+            // 
+            // Date
+            // 
+            Date.Text = "Ngày";
+            // 
+            // Time
+            // 
+            Time.Text = "Giờ";
+            // 
+            // Status
+            // 
+            Status.Text = "Trạng thái";
+            // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(540, 52);
+            btnRefresh.Location = new Point(540, 82);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(149, 57);
             btnRefresh.TabIndex = 1;
             btnRefresh.Text = "Làm mới";
             btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // btnDeleteBill
             // 
-            btnDeleteBill.Location = new Point(544, 553);
+            btnDeleteBill.Location = new Point(544, 583);
             btnDeleteBill.Name = "btnDeleteBill";
             btnDeleteBill.Size = new Size(145, 48);
             btnDeleteBill.TabIndex = 2;
             btnDeleteBill.Text = "Hủy vé";
             btnDeleteBill.UseVisualStyleBackColor = true;
+            btnDeleteBill.Click += btnDeleteBill_Click;
             // 
             // label1
             // 
@@ -82,7 +117,7 @@
             // dtpFrom
             // 
             dtpFrom.Format = DateTimePickerFormat.Short;
-            dtpFrom.Location = new Point(126, 78);
+            dtpFrom.Location = new Point(126, 108);
             dtpFrom.Name = "dtpFrom";
             dtpFrom.Size = new Size(29, 31);
             dtpFrom.TabIndex = 4;
@@ -91,7 +126,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 52);
+            label2.Location = new Point(12, 82);
             label2.Name = "label2";
             label2.Size = new Size(76, 25);
             label2.TabIndex = 6;
@@ -100,7 +135,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(179, 52);
+            label3.Location = new Point(204, 80);
             label3.Name = "label3";
             label3.Size = new Size(88, 25);
             label3.TabIndex = 7;
@@ -109,7 +144,7 @@
             // dtpTo
             // 
             dtpTo.Format = DateTimePickerFormat.Short;
-            dtpTo.Location = new Point(276, 80);
+            dtpTo.Location = new Point(311, 110);
             dtpTo.Name = "dtpTo";
             dtpTo.Size = new Size(29, 31);
             dtpTo.TabIndex = 8;
@@ -117,16 +152,18 @@
             // 
             // tbDateFrom
             // 
-            tbDateFrom.Location = new Point(12, 78);
+            tbDateFrom.Location = new Point(12, 108);
             tbDateFrom.Name = "tbDateFrom";
+            tbDateFrom.PlaceholderText = "mm/dd/yyyy";
             tbDateFrom.ReadOnly = true;
             tbDateFrom.Size = new Size(117, 31);
             tbDateFrom.TabIndex = 9;
             // 
             // tbDateTo
             // 
-            tbDateTo.Location = new Point(169, 78);
+            tbDateTo.Location = new Point(204, 108);
             tbDateTo.Name = "tbDateTo";
+            tbDateTo.PlaceholderText = "mm/dd/yyyy";
             tbDateTo.ReadOnly = true;
             tbDateTo.Size = new Size(114, 31);
             tbDateTo.TabIndex = 10;
@@ -135,7 +172,7 @@
             // 
             cbBillStatus.FormattingEnabled = true;
             cbBillStatus.Items.AddRange(new object[] { "Còn hiệu lực", "Hết hiệu lực", "Tất cả" });
-            cbBillStatus.Location = new Point(334, 76);
+            cbBillStatus.Location = new Point(348, 108);
             cbBillStatus.Name = "cbBillStatus";
             cbBillStatus.Size = new Size(182, 33);
             cbBillStatus.TabIndex = 11;
@@ -143,17 +180,28 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(334, 48);
+            label4.Location = new Point(348, 80);
             label4.Name = "label4";
             label4.Size = new Size(89, 25);
             label4.TabIndex = 12;
             label4.Text = "Trạng thái";
             // 
+            // btnClearDate
+            // 
+            btnClearDate.Location = new Point(156, 110);
+            btnClearDate.Name = "btnClearDate";
+            btnClearDate.Size = new Size(46, 31);
+            btnClearDate.TabIndex = 13;
+            btnClearDate.Text = "[x]";
+            btnClearDate.UseVisualStyleBackColor = true;
+            btnClearDate.Click += btnClearDate_Click;
+            // 
             // ListBill
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(706, 605);
+            ClientSize = new Size(706, 641);
+            Controls.Add(btnClearDate);
             Controls.Add(label4);
             Controls.Add(cbBillStatus);
             Controls.Add(tbDateTo);
@@ -186,5 +234,13 @@
         private TextBox tbDateTo;
         private ComboBox cbBillStatus;
         private Label label4;
+        private Button btnClearDate;
+        private ColumnHeader STT;
+        private ColumnHeader BillID;
+        private ColumnHeader MovieName;
+        private ColumnHeader Price;
+        private ColumnHeader Date;
+        private ColumnHeader Time;
+        private ColumnHeader Status;
     }
 }

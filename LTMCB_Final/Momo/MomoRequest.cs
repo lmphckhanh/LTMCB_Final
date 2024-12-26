@@ -159,8 +159,8 @@ namespace LTMCB_Final.Momo
 
             //response from MoMo
             string responseFromMomo = MomoRequest.sendMomoRequest(endpoint, message.ToString());
-            JObject jmessage = JObject.Parse(responseFromMomo);
-            return jmessage.ToString();
+            //JObject jmessage = JObject.Parse(responseFromMomo);
+            return responseFromMomo;
         }
     }
 }

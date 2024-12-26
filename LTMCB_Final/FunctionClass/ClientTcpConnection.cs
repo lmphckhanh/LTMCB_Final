@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LTMCB_Final.FunctionClass
 {
@@ -85,6 +86,55 @@ namespace LTMCB_Final.FunctionClass
                 ns.Close();
             }
             return string.Empty;
+        }
+        public byte[] TcpReceiveBytes()
+        {
+            //ns = tcpClient.GetStream();
+            byte[] data = new byte[dataSize];
+            int ReceiveBytes = 0;
+            List<byte> listBytes = new List<byte>();
+
+            try
+            {
+                while (ns.CanRead)
+                {
+                    if (!ns.DataAvailable) return listBytes.ToArray();
+                    do
+                    {
+                        ReceiveBytes = ns.ReadAsync(data, 0, data.Length).Result;
+                        foreach (var item in data) listBytes.Add(item);
+                        //mess += Encoding.UTF8.GetString(data);
+                    } while (ns.DataAvailable);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Client Receiving Error: " + ex.Message, "Error");
+                ns.Close();
+            }
+            return listBytes.ToArray();
+        }
+
+        public string SendAndRevceiveStr(string query)
+        {
+            string js = "";
+            TcpSend(query);
+            while (string.IsNullOrEmpty(js)) 
+            {
+                js = TcpReceive();
+            }
+            return js;
+        }
+
+        public byte[] SendAndRevceiveBytes(string query)
+        {
+            byte[] bytes = null;
+            TcpSend(query);
+            while (bytes.IsNullOrEmpty())
+            {
+                bytes = TcpReceiveBytes();
+            }
+            return bytes;
         }
     }
 }

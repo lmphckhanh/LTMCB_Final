@@ -5,6 +5,8 @@ using System.Text;
 using CinemaServer.Momo;
 using CinemaServer.FunctionClass;
 using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CinemaServer
 {
@@ -83,6 +85,16 @@ namespace CinemaServer
                 ns.WriteAsync(data);
             }
         }
+        public void TcpSendBytes(TcpClient client, string url)
+        {
+            NetworkStream ns;
+            byte[] img = File.ReadAllBytes(url);
+            if (!img.IsNullOrEmpty())
+            {
+                ns = client.GetStream();
+                ns.WriteAsync(img);
+            }
+        }
 
 
         public void TcpReceive(object obj)
@@ -107,6 +119,7 @@ namespace CinemaServer
                     if (mess != "")
                     {
                         string syntax = mess.Substring(0, 1);
+                        mess = mess.Substring(1);
                         if (mess == "GETMOMO")
                         {
                             JObject json = new JObject
@@ -128,11 +141,19 @@ namespace CinemaServer
                         }
                         else if (syntax == "E")
                         {
-                            DTB.Command(mess);
+                            DTB.Execute(mess);
+                        }
+                        else if (syntax == "C")
+                        {
+                            TcpSend(client, DTB.Execute(mess).ToString());
                         }
                         else if (syntax == "G")
                         {
                             TcpSend(client, DTB.GetObject(mess));
+                        }
+                        else if (syntax == "P")
+                        {
+                            TcpSendBytes(client, mess);
                         }
                         else
                         {

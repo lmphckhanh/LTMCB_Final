@@ -18,7 +18,7 @@ namespace LTMCB_Final
     public partial class Purchase : Form
     {
         public static Purchase instance;
-        ClientTcpConnection tcpConnection = Program.tcpConnection;
+        ClientTcpConnection tcp = Program.tcpConnection;
         public MomoInfo momo = new MomoInfo();
         string[] Ticket; //List Tickets from previous step
         string AccountID = ""; //Current Logged in account
@@ -34,11 +34,8 @@ namespace LTMCB_Final
         //Phim: TicketOnBill -> Ticket -> Movie
         private void btnPurchase_Click(object sender, EventArgs e)
         {
-            tcpConnection.TcpSend("GETMONO");
-            string strMomo = null;
-            while ((strMomo = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
 
-            JObject jMomo = JObject.Parse(strMomo);
+            JObject jMomo = JObject.Parse(tcp.SendAndRevceiveStr(@"GETMONO"));
 
             momo.endpoint = jMomo.GetValue("endpoint").ToString();
             momo.partnerCode = jMomo.GetValue("partnerCode").ToString();
@@ -147,7 +144,7 @@ namespace LTMCB_Final
                     {
                         string addRecord = "E"
                             + @"EXEC dbo.Pro_Purchase @Bill = '" + orderId + "',@RequestID = '" + requestId + "',@TransID = '" + transId + "', @Ticket = '" + Ticket[i] + "', @Account = '" + AccountID + "';";
-                        tcpConnection.TcpSend(addRecord);
+                        tcp.TcpSend(addRecord);
                     }
                 }
                 catch (Exception ex)
@@ -169,16 +166,13 @@ namespace LTMCB_Final
         void LoadInfo()
         {
             JObject json = new JObject();
-            tcpConnection.TcpSend(@"GSELECT TOP 1 Name FROM dbo.Account WHERE AccountID = '" + AccountID + "';");
-            json = JObject.Parse(tcpConnection.TcpReceive());
+
+            json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT TOP 1 Name FROM dbo.Account WHERE AccountID = '" + AccountID + "';"));
             lbCustomer.Text = json.GetValue("Name").ToString();
 
             if (!Ticket.IsNullOrEmpty())
             {
-                string temp = string.Empty;
-                tcpConnection.TcpSend(@"GSELECT TOP 1 Mov.Name FROM (dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Movie Mov ON ST.MovieID = Mov.MovieID WHERE TK.TicketID = '" + Ticket[0] + "';");
-                while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
-                json = JObject.Parse(temp);
+                json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT TOP 1 Mov.Name FROM (dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Movie Mov ON ST.MovieID = Mov.MovieID WHERE TK.TicketID = '" + Ticket[0] + "';"));
                 lbMovieName.Text = json.GetValue("Name").ToString();
 
                 lbTicketAmount.Text = Ticket.Length.ToString();
@@ -187,11 +181,8 @@ namespace LTMCB_Final
                 string list = "(";
                 foreach (var i in Ticket) list += "'" + i + "',";
                 list += "\b)";
-                if (!Ticket.IsNullOrEmpty())
-                    tcpConnection.TcpSend(@"GSELECT SUM(SLT.Price) AS Price FROM ((dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Slot Sl ON Sl.SlotID = TK.SlotID) JOIN dbo.SlotType SlT ON SlT.SlotTypeID = Sl.SlotTypeID
-                    WHERE TK.TicketID IN " + list + ";");
-                while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { }
-                json = JObject.Parse(temp);
+
+                json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT SUM(SLT.Price) AS Price FROM ((dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Slot Sl ON Sl.SlotID = TK.SlotID) JOIN dbo.SlotType SlT ON SlT.SlotTypeID = Sl.SlotTypeID WHERE TK.TicketID IN " + list + ";"));
                 lbTotal.Text = json.GetValue("Price").ToString();
             }
         }
