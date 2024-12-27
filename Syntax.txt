@@ -1,7 +1,7 @@
 ﻿Message betwen Client and Server:
 
 for Momo: "GETMOMO"
-for Database: <G|E|Q> + <Statement>
+for Database: <G|E|Q|C> + <Statement>
 				G: GetOject(string query) - Get information of 1 Object
 				E: Execute(string query) - Excute Command
 				C: Execute(string query) - Excute Command and RETURN number of row affected 
