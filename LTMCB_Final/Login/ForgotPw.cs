@@ -10,12 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LTMCB_Final.Login;
+using System.Data.SqlClient;
 
 namespace LTMCB_Final
 {
     public partial class ForgotPw : Form
     {
         private string verificationCode; // Lưu mã xác nhận
+        private string connectionString = @" ";
         public ForgotPw()
         {
             InitializeComponent();
@@ -32,6 +34,11 @@ namespace LTMCB_Final
             }
 
             // Kiểm tra email có tồn tại trong database hay không
+            if (!IsEmailRegistered(email))
+            {
+                MessageBox.Show("Email này không tồn tại trong hệ thống!", "Lỗi");
+                return;
+            }
 
             // Tạo mã xác nhận
             Random random = new Random();
@@ -54,6 +61,29 @@ namespace LTMCB_Final
             }
         }
 
+        // Hàm kiểm tra email có tồn tại trong cơ sở dữ liệu
+        private bool IsEmailRegistered(string email)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Email", email);
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        return count > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi kiểm tra email: {ex.Message}", "Lỗi");
+                return false;
+            }
+        }
         private void SendEmail(string toEmail, string code)
         {
             MailMessage mail = new MailMessage();
