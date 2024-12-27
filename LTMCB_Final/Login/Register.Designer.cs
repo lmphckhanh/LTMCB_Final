@@ -41,8 +41,8 @@
             mail = new TextBox();
             label6 = new Label();
             label7 = new Label();
-            fullname = new TextBox();
             sdt = new TextBox();
+            DOB = new DateTimePicker();
             SuspendLayout();
             // 
             // label1
@@ -158,9 +158,9 @@
             label6.Font = new Font("Times New Roman", 13.8F);
             label6.Location = new Point(48, 218);
             label6.Name = "label6";
-            label6.Size = new Size(101, 26);
+            label6.Size = new Size(105, 26);
             label6.TabIndex = 11;
-            label6.Text = "Họ và tên";
+            label6.Text = "Ngày sinh";
             // 
             // label7
             // 
@@ -172,14 +172,6 @@
             label7.TabIndex = 12;
             label7.Text = "Số điện thoại";
             // 
-            // fullname
-            // 
-            fullname.Font = new Font("Times New Roman", 13.8F);
-            fullname.Location = new Point(262, 210);
-            fullname.Name = "fullname";
-            fullname.Size = new Size(307, 34);
-            fullname.TabIndex = 13;
-            // 
             // sdt
             // 
             sdt.Font = new Font("Times New Roman", 13.8F);
@@ -188,13 +180,21 @@
             sdt.Size = new Size(307, 34);
             sdt.TabIndex = 14;
             // 
+            // DOB
+            // 
+            DOB.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DOB.Location = new Point(159, 210);
+            DOB.Name = "DOB";
+            DOB.Size = new Size(410, 34);
+            DOB.TabIndex = 15;
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(623, 587);
+            Controls.Add(DOB);
             Controls.Add(sdt);
-            Controls.Add(fullname);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(mail);
@@ -230,7 +230,7 @@
         private TextBox mail;
         private Label label6;
         private Label label7;
-        private TextBox fullname;
         private TextBox sdt;
+        private DateTimePicker DOB;
     }
 }

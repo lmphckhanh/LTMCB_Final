@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Data.SqlClient;
 
 namespace LTMCB_Final.Login
 {
@@ -16,6 +17,7 @@ namespace LTMCB_Final.Login
     {
         private string userEmail;
         private string verificationCode;
+        private string connectionString = @" ";
         public ResetPw(string email, string code)
         {
             InitializeComponent();
@@ -48,7 +50,40 @@ namespace LTMCB_Final.Login
             }
 
             // Cập nhật mật khẩu mới vào database
-            
+            if (UpdatePassword(userEmail, newPassword))
+            {
+                MessageBox.Show("Mật khẩu đã được cập nhật thành công!", "Thông báo");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật mật khẩu thất bại. Vui lòng thử lại sau!", "Lỗi");
+            }
+        }
+
+        private bool UpdatePassword(string email, string newPassword)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE Users SET Password = @Password WHERE Email = @Email";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Password", newPassword);
+                        command.Parameters.AddWithValue("@Email", email);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi cập nhật mật khẩu: {ex.Message}", "Lỗi");
+                return false;
+            }
         }
     }
 }

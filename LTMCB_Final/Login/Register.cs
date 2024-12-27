@@ -24,12 +24,12 @@ namespace LTMCB_Final
         {
             string username = usn.Text.Trim();
             string email = mail.Text.Trim();
-            string name = fullname.Text.Trim();
+            string birthday = DOB.Text.Trim();
             string phone = sdt.Text.Trim();
             string password = pw.Text.Trim();
             string confirmPassword = cfpw.Text.Trim();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name) ||
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(birthday) ||
                 string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
@@ -49,7 +49,7 @@ namespace LTMCB_Final
                 return;
             }
 
-            AddAccountToDatabase(username, email, name, phone, password);
+            AddAccountToDatabase(username, email, birthday, phone, password);
         }
 
         // Hàm kiểm tra email hợp lệ
@@ -60,7 +60,7 @@ namespace LTMCB_Final
         }
 
         // Thêm tài khoản vào database
-        private void AddAccountToDatabase(string username, string email, string name, string phone, string password)
+        private void AddAccountToDatabase(string username, string email, string birthday, string phone, string password)
         {
             string connectionString = @" ";
 
@@ -75,7 +75,7 @@ namespace LTMCB_Final
                     {
                         command.Parameters.AddWithValue("@Username", username);
                         command.Parameters.AddWithValue("@Email", email);
-                        command.Parameters.AddWithValue("@FullName", name);
+                        command.Parameters.AddWithValue("@DOB", birthday);
                         command.Parameters.AddWithValue("@Phone", phone);
                         command.Parameters.AddWithValue("@Password", password);
 
