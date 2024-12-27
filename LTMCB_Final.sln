@@ -5,7 +5,12 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTMCB_Final", "LTMCB_Final\LTMCB_Final.csproj", "{3312DB0D-47AD-4BE8-87DC-1CABB0519CCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaServer", "CinemaServer\CinemaServer.csproj", "{AE8FBCD0-9525-4A85-A380-C073A15D220D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaServer", "CinemaServer\CinemaServer.csproj", "{AE8FBCD0-9525-4A85-A380-C073A15D220D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8C26913-CA5F-4F6F-940C-1AF2D8CC97CB}"
+	ProjectSection(SolutionItems) = preProject
+		Syntax.txt = Syntax.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

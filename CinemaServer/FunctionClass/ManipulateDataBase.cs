@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace CinemaServer.FunctionClass
 {
@@ -27,53 +28,110 @@ namespace CinemaServer.FunctionClass
             return HashPassword;
         }
 
-        public List<Account> ToQuery(string query) //Query data in database
+        public string ToQuery(string query) //Query data in database (7th letter = Q)
         {
-            List<Account> DataList = new List<Account>(); //Contain users which meet the conditions
+            string rs = "";
+            query = query.Substring(1);
+
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
-                dataReader = cmd.ExecuteReader();
+                try
+                {
+                    dataReader = cmd.ExecuteReader();
+                }
+                catch(SqlException ex)
+                {
+                    return ex.Message;
+                }
                 while (dataReader.Read()) //Adding data into DataList
                 {
-                    //DataList.Add(/**/);
-                }//                             UserId                 Username                 Password(Encypted)         Email                    Fullname                Birthday       
+                    object[] arr = new object[dataReader.FieldCount];
+                    dataReader.GetValues(arr);
+                    JObject json = new JObject();
 
-                sqlConnection.Close();
-                return DataList;
-            }
-        }
-
-        public void Command(string query) //Execute command
-        {
-            using (SqlConnection sqlConnection = DataBaseConnection.Connect())
-            {
-                sqlConnection.Open();
-
-                cmd = new SqlCommand(query, sqlConnection);
-                cmd.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
-        }
-
-        public Account GetObject(string query) //Get info
-        {
-            using (SqlConnection sqlConnection = DataBaseConnection.Connect())
-            {
-                Account acc = new Account();
-                sqlConnection.Open();
-
-                cmd = new SqlCommand(query, sqlConnection);
-                dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    acc = new Account(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4), dataReader.GetDateTime(5).ToShortDateString());
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
+                    }
+                    rs += json.ToString() + "<*>";
+                    rs = rs.Replace("\r", "");
+                    rs = rs.Replace("\n", "");
                 }
 
                 sqlConnection.Close();
-                return acc;
+                return rs;
+            }
+        }
+
+        //public void Command(string query) //Execute command
+        //{
+
+        //    query = query.Substring(1);
+        //    using (SqlConnection sqlConnection = DataBaseConnection.Connect())
+        //    {
+        //        sqlConnection.Open();
+
+        //        cmd = new SqlCommand(query, sqlConnection);
+        //        cmd.ExecuteNonQuery();
+        //        sqlConnection.Close();
+        //    }
+        //}
+
+        public int Execute(string query) //Execute command
+        {
+
+            query = query.Substring(1);
+            using (SqlConnection sqlConnection = DataBaseConnection.Connect())
+            {
+                sqlConnection.Open();
+
+                cmd = new SqlCommand(query, sqlConnection);
+                int rs = cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+                return rs;
+            }
+        }
+
+        public string GetObject(string query) //Get info
+        {
+            query = query.Substring(1);
+            using (SqlConnection sqlConnection = DataBaseConnection.Connect())
+            {
+                string rs = "";
+                string syntax = query.Substring(0, 6);
+                query = query.Substring(7);
+
+                sqlConnection.Open();
+
+                cmd = new SqlCommand(query, sqlConnection);
+                try
+                {
+                    dataReader = cmd.ExecuteReader();
+                }
+                catch (SqlException ex)
+                {
+                    return ex.Message;
+                }
+                if (dataReader.Read())
+                {
+                    object[] arr = new object[dataReader.FieldCount];
+                    dataReader.GetValues(arr);
+                    JObject json = new JObject();
+
+                    for (int i = 0; i < dataReader.FieldCount; i++)
+                    {
+                        json.Add(dataReader.GetName(i), JToken.FromObject(arr[i]));
+                    }
+                    rs = json.ToString();
+                    rs = rs.Replace("\r", "");
+                    rs = rs.Replace("\n", "");
+                }
+
+                sqlConnection.Close();
+                return rs;
             }
         }
     }

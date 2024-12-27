@@ -2,6 +2,11 @@
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using CinemaServer.Momo;
+using CinemaServer.FunctionClass;
+using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CinemaServer
 {
@@ -12,18 +17,11 @@ namespace CinemaServer
             InitializeComponent();
             TcpConnect();
         }
+        static MomoInfo momoInfo = new MomoInfo();
         TcpListener listener;
         List<TcpClient> listClient = new List<TcpClient>();
         int dataSize = 1; //(byte)
         ManipulateDataBase DTB = new ManipulateDataBase();
-
-        string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-        string partnerCode = "MOMO5RGX20191128";
-        string accessKey = "M8brj9K6E22vXoDB";
-        string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
-        string redirectUrl = "https://www.momo.vn/chuyen-nhan-tien";
-        string ipnUrl = "42.118.191.128:8080"; //Chỉnh sửa tùy ý (không sử dụng nhưng ko đc để trống)
-        string requestType = "captureWallet";
 
         public void TcpConnect()
         {
@@ -64,7 +62,7 @@ namespace CinemaServer
                 {
                     if (ns.CanWrite && mess != "")
                     {
-                        ns.WriteAsync(Encoding.ASCII.GetBytes(mess));
+                        ns.WriteAsync(Encoding.UTF8.GetBytes(mess));
                     }
                 }
                 catch (Exception ex)
@@ -76,15 +74,25 @@ namespace CinemaServer
             }
         }
 
-        public void Send(TcpClient client, string mess)
+        public void TcpSend(TcpClient client, string mess)
         {
             NetworkStream ns;
             byte[] data = new byte[dataSize];
             if (mess != string.Empty)
             {
                 ns = client.GetStream();
-                data = Encoding.ASCII.GetBytes(mess);
+                data = Encoding.UTF8.GetBytes(mess);
                 ns.WriteAsync(data);
+            }
+        }
+        public void TcpSendBytes(TcpClient client, string url)
+        {
+            NetworkStream ns;
+            byte[] img = File.ReadAllBytes(url);
+            if (!img.IsNullOrEmpty())
+            {
+                ns = client.GetStream();
+                ns.WriteAsync(img);
             }
         }
 
@@ -96,6 +104,7 @@ namespace CinemaServer
             byte[] data = new byte[dataSize];
             string mess = "";
             int receivedBytes = 0;
+            List<byte> listBytes = new List<byte>();
 
             try
             {
@@ -104,12 +113,52 @@ namespace CinemaServer
                     do
                     {
                         receivedBytes = ns.ReadAsync(data, 0, data.Length).Result;
-                        mess += Encoding.ASCII.GetString(data);
+                        foreach (var item in data) listBytes.Add(item);
                     } while (ns.DataAvailable);
-
+                    mess += Encoding.UTF8.GetString(listBytes.ToArray());
                     if (mess != "")
                     {
-                        Send(client, mess);
+                        string syntax = mess.Substring(0, 1);
+                        mess = mess.Substring(1);
+                        if (mess == "GETMOMO")
+                        {
+                            JObject json = new JObject
+                            {
+                                {"endpoint", momoInfo.endpoint },
+                                {"partnerCode", momoInfo.partnerCode },
+                                {"accessKey", momoInfo.accessKey},
+                                {"serectkey", momoInfo.serectkey },
+                                {"redirectUrl", momoInfo.redirectUrl },
+                                {"ipnUrl", momoInfo.ipnUrl },
+                                {"storeId", momoInfo.storeId },
+                                {"partnerName", momoInfo.partnerName }
+                            };
+                            TcpSend(client, json.ToString());
+                        }
+                        else if (syntax == "Q")
+                        {
+                            TcpSend(client, DTB.ToQuery(mess));
+                        }
+                        else if (syntax == "E")
+                        {
+                            DTB.Execute(mess);
+                        }
+                        else if (syntax == "C")
+                        {
+                            TcpSend(client, DTB.Execute(mess).ToString());
+                        }
+                        else if (syntax == "G")
+                        {
+                            TcpSend(client, DTB.GetObject(mess));
+                        }
+                        else if (syntax == "P")
+                        {
+                            TcpSendBytes(client, mess);
+                        }
+                        else
+                        {
+                            TcpSend(client, "Syntax Error");
+                        }
                         mess = "";
                     }
                 }

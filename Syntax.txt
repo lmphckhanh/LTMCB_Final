@@ -1,0 +1,14 @@
+﻿Message betwen Client and Server:
+
+for Momo: "GETMOMO"
+for Database: <G|E|Q|C> + <Statement>
+				G: GetOject(string query) - Get information of 1 Object
+				E: Execute(string query) - Excute Command
+				C: Execute(string query) - Excute Command and RETURN number of row affected 
+				Q: ToQuery(string query) - Query
+				Với Query(Q): Trong string trả về, mỗi record được ngăn cách bởi chuỗi "<*>"(sử dụng string.Split("<*>"))
+----------------------------------------------------------------------------------
+tcp.SendAndRevceiveStr(string query) --Trả về string
+tcp.SendAndRevceiveBytes(string query) --Trả về byte[] (dùng cho ảnh)
+
+Convert byte[] -> Image: Image img = (Image)new ImageConverter().ConvertFrom(data); //byte[] data; 
