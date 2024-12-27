@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Data.SqlClient;
 
 namespace LTMCB_Final
 {
@@ -23,11 +24,13 @@ namespace LTMCB_Final
         {
             string username = usn.Text.Trim();
             string email = mail.Text.Trim();
+            string name = fullname.Text.Trim();
+            string phone = sdt.Text.Trim();
             string password = pw.Text.Trim();
             string confirmPassword = cfpw.Text.Trim();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
-                string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name) ||
+                string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
                 return;
@@ -46,8 +49,7 @@ namespace LTMCB_Final
                 return;
             }
 
-            // Thêm tài khoản mới vào database
-
+            AddAccountToDatabase(username, email, name, phone, password);
         }
 
         // Hàm kiểm tra email hợp lệ
@@ -55,6 +57,45 @@ namespace LTMCB_Final
         {
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
+        }
+
+        // Thêm tài khoản vào database
+        private void AddAccountToDatabase(string username, string email, string name, string phone, string password)
+        {
+            string connectionString = @" ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO  VALUES ";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@FullName", name);
+                        command.Parameters.AddWithValue("@Phone", phone);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Đăng ký tài khoản thành công!", "Thành công");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Đăng ký tài khoản thất bại. Vui lòng thử lại.", "Lỗi");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi");
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -39,13 +39,17 @@
             linkLabel1 = new LinkLabel();
             label5 = new Label();
             mail = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            fullname = new TextBox();
+            sdt = new TextBox();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(143, 35);
+            label1.Location = new Point(243, 25);
             label1.Name = "label1";
             label1.Size = new Size(157, 35);
             label1.TabIndex = 0;
@@ -55,7 +59,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 13.8F);
-            label2.Location = new Point(32, 105);
+            label2.Location = new Point(48, 88);
             label2.Name = "label2";
             label2.Size = new Size(151, 26);
             label2.TabIndex = 1;
@@ -65,7 +69,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 13.8F);
-            label3.Location = new Point(32, 245);
+            label3.Location = new Point(48, 356);
             label3.Name = "label3";
             label3.Size = new Size(99, 26);
             label3.TabIndex = 2;
@@ -75,7 +79,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.8F);
-            label4.Location = new Point(35, 315);
+            label4.Location = new Point(48, 427);
             label4.Name = "label4";
             label4.Size = new Size(192, 26);
             label4.TabIndex = 3;
@@ -84,33 +88,33 @@
             // usn
             // 
             usn.Font = new Font("Times New Roman", 13.8F);
-            usn.Location = new Point(246, 97);
+            usn.Location = new Point(262, 80);
             usn.Name = "usn";
-            usn.Size = new Size(154, 34);
+            usn.Size = new Size(307, 34);
             usn.TabIndex = 4;
             // 
             // pw
             // 
             pw.Font = new Font("Times New Roman", 13.8F);
-            pw.Location = new Point(246, 237);
+            pw.Location = new Point(262, 348);
             pw.Name = "pw";
-            pw.Size = new Size(154, 34);
+            pw.Size = new Size(307, 34);
             pw.TabIndex = 5;
             pw.UseSystemPasswordChar = true;
             // 
             // cfpw
             // 
             cfpw.Font = new Font("Times New Roman", 13.8F);
-            cfpw.Location = new Point(246, 307);
+            cfpw.Location = new Point(262, 419);
             cfpw.Name = "cfpw";
-            cfpw.Size = new Size(154, 34);
+            cfpw.Size = new Size(307, 34);
             cfpw.TabIndex = 6;
             cfpw.UseSystemPasswordChar = true;
             // 
             // button1
             // 
             button1.Font = new Font("Times New Roman", 13.8F);
-            button1.Location = new Point(143, 387);
+            button1.Location = new Point(243, 488);
             button1.Name = "button1";
             button1.Size = new Size(157, 46);
             button1.TabIndex = 7;
@@ -122,7 +126,7 @@
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabel1.Location = new Point(173, 451);
+            linkLabel1.Location = new Point(273, 552);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(93, 22);
             linkLabel1.TabIndex = 8;
@@ -134,7 +138,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Times New Roman", 13.8F);
-            label5.Location = new Point(32, 175);
+            label5.Location = new Point(48, 151);
             label5.Name = "label5";
             label5.Size = new Size(65, 26);
             label5.TabIndex = 9;
@@ -143,16 +147,56 @@
             // mail
             // 
             mail.Font = new Font("Times New Roman", 13.8F);
-            mail.Location = new Point(143, 167);
+            mail.Location = new Point(159, 143);
             mail.Name = "mail";
-            mail.Size = new Size(257, 34);
+            mail.Size = new Size(410, 34);
             mail.TabIndex = 10;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Times New Roman", 13.8F);
+            label6.Location = new Point(48, 218);
+            label6.Name = "label6";
+            label6.Size = new Size(101, 26);
+            label6.TabIndex = 11;
+            label6.Text = "Họ và tên";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Times New Roman", 13.8F);
+            label7.Location = new Point(48, 287);
+            label7.Name = "label7";
+            label7.Size = new Size(135, 26);
+            label7.TabIndex = 12;
+            label7.Text = "Số điện thoại";
+            // 
+            // fullname
+            // 
+            fullname.Font = new Font("Times New Roman", 13.8F);
+            fullname.Location = new Point(262, 210);
+            fullname.Name = "fullname";
+            fullname.Size = new Size(307, 34);
+            fullname.TabIndex = 13;
+            // 
+            // sdt
+            // 
+            sdt.Font = new Font("Times New Roman", 13.8F);
+            sdt.Location = new Point(262, 279);
+            sdt.Name = "sdt";
+            sdt.Size = new Size(307, 34);
+            sdt.TabIndex = 14;
             // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(426, 508);
+            ClientSize = new Size(623, 587);
+            Controls.Add(sdt);
+            Controls.Add(fullname);
+            Controls.Add(label7);
+            Controls.Add(label6);
             Controls.Add(mail);
             Controls.Add(label5);
             Controls.Add(linkLabel1);
@@ -184,5 +228,9 @@
         private LinkLabel linkLabel1;
         private Label label5;
         private TextBox mail;
+        private Label label6;
+        private Label label7;
+        private TextBox fullname;
+        private TextBox sdt;
     }
 }

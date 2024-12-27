@@ -127,7 +127,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "ResetPw";
-            Text = "X";
+            Text = "ResetPw";
             ResumeLayout(false);
             PerformLayout();
         }
