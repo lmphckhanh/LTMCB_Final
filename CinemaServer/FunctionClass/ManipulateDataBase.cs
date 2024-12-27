@@ -86,10 +86,18 @@ namespace CinemaServer.FunctionClass
             query = query.Substring(1);
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
+                int rs = 0;
                 sqlConnection.Open();
 
                 cmd = new SqlCommand(query, sqlConnection);
-                int rs = cmd.ExecuteNonQuery();
+                try
+                {
+                    rs = cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    rs = 0;
+                }
                 sqlConnection.Close();
                 return rs;
             }

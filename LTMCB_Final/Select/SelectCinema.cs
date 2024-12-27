@@ -77,10 +77,7 @@ namespace LTMCB_Final
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(
-                        " ",
-                        conn
-                    );
+                    SqlCommand cmd = new SqlCommand(" ", conn);
 
                     cmd.Parameters.AddWithValue("@Location", location);
                     cmd.Parameters.AddWithValue("@GroupName", group);

@@ -64,25 +64,7 @@ namespace LTMCB_Final
         // Hàm kiểm tra email có tồn tại trong cơ sở dữ liệu
         private bool IsEmailRegistered(string email)
         {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Email", email);
-                        int count = Convert.ToInt32(command.ExecuteScalar());
-                        return count > 0;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi kiểm tra email: {ex.Message}", "Lỗi");
-                return false;
-            }
+            
         }
         private void SendEmail(string toEmail, string code)
         {

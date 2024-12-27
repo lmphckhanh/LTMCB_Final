@@ -12,3 +12,4 @@ tcp.SendAndRevceiveStr(string query) --Trả về string
 tcp.SendAndRevceiveBytes(string query) --Trả về byte[] (dùng cho ảnh)
 
 Convert byte[] -> Image: Image img = (Image)new ImageConverter().ConvertFrom(data); //byte[] data; 
+query P -> byte[]

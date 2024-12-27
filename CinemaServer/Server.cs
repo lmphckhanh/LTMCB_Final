@@ -135,11 +135,11 @@ namespace CinemaServer
                             };
                             TcpSend(client, json.ToString());
                         }
-                        else if (syntax == "Q")
+                        else if (syntax == "Q") //Query -> list
                         {
                             TcpSend(client, DTB.ToQuery(mess));
                         }
-                        else if (syntax == "E")
+                        else if (syntax == "E") //Execute ko
                         {
                             DTB.Execute(mess);
                         }
