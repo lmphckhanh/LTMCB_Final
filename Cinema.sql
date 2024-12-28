@@ -3,6 +3,7 @@
 Go
 Use CinemaManagement
 GO
+
 CREATE TABLE Cinema
 (
 	CinemaID VARCHAR(5) PRIMARY KEY, --ex: LT001
@@ -131,8 +132,7 @@ CREATE TABLE Movie
 	Rate NUMERIC(2,1) DEFAULT 0 NOT NULL, --0.0->5.0 --7
 	Image NVARCHAR(MAX) NOT NULL, --8
 	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu --9
-)
-SELECT TOP 1 * FROM dbo.Account WHERE Email = '' AND  Phone = '';
+)DELETE FROM dbo.Movie WHERE MovieID = '';
 CREATE TABLE MovieOnType
 (
 	MovieID VARCHAR(6) NOT NULL,
@@ -651,6 +651,3 @@ END
 
 GO
 --------------------------------------------------------------------------------------------------
-
-
-SELECT AccountID FROM dbo.Account WHERE Phone = '';

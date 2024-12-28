@@ -34,9 +34,7 @@ namespace LTMCB_Final
             helpProvider1 = new HelpProvider();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnHome = new Button();
-            dateTimePicker1 = new DateTimePicker();
             label1 = new Label();
-            label3 = new Label();
             comboBox1 = new ComboBox();
             label2 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
@@ -53,16 +51,14 @@ namespace LTMCB_Final
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.7014046F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.2985954F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 455F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 286F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 454F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 287F));
             tableLayoutPanel1.Controls.Add(btnHome, 3, 0);
-            tableLayoutPanel1.Controls.Add(dateTimePicker1, 2, 1);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(label3, 2, 0);
             tableLayoutPanel1.Controls.Add(comboBox1, 1, 1);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
             tableLayoutPanel1.Location = new Point(-5, 2);
-            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.0827065F));
@@ -74,22 +70,13 @@ namespace LTMCB_Final
             // 
             btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnHome.Location = new Point(1255, 4);
-            btnHome.Margin = new Padding(4, 4, 4, 4);
+            btnHome.Margin = new Padding(4);
             btnHome.Name = "btnHome";
             btnHome.Size = new Size(122, 45);
             btnHome.TabIndex = 6;
             btnHome.Text = "Tùy Chọn";
             btnHome.UseVisualStyleBackColor = true;
             btnHome.Click += button1_Click;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(643, 60);
-            dateTimePicker1.Margin = new Padding(4, 4, 4, 4);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(307, 31);
-            dateTimePicker1.TabIndex = 4;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // label1
             // 
@@ -102,26 +89,12 @@ namespace LTMCB_Final
             label1.TabIndex = 0;
             label1.Text = "Phim Đang Chiếu";
             // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11F);
-            label3.ImageAlign = ContentAlignment.BottomLeft;
-            label3.Location = new Point(643, 0);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(447, 56);
-            label3.TabIndex = 5;
-            label3.Text = "Chọn Ngày";
-            label3.TextAlign = ContentAlignment.BottomLeft;
-            // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Kinh Dị ", "Hài Hước ", "Lãng Mạn ", "Phiêu Lưu", "Khoa Học Viễn Tưởng" });
             comboBox1.Location = new Point(328, 60);
-            comboBox1.Margin = new Padding(4, 4, 4, 4);
+            comboBox1.Margin = new Padding(4);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(188, 33);
             comboBox1.TabIndex = 2;
@@ -144,7 +117,7 @@ namespace LTMCB_Final
             // 
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanel1.Location = new Point(-5, 170);
-            flowLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
+            flowLayoutPanel1.Margin = new Padding(4);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1381, 389);
             flowLayoutPanel1.TabIndex = 7;
@@ -182,7 +155,7 @@ namespace LTMCB_Final
             ClientSize = new Size(1378, 562);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "ChonPhim";
             Text = "Form1";
             Load += ChonPhim_Load;
@@ -199,8 +172,6 @@ namespace LTMCB_Final
         private ComboBox comboBox1;
         private Label label1;
         private Label label2;
-        private DateTimePicker dateTimePicker1;
-        private Label label3;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button btnHome;
         private ContextMenuStrip contextMenuStrip1;

@@ -29,11 +29,19 @@ namespace LTMCB_Final
         }
 
         #region Properties
+        private string _ID;
         private string _title;
         private string _url;
         private Button _btnBook;
         private PictureBox poster;
         private Label loadingLabel;  // For displaying loading message
+
+        [Category("Custom Props")]
+        public string ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
 
         [Category("Custom Props")]
         public string Title
@@ -77,7 +85,6 @@ namespace LTMCB_Final
             }
         }
         #endregion
-
         private void CustomListItem_MouseLeave(object sender, EventArgs e)
         {
             this.BackColor = Color.White;
@@ -99,8 +106,13 @@ namespace LTMCB_Final
             Movie selectedMovie = button.Tag as Movie; // Lấy thông tin phim từ nút
 
             // Mở form đặt vé và truyền thông tin phim
-            //DatVeForm datVeForm = new DatVeForm(selectedMovie);
-            //datVeForm.Show(); // Hiển thị form đặt vé
+            SelectCinema datVeForm = new SelectCinema();
+            datVeForm.Show(); // Hiển thị form đặt vé
+        }
+
+        private void movielistitem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

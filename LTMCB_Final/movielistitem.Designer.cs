@@ -40,9 +40,10 @@
             lbName.AutoSize = true;
             lbName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbName.ForeColor = Color.Red;
-            lbName.Location = new Point(3, 0);
+            lbName.Location = new Point(4, 0);
+            lbName.Margin = new Padding(4, 0, 4, 0);
             lbName.Name = "lbName";
-            lbName.Size = new Size(174, 49);
+            lbName.Size = new Size(217, 62);
             lbName.TabIndex = 0;
             lbName.Text = "Linh Miêu";
             lbName.TextAlign = ContentAlignment.MiddleCenter;
@@ -51,9 +52,10 @@
             // btnBook
             // 
             btnBook.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnBook.Location = new Point(3, 52);
+            btnBook.Location = new Point(4, 66);
+            btnBook.Margin = new Padding(4, 4, 4, 4);
             btnBook.Name = "btnBook";
-            btnBook.Size = new Size(174, 44);
+            btnBook.Size = new Size(217, 54);
             btnBook.TabIndex = 1;
             btnBook.Text = "Đặt Vé";
             btnBook.UseVisualStyleBackColor = true;
@@ -65,22 +67,25 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(lbName, 0, 0);
             tableLayoutPanel1.Controls.Add(btnBook, 0, 1);
-            tableLayoutPanel1.Location = new Point(3, 155);
+            tableLayoutPanel1.Location = new Point(4, 194);
+            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(180, 99);
+            tableLayoutPanel1.Size = new Size(225, 124);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // movielistitem
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             Controls.Add(tableLayoutPanel1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "movielistitem";
-            Size = new Size(185, 255);
+            Size = new Size(231, 319);
+            Click += movielistitem_Click;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

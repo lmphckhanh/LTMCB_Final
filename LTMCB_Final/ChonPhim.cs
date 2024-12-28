@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -32,7 +31,7 @@ namespace LTMCB_Final
                  try
                  {
                      connection.Open();
-                     string query = "SELECT DISTINCT Category_ID FROM Movie"; // Lấy danh sách thể loại duy nhất
+                     string query = "SELECT DISTINCT CatName FROM Movie"; // Lấy danh sách thể loại duy nhất
                      SqlCommand command = new SqlCommand(query, connection);
                      SqlDataReader reader = command.ExecuteReader();
 
@@ -108,7 +107,7 @@ namespace LTMCB_Final
                         var selectedMovie = (Movie)((Button)s).Tag;
 
                         // Gắn ngày từ DateTimePicker vào đối tượng Movie
-                        selectedMovie.SelectedDate = dateTimePicker1.Value;
+                        //selectedMovie.SelectedDate = dateTimePicker1.Value;
 
                         // Chuyển sang màn hình chọn ghế ngồi và truyền thông tin
                         /*   SelectSeatForm selectSeatForm = new SelectSeatForm(selectedMovie);

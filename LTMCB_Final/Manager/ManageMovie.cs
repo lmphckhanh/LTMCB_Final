@@ -41,6 +41,8 @@ namespace LTMCB_Final.Manager
             {
                 imageList.Images.Add(i.Name.Replace(i.Extension, ""), Image.FromFile(i.FullName));
             }
+
+            LoadMovieList();
         }
 
         void LoadMovieList()
@@ -113,16 +115,33 @@ namespace LTMCB_Final.Manager
         private void lsvMovieList_ItemActivate(object sender, EventArgs e)
         {
             string id = lsvMovieList.SelectedItems[0].SubItems[1].Text;
-            string name = lsvMovieList.SelectedItems[0].SubItems[0].Text;
-            string dir = lsvMovieList.SelectedItems[0].SubItems[2].Text;
-            string dur = lsvMovieList.SelectedItems[0].SubItems[3].Text;
-            string reDay = lsvMovieList.SelectedItems[0].SubItems[4].Text;
-            string lang = lsvMovieList.SelectedItems[0].SubItems[5].Text;
-            string minAge = lsvMovieList.SelectedItems[0].SubItems[6].Text;
-            string rate = lsvMovieList.SelectedItems[0].SubItems[7].Text;
-            string status = lsvMovieList.SelectedItems[0].SubItems[9].Text;
+            //string name = lsvMovieList.SelectedItems[0].SubItems[0].Text;
+            //string dir = lsvMovieList.SelectedItems[0].SubItems[2].Text;
+            //string dur = lsvMovieList.SelectedItems[0].SubItems[3].Text;
+            //string reDay = lsvMovieList.SelectedItems[0].SubItems[4].Text;
+            //string lang = lsvMovieList.SelectedItems[0].SubItems[5].Text;
+            //string minAge = lsvMovieList.SelectedItems[0].SubItems[6].Text;
+            //string rate = lsvMovieList.SelectedItems[0].SubItems[7].Text;
+            //string status = lsvMovieList.SelectedItems[0].SubItems[9].Text;
             Image img = imageList.Images[id];
-            MovieInfo info = new MovieInfo(id,name,dir,dur,reDay,lang,minAge,rate,status,img);
+            MovieInfo info = new MovieInfo(id);
+        }
+
+        private void btnDeleteMovie_Click(object sender, EventArgs e)
+        {
+            string id = lsvMovieList.SelectedItems[0].SubItems[1].Text;
+            string query = @"CDELETE FROM dbo.Movie WHERE MovieID = '" + id + "';";
+
+            string rs = tcp.SendAndRevceiveStr(query);
+            if (Int32.Parse(rs) > 0)
+            {
+                LoadMovieList();
+            }
+            else
+            {
+                MessageBox.Show("Lỗi");
+            }
+
         }
     }
 }

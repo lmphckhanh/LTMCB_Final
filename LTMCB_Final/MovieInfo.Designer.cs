@@ -52,7 +52,7 @@
             // lbTitle
             // 
             lbTitle.AutoSize = true;
-            lbTitle.Location = new Point(284, 46);
+            lbTitle.Location = new Point(275, 24);
             lbTitle.Name = "lbTitle";
             lbTitle.Size = new Size(134, 25);
             lbTitle.TabIndex = 0;
@@ -61,7 +61,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(55, 108);
+            label1.Location = new Point(48, 76);
             label1.Name = "label1";
             label1.Size = new Size(84, 25);
             label1.TabIndex = 1;
@@ -70,7 +70,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(55, 161);
+            label2.Location = new Point(48, 129);
             label2.Name = "label2";
             label2.Size = new Size(84, 25);
             label2.TabIndex = 2;
@@ -79,7 +79,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(55, 219);
+            label3.Location = new Point(48, 187);
             label3.Name = "label3";
             label3.Size = new Size(110, 25);
             label3.TabIndex = 3;
@@ -88,7 +88,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(55, 282);
+            label4.Location = new Point(48, 250);
             label4.Name = "label4";
             label4.Size = new Size(98, 25);
             label4.TabIndex = 4;
@@ -97,7 +97,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(55, 341);
+            label5.Location = new Point(48, 309);
             label5.Name = "label5";
             label5.Size = new Size(94, 25);
             label5.TabIndex = 5;
@@ -106,7 +106,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(55, 449);
+            label6.Location = new Point(48, 417);
             label6.Name = "label6";
             label6.Size = new Size(72, 25);
             label6.TabIndex = 6;
@@ -115,7 +115,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(55, 498);
+            label7.Location = new Point(48, 466);
             label7.Name = "label7";
             label7.Size = new Size(89, 25);
             label7.TabIndex = 7;
@@ -124,7 +124,7 @@
             // lbStatus
             // 
             lbStatus.AutoSize = true;
-            lbStatus.Location = new Point(233, 498);
+            lbStatus.Location = new Point(226, 466);
             lbStatus.Name = "lbStatus";
             lbStatus.Size = new Size(89, 25);
             lbStatus.TabIndex = 14;
@@ -133,7 +133,7 @@
             // lbMinAge
             // 
             lbMinAge.AutoSize = true;
-            lbMinAge.Location = new Point(233, 449);
+            lbMinAge.Location = new Point(226, 417);
             lbMinAge.Name = "lbMinAge";
             lbMinAge.Size = new Size(72, 25);
             lbMinAge.TabIndex = 13;
@@ -142,7 +142,7 @@
             // lbLang
             // 
             lbLang.AutoSize = true;
-            lbLang.Location = new Point(233, 341);
+            lbLang.Location = new Point(226, 309);
             lbLang.Name = "lbLang";
             lbLang.Size = new Size(94, 25);
             lbLang.TabIndex = 12;
@@ -151,7 +151,7 @@
             // lbDuration
             // 
             lbDuration.AutoSize = true;
-            lbDuration.Location = new Point(233, 282);
+            lbDuration.Location = new Point(226, 250);
             lbDuration.Name = "lbDuration";
             lbDuration.Size = new Size(98, 25);
             lbDuration.TabIndex = 11;
@@ -160,7 +160,7 @@
             // lbReleaseDay
             // 
             lbReleaseDay.AutoSize = true;
-            lbReleaseDay.Location = new Point(233, 219);
+            lbReleaseDay.Location = new Point(226, 187);
             lbReleaseDay.Name = "lbReleaseDay";
             lbReleaseDay.Size = new Size(110, 25);
             lbReleaseDay.TabIndex = 10;
@@ -169,7 +169,7 @@
             // lbDirector
             // 
             lbDirector.AutoSize = true;
-            lbDirector.Location = new Point(233, 161);
+            lbDirector.Location = new Point(226, 129);
             lbDirector.Name = "lbDirector";
             lbDirector.Size = new Size(84, 25);
             lbDirector.TabIndex = 9;
@@ -178,7 +178,7 @@
             // lbMovieName
             // 
             lbMovieName.AutoSize = true;
-            lbMovieName.Location = new Point(233, 108);
+            lbMovieName.Location = new Point(226, 76);
             lbMovieName.Name = "lbMovieName";
             lbMovieName.Size = new Size(84, 25);
             lbMovieName.TabIndex = 8;
@@ -186,7 +186,7 @@
             // 
             // pbPoster
             // 
-            pbPoster.Location = new Point(411, 123);
+            pbPoster.Location = new Point(359, 106);
             pbPoster.Name = "pbPoster";
             pbPoster.Size = new Size(266, 336);
             pbPoster.TabIndex = 15;
@@ -195,7 +195,7 @@
             // lbRate
             // 
             lbRate.AutoSize = true;
-            lbRate.Location = new Point(233, 398);
+            lbRate.Location = new Point(226, 366);
             lbRate.Name = "lbRate";
             lbRate.Size = new Size(83, 25);
             lbRate.TabIndex = 17;
@@ -204,7 +204,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(55, 398);
+            label9.Location = new Point(48, 366);
             label9.Name = "label9";
             label9.Size = new Size(83, 25);
             label9.TabIndex = 16;
@@ -214,7 +214,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(738, 580);
+            ClientSize = new Size(746, 537);
             Controls.Add(lbRate);
             Controls.Add(label9);
             Controls.Add(pbPoster);

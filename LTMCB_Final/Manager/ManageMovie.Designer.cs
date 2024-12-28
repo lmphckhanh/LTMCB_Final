@@ -39,13 +39,14 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            btnDeleteMovie = new Button();
             SuspendLayout();
             // 
             // lsvMovieList
             // 
             lsvMovieList.Location = new Point(30, 161);
             lsvMovieList.Name = "lsvMovieList";
-            lsvMovieList.Size = new Size(669, 414);
+            lsvMovieList.Size = new Size(669, 385);
             lsvMovieList.TabIndex = 0;
             lsvMovieList.UseCompatibleStateImageBehavior = false;
             lsvMovieList.ItemActivate += lsvMovieList_ItemActivate;
@@ -138,11 +139,22 @@
             label5.TabIndex = 10;
             label5.Text = "Quản lý phim";
             // 
+            // btnDeleteMovie
+            // 
+            btnDeleteMovie.Location = new Point(587, 552);
+            btnDeleteMovie.Name = "btnDeleteMovie";
+            btnDeleteMovie.Size = new Size(112, 34);
+            btnDeleteMovie.TabIndex = 11;
+            btnDeleteMovie.Text = "Xóa phim";
+            btnDeleteMovie.UseVisualStyleBackColor = true;
+            btnDeleteMovie.Click += btnDeleteMovie_Click;
+            // 
             // ManageMovie
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(727, 587);
+            ClientSize = new Size(727, 597);
+            Controls.Add(btnDeleteMovie);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -173,5 +185,6 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private Button btnDeleteMovie;
     }
 }
