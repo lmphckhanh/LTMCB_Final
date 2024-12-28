@@ -31,7 +31,7 @@ namespace CinemaServer.FunctionClass
         public string ToQuery(string query) //Query data in database (7th letter = Q)
         {
             string rs = "";
-            query = query.Substring(1);
+            //query = query.Substring(0);
 
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
@@ -84,7 +84,7 @@ namespace CinemaServer.FunctionClass
         public int Execute(string query) //Execute command
         {
 
-            query = query.Substring(1);
+            //query = query.Substring(1);
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 int rs = 0;
@@ -106,7 +106,7 @@ namespace CinemaServer.FunctionClass
 
         public string GetObject(string query) //Get info
         {
-            query = query.Substring(1);
+            //query = query.Substring(1);
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
                 string rs = "";

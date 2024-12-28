@@ -132,18 +132,19 @@ CREATE TABLE Movie
 	Rate NUMERIC(2,1) DEFAULT 0 NOT NULL, --0.0->5.0 --7
 	Image NVARCHAR(MAX) NOT NULL, --8
 	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu --9
-)DELETE FROM dbo.Movie WHERE MovieID = '';
+)
+SELECT DISTINCT B.BillID, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from ((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)
 CREATE TABLE MovieOnType
 (
 	MovieID VARCHAR(6) NOT NULL,
 	MovieTypeID VARCHAR(2) NOT NULL,
 )
 -----
-CREATE TABLE MovieOnCat
-(
-	MovieID VARCHAR(6) NOT NULL,
-	CategoryID VARCHAR(4) NOT NULL,
-)
+--CREATE TABLE MovieOnCat
+--(
+--	MovieID VARCHAR(6) NOT NULL,
+--	CategoryID VARCHAR(4) NOT NULL,
+--)
 
 CREATE TABLE TypicalActor
 (
@@ -364,10 +365,10 @@ ALTER TABLE dbo.MovieOnCat ADD CONSTRAINT FK_MovieOnCat_Moive FOREIGN KEY (Movie
 ALTER TABLE dbo.MovieOnCat ADD CONSTRAINT FK_MovieOnCat_Category FOREIGN KEY (CategoryID) REFERENCES dbo.Category(CategoryID);
 ALTER TABLE dbo.MovieOnCat ADD CONSTRAINT PK_MovieOnCat PRIMARY KEY (MovieID,CategoryID);
 
---TypicalActor
-GO
-ALTER TABLE dbo.TypicalActor ADD CONSTRAINT FK_TypicalActor_Movie FOREIGN KEY (MovieID) REFERENCES dbo.Movie(MovieID);
-ALTER TABLE dbo.TypicalActor ADD CONSTRAINT PK_TypicalActor PRIMARY KEY (MovieID,ActorName);
+----TypicalActor
+--GO
+--ALTER TABLE dbo.TypicalActor ADD CONSTRAINT FK_TypicalActor_Movie FOREIGN KEY (MovieID) REFERENCES dbo.Movie(MovieID);
+--ALTER TABLE dbo.TypicalActor ADD CONSTRAINT PK_TypicalActor PRIMARY KEY (MovieID,ActorName);
 
 --SlotType
 --Slot
@@ -651,3 +652,4 @@ END
 
 GO
 --------------------------------------------------------------------------------------------------
+
