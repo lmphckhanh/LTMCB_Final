@@ -123,6 +123,7 @@ namespace LTMCB_Final.FunctionClass
             {
                 js = TcpReceive();
             }
+            if (js == "NoData") js = "";
             return js;
         }
 

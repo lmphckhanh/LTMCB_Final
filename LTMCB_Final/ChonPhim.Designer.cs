@@ -76,7 +76,6 @@ namespace LTMCB_Final
             btnHome.TabIndex = 6;
             btnHome.Text = "Tùy Chọn";
             btnHome.UseVisualStyleBackColor = true;
-            btnHome.Click += button1_Click;
             // 
             // label1
             // 
@@ -98,7 +97,6 @@ namespace LTMCB_Final
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(188, 33);
             comboBox1.TabIndex = 2;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label2
             // 

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
+using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 
 
 namespace LTMCB_Final
@@ -10,7 +13,8 @@ namespace LTMCB_Final
     {
 
 
-        private string connectionString = "Data Source=LPK;Initial Catalog=CinemaManagement;Integrated Security=True;Trust Server Certificate=True";
+        ClientTcpConnection tcp = Program.tcpConnection;
+
 
         public ChonPhim()
         {
@@ -19,65 +23,75 @@ namespace LTMCB_Final
 
         public List<Movie> movies;
 
+
         private void ChonPhim_Load(object sender, EventArgs e)
         {
             LoadMovies();
-            // LoadCategories();
-        }
-        /* private void LoadCategories()
-         {
-             using (SqlConnection connection = new SqlConnection(connectionString))
-             {
-                 try
-                 {
-                     connection.Open();
-                     string query = "SELECT DISTINCT CatName FROM Movie"; // Lấy danh sách thể loại duy nhất
-                     SqlCommand command = new SqlCommand(query, connection);
-                     SqlDataReader reader = command.ExecuteReader();
+            LoadCategories();
 
-                     while (reader.Read())
-                     {
-                         string category = reader.GetString(0);
-                         comboBox1.Items.Add(category); // Thêm thể loại vào ComboBox
-                     }
-                 }
-                 catch (Exception ex)
-                 {
-                     MessageBox.Show("Error loading categories: " + ex.Message);
-                 }
-             }
-         }*/
+        }
+        private void LoadCategories()
+        {
+            try
+            {
+                // Truy vấn SQL lấy danh sách thể loại
+                string query = @"QSELECT CategoryName FROM Category"; // Thay đổi với câu truy vấn thực tế
+                string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>"); // Tách dữ liệu từ phản hồi
+
+                JObject[] jlist = new JObject[rs.Length - 1]; // Khởi tạo mảng JObject
+
+                // Phân tích từng phần tử trong chuỗi kết quả
+                for (int i = 0; i < rs.Length; i++)
+                {
+                    jlist[i] = JObject.Parse(rs[i]); // Phân tích chuỗi thành đối tượng JSON
+                }
+
+                // Duyệt qua các đối tượng JObject và thêm vào ComboBox
+                foreach (var item in jlist)
+                {
+                    string categoryName = item.GetValue("CategoryName").ToString(); // Lấy tên thể loại
+                    comboBox1.Items.Add(categoryName); // Thêm tên thể loại vào ComboBox
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading categories: " + ex.Message); // Hiển thị thông báo lỗi nếu có
+            }
+        }
+
+
+
         private void LoadMovies()
         {
-            movies = new List<Movie>();
-
-            // Fetch movies from database
-            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();
-                    string query = "SELECT Id, Name, Image FROM Movie"; // Select relevant columns
-                    SqlCommand command = new SqlCommand(query, connection);
-                    SqlDataReader reader = command.ExecuteReader();
+                    movies = new List<Movie>();
 
-                    while (reader.Read())
+                    string query = @"QSELECT MovieID, Name, Image FROM Movie";
+                    string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>");
+                    JObject[] jlist = new JObject[rs.Length - 1];
+                    for (int i = 0; i < rs.Length; i++)
                     {
-                        Movie movie = new Movie
-                        {
-                            ID = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Image = reader.GetString(2)
-                        };
-                        movies.Add(movie);
+                        jlist[i] = JObject.Parse(rs[i]);
                     }
+                    foreach (var item in jlist)
+                    {
+                        Movie mov = new Movie
+                        {
+                            ID = item.GetValue("MovieID").ToString(),
+                            Name = item.GetValue("Name").ToString(),
+                            Image = item.GetValue("Image").ToString()
+                        };
+                        movies.Add(mov);
+                    }
+                    DisplayMovies(); // Hiển thị danh sách phim sau khi tải
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error loading movies: " + ex.Message);
                 }
             }
-
             // Display movies in the UI
             DisplayMovies();
         }
@@ -102,17 +116,7 @@ namespace LTMCB_Final
                         Text = "Đặt phim",
                         Dock = DockStyle.Bottom
                     };
-                    btnBook.Click += (s, e) =>
-                    {
-                        var selectedMovie = (Movie)((Button)s).Tag;
 
-                        // Gắn ngày từ DateTimePicker vào đối tượng Movie
-                        //selectedMovie.SelectedDate = dateTimePicker1.Value;
-
-                        // Chuyển sang màn hình chọn ghế ngồi và truyền thông tin
-                        /*   SelectSeatForm selectSeatForm = new SelectSeatForm(selectedMovie);
-                           selectSeatForm.ShowDialog(); */
-                    };
 
                     listItem.Controls.Add(btnBook);
                     flowLayoutPanel1.Controls.Add(listItem);
@@ -128,50 +132,6 @@ namespace LTMCB_Final
         {
             // This method can be left empty or customized as needed
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selectedCategory = comboBox1.SelectedItem.ToString(); // Lấy thể loại đã chọn
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT Id, Name, Image FROM Movie WHERE Category_ID = @Category"; // Lọc theo thể loại
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Category", selectedCategory);
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    movies.Clear(); // Xóa danh sách cũ
-
-                    while (reader.Read())
-                    {
-                        Movie movie = new Movie
-                        {
-                            ID = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Image = reader.GetString(2)
-                        };
-                        movies.Add(movie); // Thêm phim vào danh sách
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error loading movies by category: " + ex.Message);
-                }
-            }
-
-            DisplayMovies();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            contextMenuStrip1.Show(Cursor.Position);
-        }
-
-
-
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -188,29 +148,17 @@ namespace LTMCB_Final
         {
             AccountInfo accountInfo = new AccountInfo();
             accountInfo.Show();
-
-
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void btnHome_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void toolStripMenuItem2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem2_Click_2(object sender, EventArgs e)
-        {
-
+            contextMenuStrip1.Show(Cursor.Position);
         }
     }
 
     public class Movie
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
 

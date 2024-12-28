@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,28 +20,13 @@ namespace LTMCB_Final.Manager
     {
         ClientTcpConnection tcp = Program.tcpConnection;
         string Status = "(0,1)";
-        ImageList imageList = new ImageList
-        {
-            ImageSize = new Size(150, 100) //Tùy chỉnh
-        };
-        private DirectoryInfo df = new DirectoryInfo(@"../../../Resources");
-        FileInfo[] files;
+        ImageList imagelist = new ImageList();
         public ManageMovie()
         {
             InitializeComponent();
             cbAge.SelectedIndex = 0;
             cbRate.SelectedIndex = 0;
             cbStatus.SelectedIndex = 2;
-            string[] fileInfos = Directory.GetFiles(df.FullName);
-            files = new FileInfo[fileInfos.Length];
-            for (int i = 0; i < fileInfos.Length; i++)
-            {
-                files[i] = new FileInfo(fileInfos[i]);
-            }
-            foreach (var i in files)
-            {
-                imageList.Images.Add(i.Name.Replace(i.Extension, ""), Image.FromFile(i.FullName));
-            }
 
             LoadMovieList();
         }
@@ -91,22 +77,21 @@ namespace LTMCB_Final.Manager
                 item.SubItems.Add(url);//8
                 item.SubItems.Add(i.GetValue("Status").ToString());//9
 
-                lsvMovieList.LargeImageList = imageList;
+                Image img;
                 try
                 {
-                    item.ImageKey = MovieID;
+                    using (WebClient client = new WebClient())
+                    {
+                        Stream stream = client.OpenRead(url);
+                        img = Image.FromStream(stream);
+                    }
+                    
                 }
                 catch
                 {
 
-                    using (FileStream fs = new FileStream(df.FullName + @"/" + MovieID + ".png", FileMode.OpenOrCreate))
-                    {
-                        fs.Write(tcp.SendAndRevceiveBytes(url));
-                    }
-                    imageList.Images.Add(item.SubItems[1].Text, (Image)new ImageConverter().ConvertFrom(File.ReadAllBytes(df.FullName + @"/" + MovieID)));
-                    lsvMovieList.LargeImageList = imageList;
-                    item.ImageKey = MovieID;
                 }
+                
 
                 lsvMovieList.Items.Add(item);
             }
@@ -123,7 +108,7 @@ namespace LTMCB_Final.Manager
             //string minAge = lsvMovieList.SelectedItems[0].SubItems[6].Text;
             //string rate = lsvMovieList.SelectedItems[0].SubItems[7].Text;
             //string status = lsvMovieList.SelectedItems[0].SubItems[9].Text;
-            Image img = imageList.Images[id];
+            //Image img = imageList.Images[id];
             MovieInfo info = new MovieInfo(id);
         }
 

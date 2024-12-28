@@ -60,6 +60,7 @@ namespace CinemaServer.FunctionClass
                     rs = rs.Replace("\r", "");
                     rs = rs.Replace("\n", "");
                 }
+                if (rs == "") rs = "NoData";
 
                 sqlConnection.Close();
                 return rs;
@@ -137,6 +138,7 @@ namespace CinemaServer.FunctionClass
                     rs = rs.Replace("\r", "");
                     rs = rs.Replace("\n", "");
                 }
+                if (rs == "") rs = "NoData";
 
                 sqlConnection.Close();
                 return rs;
