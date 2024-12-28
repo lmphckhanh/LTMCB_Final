@@ -31,7 +31,7 @@ namespace CinemaServer.FunctionClass
         public string ToQuery(string query) //Query data in database (7th letter = Q)
         {
             string rs = "";
-            //query = query.Substring(1);
+            query = query.Substring(1);
 
             using (SqlConnection sqlConnection = DataBaseConnection.Connect())
             {
