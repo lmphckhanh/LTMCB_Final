@@ -11,11 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LTMCB_Final.Login;
 using System.Data.SqlClient;
+using System.Net.Sockets;
+using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 
 namespace LTMCB_Final
 {
     public partial class ForgotPw : Form
     {
+        ClientTcpConnection tcp = Program.tcpConnection;
         private string verificationCode; // Lưu mã xác nhận
         private string connectionString = @" ";
         public ForgotPw()
@@ -25,7 +29,7 @@ namespace LTMCB_Final
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string email = textBox1.Text.Trim();
+            string email = tbEmail.Text.Trim();
 
             if (string.IsNullOrEmpty(email))
             {
@@ -64,24 +68,53 @@ namespace LTMCB_Final
         // Hàm kiểm tra email có tồn tại trong cơ sở dữ liệu
         private bool IsEmailRegistered(string email)
         {
-            
+            string rs = tcp.SendAndRevceiveStr(@"SELECT TOP 1 * FROM dbo.Account WHERE Email = '';");
+            try
+            {
+                JObject js = JObject.Parse(rs);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         private void SendEmail(string toEmail, string code)
         {
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("your-email@gmail.com");
-            mail.To.Add(toEmail);
-            mail.Subject = "Mã xác nhận khôi phục mật khẩu";
-            mail.Body = $"Mã xác nhận của bạn là: {code}";
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com")
+            try
             {
-                Port = 587,
-                Credentials = new NetworkCredential("your-email@gmail.com", "your-email-password"),
-                EnableSsl = true
-            };
+                var from = new MailAddress("lekhoi323@gmail.com");
+                var to = new MailAddress(toEmail);
+                string pass = "llfj qmft ydtb tvrd";
+                string subject = "Test";
+                string body = code;
 
-            smtp.Send(mail);
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(from.Address, pass),
+                    Timeout = 200000
+                };
+
+                using (var mess = new MailMessage(from, to)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+
+                //MessageBox.Show("Sent!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
         {
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
+            tbEmail = new TextBox();
             button1 = new Button();
             SuspendLayout();
             // 
@@ -38,9 +38,10 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(84, 80);
+            label1.Location = new Point(105, 100);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(276, 35);
+            label1.Size = new Size(330, 41);
             label1.TabIndex = 0;
             label1.Text = "QUÊN MẬT KHẨU";
             // 
@@ -48,26 +49,29 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 13.8F);
-            label2.Location = new Point(20, 176);
+            label2.Location = new Point(25, 220);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(118, 26);
+            label2.Size = new Size(142, 33);
             label2.TabIndex = 1;
             label2.Text = "Nhập email";
             // 
-            // textBox1
+            // tbEmail
             // 
-            textBox1.Font = new Font("Times New Roman", 13.8F);
-            textBox1.Location = new Point(144, 168);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(246, 34);
-            textBox1.TabIndex = 2;
+            tbEmail.Font = new Font("Times New Roman", 13.8F);
+            tbEmail.Location = new Point(180, 210);
+            tbEmail.Margin = new Padding(4);
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(306, 39);
+            tbEmail.TabIndex = 2;
             // 
             // button1
             // 
             button1.Font = new Font("Times New Roman", 13.8F);
-            button1.Location = new Point(173, 246);
+            button1.Location = new Point(259, 257);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
-            button1.Size = new Size(98, 48);
+            button1.Size = new Size(122, 60);
             button1.TabIndex = 3;
             button1.Text = "Lấy mã";
             button1.UseVisualStyleBackColor = true;
@@ -75,13 +79,14 @@
             // 
             // ForgotPw
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(426, 369);
+            ClientSize = new Size(532, 461);
             Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(tbEmail);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(4);
             Name = "ForgotPw";
             Text = "ForgotPw";
             ResumeLayout(false);
@@ -92,7 +97,7 @@
 
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox tbEmail;
         private Button button1;
     }
 }

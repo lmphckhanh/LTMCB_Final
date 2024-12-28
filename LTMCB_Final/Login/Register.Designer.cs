@@ -1,6 +1,6 @@
 ﻿namespace LTMCB_Final.Login
 {
-    partial class Register
+    partial class Register : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -129,7 +129,6 @@
             btnRegister.TabIndex = 7;
             btnRegister.Text = "Đăng ký";
             btnRegister.UseVisualStyleBackColor = true;
-            btnRegister.Click += btnRegister_Click;
             // 
             // linkLabel1
             // 

@@ -121,24 +121,24 @@ CREATE TABLE Category
 
 CREATE TABLE Movie
 (
-	MovieID VARCHAR(6) PRIMARY KEY,
-	Name NVARCHAR(50) NOT NULL,
-	Director NVARCHAR(50) NOT NULL,
-	Duration TIME NOT NULL,
-	ReleaseDay DATE NOT NULL,
-	Language NVARCHAR(20) NOT NULL,
-	MinAge INT NOT NULL,
-	Rate NUMERIC(2,1) NOT NULL, --0.0->5.0
-	Image NVARCHAR(MAX) NOT NULL,
-	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu
+	MovieID VARCHAR(6) PRIMARY KEY, --0
+	Name NVARCHAR(50) NOT NULL, --1
+	Director NVARCHAR(50) NOT NULL, --2
+	Duration TIME NOT NULL, --3	
+	ReleaseDay DATE NOT NULL, --4	
+	Language NVARCHAR(20) NOT NULL, --5	
+	MinAge INT NOT NULL, --6	 
+	Rate NUMERIC(2,1) DEFAULT 0 NOT NULL, --0.0->5.0 --7
+	Image NVARCHAR(MAX) NOT NULL, --8
+	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu --9
 )
-
+SELECT TOP 1 * FROM dbo.Account WHERE Email = '' AND  Phone = '';
 CREATE TABLE MovieOnType
 (
 	MovieID VARCHAR(6) NOT NULL,
 	MovieTypeID VARCHAR(2) NOT NULL,
 )
-
+-----
 CREATE TABLE MovieOnCat
 (
 	MovieID VARCHAR(6) NOT NULL,
@@ -254,7 +254,7 @@ CREATE TABLE Account
 	Email NVARCHAR(50) NOT NULL,
 	Phone NVARCHAR(11) NOT NULL,
 	Password VARCHAR(MAX) NOT NULL,
-	Sex NVARCHAR(6) NOT NULL,--Male, Female, Other
+	--Sex NVARCHAR(6) NOT NULL,--Male, Female, Other
 	BirthDay DATE NOT NULL,
 	RoleID VARCHAR(2) NOT NULL,
 )
@@ -447,13 +447,12 @@ BEGIN
 	    SET @Total = 0;
 	END
 	UPDATE dbo.Bill SET	TotalPrice = @Total WHERE BillID IN (SELECT BillID FROM Deleted);
-
 END
 --Role
 --Account
 GO
 ALTER TABLE dbo.Account ADD CONSTRAINT FK_Account_Role FOREIGN KEY (RoleID) REFERENCES Role(RoleID);
-ALTER TABLE dbo.Account ADD CONSTRAINT Check_Sex CHECK (Sex IN('Male', 'Female', 'Other'));
+--ALTER TABLE dbo.Account ADD CONSTRAINT Check_Sex CHECK (Sex IN('Male', 'Female', 'Other'));
 ALTER TABLE dbo.Account ADD CONSTRAINT DefaultRole DEFAULT 'KH' FOR RoleID;
 
 --Comment
@@ -654,3 +653,4 @@ GO
 --------------------------------------------------------------------------------------------------
 
 
+SELECT AccountID FROM dbo.Account WHERE Phone = '';

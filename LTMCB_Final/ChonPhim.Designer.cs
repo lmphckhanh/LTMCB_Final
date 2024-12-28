@@ -42,12 +42,10 @@ namespace LTMCB_Final
             flowLayoutPanel1 = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             toolStripMenuItem1 = new ToolStripMenuItem();
-            
-            toolStripMenuItem2 = new ToolStripMenuItem();
             accountInfomationToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
-           
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -55,28 +53,30 @@ namespace LTMCB_Final
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.7014046F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.2985954F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 364F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 228F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 455F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 286F));
             tableLayoutPanel1.Controls.Add(btnHome, 3, 0);
             tableLayoutPanel1.Controls.Add(dateTimePicker1, 2, 1);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
             tableLayoutPanel1.Controls.Add(comboBox1, 1, 1);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
-            tableLayoutPanel1.Location = new Point(-4, 2);
+            tableLayoutPanel1.Location = new Point(-5, 2);
+            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.0827065F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 66.91729F));
-            tableLayoutPanel1.Size = new Size(1105, 137);
+            tableLayoutPanel1.Size = new Size(1381, 171);
             tableLayoutPanel1.TabIndex = 6;
             // 
             // btnHome
             // 
             btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnHome.Location = new Point(1004, 3);
+            btnHome.Location = new Point(1255, 4);
+            btnHome.Margin = new Padding(4, 4, 4, 4);
             btnHome.Name = "btnHome";
-            btnHome.Size = new Size(98, 36);
+            btnHome.Size = new Size(122, 45);
             btnHome.TabIndex = 6;
             btnHome.Text = "Tùy Chọn";
             btnHome.UseVisualStyleBackColor = true;
@@ -84,9 +84,10 @@ namespace LTMCB_Final
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(515, 48);
+            dateTimePicker1.Location = new Point(643, 60);
+            dateTimePicker1.Margin = new Padding(4, 4, 4, 4);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(221, 27);
+            dateTimePicker1.Size = new Size(307, 31);
             dateTimePicker1.TabIndex = 4;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -94,9 +95,10 @@ namespace LTMCB_Final
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            label1.Location = new Point(3, 0);
+            label1.Location = new Point(4, 0);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(191, 30);
+            label1.Size = new Size(226, 36);
             label1.TabIndex = 0;
             label1.Text = "Phim Đang Chiếu";
             // 
@@ -106,9 +108,10 @@ namespace LTMCB_Final
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11F);
             label3.ImageAlign = ContentAlignment.BottomLeft;
-            label3.Location = new Point(515, 0);
+            label3.Location = new Point(643, 0);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(358, 45);
+            label3.Size = new Size(447, 56);
             label3.TabIndex = 5;
             label3.Text = "Chọn Ngày";
             label3.TextAlign = ContentAlignment.BottomLeft;
@@ -117,9 +120,10 @@ namespace LTMCB_Final
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Kinh Dị ", "Hài Hước ", "Lãng Mạn ", "Phiêu Lưu", "Khoa Học Viễn Tưởng" });
-            comboBox1.Location = new Point(263, 48);
+            comboBox1.Location = new Point(328, 60);
+            comboBox1.Margin = new Padding(4, 4, 4, 4);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
+            comboBox1.Size = new Size(188, 33);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -128,9 +132,10 @@ namespace LTMCB_Final
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11F);
-            label2.Location = new Point(263, 0);
+            label2.Location = new Point(328, 0);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(246, 45);
+            label2.Size = new Size(307, 56);
             label2.TabIndex = 3;
             label2.Text = "Thể Loại";
             label2.TextAlign = ContentAlignment.BottomLeft;
@@ -138,50 +143,52 @@ namespace LTMCB_Final
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel1.Location = new Point(-4, 136);
+            flowLayoutPanel1.Location = new Point(-5, 170);
+            flowLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1105, 311);
+            flowLayoutPanel1.Size = new Size(1381, 389);
             flowLayoutPanel1.TabIndex = 7;
             // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 , accountInfomationToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, accountInfomationToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(126, 28);
+            contextMenuStrip1.Size = new Size(243, 68);
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(125, 24);
+            toolStripMenuItem1.Size = new Size(242, 32);
             toolStripMenuItem1.Text = "Logout";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
-            // 
-          
-            // 
-           
             // 
             // accountInfomationToolStripMenuItem
             // 
             accountInfomationToolStripMenuItem.Name = "accountInfomationToolStripMenuItem";
-            accountInfomationToolStripMenuItem.Size = new Size(209, 24);
+            accountInfomationToolStripMenuItem.Size = new Size(242, 32);
             accountInfomationToolStripMenuItem.Text = "Account Infomation";
             accountInfomationToolStripMenuItem.Click += accountInfomationToolStripMenuItem_Click;
             // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(32, 19);
+            // 
             // ChonPhim
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1102, 450);
+            ClientSize = new Size(1378, 562);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "ChonPhim";
             Text = "Form1";
             Load += ChonPhim_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             contextMenuStrip1.ResumeLayout(false);
-           
             ResumeLayout(false);
         }
 
