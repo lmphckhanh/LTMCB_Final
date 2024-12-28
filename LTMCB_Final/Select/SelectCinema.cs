@@ -19,7 +19,7 @@ namespace LTMCB_Final
         public SelectCinema()
         {
             InitializeComponent();
-            LoadLocations();
+            //LoadLocations();
             LoadCinemaGroups();
         }
 
