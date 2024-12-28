@@ -51,9 +51,23 @@ namespace LTMCB_Final.Manager
                 default: Status = "0";
                     break;
             }
+
+            string cat = "";
+            string movtype = "";
+            foreach(ListViewItem item in lsvCategory.SelectedItems)
+            {
+                cat += @" INSERT INTO dbo.MovieOnCat(MovieID,CategoryID)VALUES('" + tbMovieID + "', '" + item.SubItems[1].Text + "');";
+            }
+            foreach (ListViewItem item in lsvMovieType.SelectedItems)
+            {
+                movtype += @" INSERT INTO	dbo.MovieOnType(MovieID,MovieTypeID)VALUES('" + tbMovieID + "', '" + item.SubItems[1].Text + "');";
+            }
+
+
             string headquery = @"CBEGIN TRANSACTION SAVE TRANSACTION CP0 BEGIN TRY ";
             string bodyquery = @"INSERT INTO dbo.Movie(MovieID,Name, Director,Duration,ReleaseDay,Language,MinAge,Rate,Image,Status)" +
-                "VALUES('" + tbMovieID.Text + "',  N'" + tbMovieName.Text + "',  N'" + tbDirector.Text + "', '" + tbDuration.Text + "', '" + tbReleaseDay.Text + "', N'" + tbLang.Text + "', " + minAge + ", 0, N'" + tbPoster.Text + "', " + Status + " );";
+                "VALUES('" + tbMovieID.Text + "',  N'" + tbMovieName.Text + "',  N'" + tbDirector.Text + "', '" + tbDuration.Text + "', '" + tbReleaseDay.Text + "', N'" + tbLang.Text + "', " + minAge + ", 0, N'" + tbPoster.Text + "', " + Status + " );"
+                + cat + movtype;
             string footquery = @" COMMIT TRANSACTION CP0; RETURN; END TRY BEGIN CATCH ROLLBACK TRANSACTION CP0; RETURN; END CATCH";
 
             string query = headquery + bodyquery + footquery;
