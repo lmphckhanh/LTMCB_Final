@@ -116,6 +116,8 @@ namespace CinemaServer
                         foreach (var item in data) listBytes.Add(item);
                     } while (ns.DataAvailable);
                     mess += Encoding.UTF8.GetString(listBytes.ToArray());
+                    ns.Flush();
+                    listBytes.Clear();
                     if (mess != "")
                     {
                         string syntax = mess.Substring(0, 1);
@@ -139,8 +141,9 @@ namespace CinemaServer
                         }
                         else if (syntax == "Q") //Query -> list
                         {
-                            TcpSend(client, DTB.ToQuery(mess));
+                            string rs = DTB.ToQuery(mess);
                             mess = "";
+                            TcpSend(client, rs);
 
                         }
                         else if (syntax == "E") //Execute ko
@@ -151,24 +154,29 @@ namespace CinemaServer
                         }
                         else if (syntax == "C")
                         {
-                            TcpSend(client, DTB.Execute(mess).ToString());
+                            string rs = DTB.Execute(mess).ToString();
                             mess = "";
+                            TcpSend(client,rs);
 
                         }
                         else if (syntax == "G")
                         {
-                            TcpSend(client, DTB.GetObject(mess));
+                            string rs = DTB.GetObject(mess);
                             mess = "";
+                            TcpSend(client, rs);
 
                         }
                         else if (syntax == "P")
                         {
-                            TcpSendBytes(client, mess);
+                            string msg = mess;
+                            mess = "";
+                            TcpSendBytes(client, msg);
                         }
                         else
                         {
-                            TcpSend(client, "Syntax Error");
                             mess = "";
+                            TcpSend(client, "Syntax Error");
+
 
                         }
                         mess = "";

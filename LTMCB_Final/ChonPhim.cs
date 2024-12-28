@@ -41,7 +41,7 @@ namespace LTMCB_Final
                 JObject[] jlist = new JObject[rs.Length - 1]; // Khởi tạo mảng JObject
 
                 // Phân tích từng phần tử trong chuỗi kết quả
-                for (int i = 0; i < rs.Length; i++)
+                for (int i = 0; i < rs.Length - 1; i++)
                 {
                     jlist[i] = JObject.Parse(rs[i]); // Phân tích chuỗi thành đối tượng JSON
                 }
