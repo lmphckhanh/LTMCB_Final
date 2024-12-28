@@ -134,22 +134,32 @@ namespace CinemaServer
                                 {"partnerName", momoInfo.partnerName }
                             };
                             TcpSend(client, json.ToString());
+                            mess = "";
+
                         }
                         else if (syntax == "Q") //Query -> list
                         {
                             TcpSend(client, DTB.ToQuery(mess));
+                            mess = "";
+
                         }
                         else if (syntax == "E") //Execute ko
                         {
                             DTB.Execute(mess);
+                            mess = "";
+
                         }
                         else if (syntax == "C")
                         {
                             TcpSend(client, DTB.Execute(mess).ToString());
+                            mess = "";
+
                         }
                         else if (syntax == "G")
                         {
                             TcpSend(client, DTB.GetObject(mess));
+                            mess = "";
+
                         }
                         else if (syntax == "P")
                         {
@@ -158,6 +168,8 @@ namespace CinemaServer
                         else
                         {
                             TcpSend(client, "Syntax Error");
+                            mess = "";
+
                         }
                         mess = "";
                     }

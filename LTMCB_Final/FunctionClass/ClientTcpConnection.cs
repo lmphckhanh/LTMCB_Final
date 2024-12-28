@@ -43,7 +43,7 @@ namespace LTMCB_Final.FunctionClass
             {
                 //NetworkStream ns = tcpClient.GetStream();
                 byte[] data = Encoding.UTF8.GetBytes(mess);
-                ns.WriteAsync(data, 0, data.Length);
+                ns.Write(data, 0, data.Length);
                 //ns.Close();
             }
             catch (Exception ex)

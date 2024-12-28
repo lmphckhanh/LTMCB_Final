@@ -35,7 +35,7 @@ namespace LTMCB_Final
             try
             {
                 // Truy vấn SQL lấy danh sách thể loại
-                string query = @"QSELECT CategoryName FROM Category"; // Thay đổi với câu truy vấn thực tế
+                string query = @"QSELECT CategoryName FROM dbo.Category;"; // Thay đổi với câu truy vấn thực tế
                 string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>"); // Tách dữ liệu từ phản hồi
 
                 JObject[] jlist = new JObject[rs.Length - 1]; // Khởi tạo mảng JObject
@@ -68,10 +68,10 @@ namespace LTMCB_Final
                 {
                     movies = new List<Movie>();
 
-                    string query = @"QSELECT MovieID, Name, Image FROM Movie";
+                    string query = @"QSELECT MovieID, Name, Image FROM dbo.Movie";
                     string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>");
                     JObject[] jlist = new JObject[rs.Length - 1];
-                    for (int i = 0; i < rs.Length; i++)
+                    for (int i = 0; i < rs.Length - 1; i++)
                     {
                         jlist[i] = JObject.Parse(rs[i]);
                     }
