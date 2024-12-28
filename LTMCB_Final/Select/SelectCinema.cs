@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 
 namespace LTMCB_Final
 {
     public partial class SelectCinema : Form
     {
-        private string connectionString = " ";
+        private ClientTcpConnection tcp = Program.tcpConnection;
         public SelectCinema()
         {
             InitializeComponent();
@@ -21,49 +23,26 @@ namespace LTMCB_Final
             LoadCinemaGroups();
         }
 
-        //lấy địa chỉ user
-        private void LoadLocations()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(" ", conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        comboBox1.Items.Add(reader["LocationName"].ToString());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading locations: " + ex.Message);
-            }
-        }
 
         //chọn cụm rạp: lotte, cgv, ...
         private void LoadCinemaGroups()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(" ", conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                string query = "SELECT FROM ";
+                string response = tcp.SendAndRevceiveStr(query);
+                JArray groups = JArray.Parse(response);
 
-                    while (reader.Read())
-                    {
-                        comboBox2.Items.Add(reader["GroupName"].ToString());
-                    }
+                comboBox2.Items.Clear();
+                foreach (var group in groups)
+                {
+                    comboBox2.Items.Add(group[" "].ToString());
                 }
+                comboBox2.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi!" + ex.Message);
+                MessageBox.Show("Lỗi khi tải danh sách cụm rạp: " + ex.Message, "Lỗi");
             }
         }
 
@@ -72,38 +51,44 @@ namespace LTMCB_Final
         {
             try
             {
+                if (string.IsNullOrEmpty(location) || string.IsNullOrEmpty(group))
+                {
+                    MessageBox.Show("Vui lòng chọn đầy đủ địa điểm và cụm rạp.", "Thông báo");
+                    return;
+                }
+
                 listView1.Items.Clear();
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                string query = $@"
+                SELECT 
+                FROM 
+                WHERE ";
+
+                string response = tcp.SendAndRevceiveStr(query);
+                JArray cinemas = JArray.Parse(response);
+
+                if (cinemas.Count == 0)
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(" ", conn);
+                    MessageBox.Show("Không có rạp nào phù hợp.", "Thông báo");
+                    return;
+                }
 
-                    cmd.Parameters.AddWithValue("@Location", location);
-                    cmd.Parameters.AddWithValue("@GroupName", group);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListViewItem item = new ListViewItem(reader["CinemaName"].ToString());
-                        item.SubItems.Add(reader["Distance"].ToString() + " km");
-                        listView1.Items.Add(item);
-                    }
+                foreach (var cinema in cinemas)
+                {
+                    ListViewItem item = new ListViewItem(cinema["CinemaName"].ToString());
+                    item.SubItems.Add($"{cinema["Distance"]} km");
+                    listView1.Items.Add(item);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi!" + ex.Message);
+                MessageBox.Show("Lỗi khi tải danh sách rạp: " + ex.Message, "Lỗi");
             }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem != null && comboBox2.SelectedItem != null)
-            {
-                LoadCinemas(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString());
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -117,7 +102,7 @@ namespace LTMCB_Final
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn rạp.");
+                MessageBox.Show("Vui lòng chọn rạp.", "Thông báo");
             }
         }
     }
