@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Windows.Forms.VisualStyles;
+using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 
 namespace LTMCB_Final
 {
@@ -20,6 +21,8 @@ namespace LTMCB_Final
         private Dictionary<string, (bool isBooked, decimal price)> seatData;
         private List<string> selectedSeats = new List<string>();
 
+        private ClientTcpConnection tcp = Program.tcpConnection;
+
         public SelectSeat(string cinemaName, DateTime selectedDate, string selectedTime)
         {
             InitializeComponent();
@@ -27,36 +30,38 @@ namespace LTMCB_Final
             this.selectedDate = selectedDate;
             this.selectedTime = selectedTime;
 
-            // Lấy dữ liệu ghế từ database
             seatData = GetSeatsFromDatabase();
 
-            // Tạo giao diện ghế
             GenerateSeats();
             UpdateTotalPrice();
         }
 
         private Dictionary<string, (bool isBooked, decimal price)> GetSeatsFromDatabase()
         {
-            string connectionString = " ";
             var seatData = new Dictionary<string, (bool isBooked, decimal price)>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT SeatID, IsBooked, Price FROM Seats";
-                SqlCommand command = new SqlCommand(query, connection);
+                string query = $@"
+                    SELECT 
+                    FROM 
+                    WHERE ";
 
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                string response = tcp.SendAndRevceiveStr(query);
+                JArray seats = JArray.Parse(response);
 
-                while (reader.Read())
+                foreach (var seat in seats)
                 {
-                    string seatID = reader["SeatID"].ToString();
-                    bool isBooked = (bool)reader["IsBooked"];
-                    decimal price = (decimal)reader["Price"];
+                    string seatID = seat[" "].ToString();
+                    bool isBooked = bool.Parse(seat[" "].ToString());
+                    decimal price = decimal.Parse(seat[" "].ToString());
+
                     seatData[seatID] = (isBooked, price);
                 }
-
-                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu ghế: " + ex.Message, "Lỗi");
             }
 
             return seatData;
@@ -143,7 +148,6 @@ namespace LTMCB_Final
             }
 
             MessageBox.Show($"Bạn đã chọn các ghế: {string.Join(", ", selectedSeats)}", "Xác nhận");
-            // Thực hiện chuyển đến trang thanh toán
         }
     }
 }

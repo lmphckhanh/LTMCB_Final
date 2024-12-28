@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Data.SqlClient;
+using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 
 namespace LTMCB_Final.Login
 {
     public partial class ResetPw : Form
     {
+        private ClientTcpConnection tcp = Program.tcpConnection;
         private string userEmail;
         private string verificationCode;
-        private string connectionString = @" ";
         public ResetPw(string email, string code)
         {
             InitializeComponent();
@@ -65,19 +65,11 @@ namespace LTMCB_Final.Login
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string query = "UPDATE Users SET Password = @Password WHERE Email = @Email";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Password", newPassword);
-                        command.Parameters.AddWithValue("@Email", email);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                    }
-                }
+                string query = $"UPDATE dbo.Account SET Password = '{newPassword}' WHERE Email = '{email}'";
+                string response = tcp.SendAndRevceiveStr(query);
+                JObject jsonResponse = JObject.Parse(response);
+                string status = jsonResponse["status"].ToString();
+                return status == "success";
             }
             catch (Exception ex)
             {
