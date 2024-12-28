@@ -1,108 +1,109 @@
 ﻿using LTMCB_Final.FunctionClass;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient; // Sử dụng Microsoft.Data.SqlClient thay vì System.Data.SqlClient
+using System.Text;
 
-namespace LTMCB_Final.Login
+namespace LTMCB_Final
 {
     public partial class Register : Form
     {
-        ClientTcpConnection tcp = Program.tcpConnection;
         public Register()
         {
             InitializeComponent();
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (tbUsername.Text == string.Empty)
+            string username = usn.Text.Trim();
+            string email = mail.Text.Trim();
+            string name = fullname.Text.Trim();
+            string phone = sdt.Text.Trim();
+            string password = pw.Text.Trim();
+            string confirmPassword = cfpw.Text.Trim();
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name) ||
+                string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
             {
-                MessageBox.Show("Tên người dùng không dược bỏ trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else if (tbEmail.Text == string.Empty)
-            {
-                return;
-            }
-            else if (dtpBirthDay.Text == string.Empty)
-            {
-                return;
-            }
-            else if (tbPhone.Text == string.Empty)
-            {
-                return;
-            }
-            else if (tbPassword.Text == string.Empty)
-            {
-                return;
-            }
-            else if (tbConfirmPassword.Text == string.Empty)
-            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
                 return;
             }
 
-            if (!IsValidEmail(tbEmail.Text))
+            if (password != confirmPassword)
             {
-                return;
-            }
-            else if (!IsValidPhone(tbPhone.Text))
-            {
-                return;
-            }
-            else if (tbPassword.Text.Length < 8)
-            {
-                return;
-            }
-            else if (tbConfirmPassword.Text != tbPassword.Text)
-            {
+                MessageBox.Show("Mật khẩu xác nhận không khớp!", "Lỗi");
                 return;
             }
 
-            string accountId = Guid.NewGuid().ToString();
-            string pass = Encryption(tbPassword.Text);
-            string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + accountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', " + dtpBirthDay + ",DEFAULT);";
-
-            int rs = Int32.Parse(tcp.SendAndRevceiveStr(query));
-            if (rs > 0)
+            if (!IsValidEmail(email))
             {
-                //thanh cong
-            }
-            else
-            {
-                //that bai
+                MessageBox.Show("Email không hợp lệ!", "Lỗi");
+                return;
             }
 
+            AddAccountToDatabase(username, email, name, phone, password);
         }
 
-        private void dtpBirthDay_ValueChanged(object sender, EventArgs e)
+                int exists = 0;// dbHelper.ExecuteScalar(checkQuery, checkParams);
+                if (exists > 0)
+                {
+                    MessageBox.Show("Tên đăng nhập hoặc email đã tồn tại!", "Lỗi");
+                    return;
+                }
+
+        // Thêm tài khoản vào database
+        private void AddAccountToDatabase(string username, string email, string name, string phone, string password)
         {
-            dtpBirthDay.Text = dtpBirthDay.Value.ToShortDateString();
+            string connectionString = @" ";
+
+                // Thêm tài khoản mới vào cơ sở dữ liệu
+                string insertQuery = "INSERT INTO dbo.Account (Name, Email, Password) VALUES (@Name, @Email, @Password)";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@FullName", name);
+                        command.Parameters.AddWithValue("@Phone", phone);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                int rowsAffected = 0;// dbHelper.ExecuteNonQuery(insertQuery, insertParams);
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Đăng ký thành công!", "Thông báo");
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Đăng ký không thành công!", "Lỗi");
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Có lỗi xảy ra khi truy vấn cơ sở dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi không xác định: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private bool IsValidPhone(string phone)
-        {
-            return Regex.IsMatch(phone, @"^[0-9]{10,11}$");
-        }
+
+        // Hàm kiểm tra email hợp lệ
         private bool IsValidEmail(string email)
         {
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
         }
-        string Encryption(string input) //Encrypting password
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            HashAlgorithm alg = SHA256.Create(); //use SHA256 Encryption
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input); //Turning input into byte array
-            byte[] hashBytes = alg.ComputeHash(inputBytes); //Hash byte array
-            string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
-            return HashPassword;
+            this.Hide();
         }
     }
 }
