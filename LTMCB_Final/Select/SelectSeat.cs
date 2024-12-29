@@ -15,103 +15,105 @@ namespace LTMCB_Final
 {
     public partial class SelectSeat : Form
     {
-        private string cinemaName;
-        private DateTime selectedDate;
-        private string selectedTime;
-        private Dictionary<string, (bool isBooked, decimal price)> seatData;
+        private string ShowTimeID;
+        private Slot seatData;
+        private string roomName;
+        private string roomID;
         private List<string> selectedSeats = new List<string>();
+        private List<string> listTicket = new List<string>();
+        private List<string> bookedSeats = new List<string>();
 
         private ClientTcpConnection tcp = Program.tcpConnection;
 
-        public SelectSeat(string cinemaName, DateTime selectedDate)
+        public SelectSeat(string stID)
         {
             InitializeComponent();
-            this.cinemaName = cinemaName;
-            this.selectedDate = selectedDate;
-            this.selectedTime = selectedTime;
-
-            seatData = GetSeatsFromDatabase();
-
+            ShowTimeID = stID;
+            bookedSeats = GetBookedSeat();
             GenerateSeats();
-            UpdateTotalPrice();
+            //UpdateTotalPrice();
         }
 
-        private Dictionary<string, (bool isBooked, decimal price)> GetSeatsFromDatabase()
+        private List<string> GetBookedSeat()
         {
-            var seatData = new Dictionary<string, (bool isBooked, decimal price)>();
-
+            List<string> BookedSlot = new List<string>();
             try
             {
-                string query = $@"
-                    SELECT 
-                    FROM 
-                    WHERE ";
+                string query = @"QSELECT T.SlotID, R.RoomID, R.RoomName FROM (dbo.Ticket T JOIN dbo.SlotInRoom SR ON SR.SlotID = T.SlotID) JOIN dbo.Room R ON R.RoomID = SR.RoomID WHERE T.ShowTimeID = " + ShowTimeID +";";
 
-                string response = tcp.SendAndRevceiveStr(query);
-                JArray seats = JArray.Parse(response);
-
-                foreach (var seat in seats)
+                string[] response = tcp.SendAndRevceiveStr(query).Split("<*>");
+                JObject[] seats = new JObject[response.Length - 1];
+                for (int i = 0; i < response.Length - 1; i++)
                 {
-                    string seatID = seat[" "].ToString();
-                    bool isBooked = bool.Parse(seat[" "].ToString());
-                    decimal price = decimal.Parse(seat[" "].ToString());
-
-                    seatData[seatID] = (isBooked, price);
+                    seats[i] = JObject.Parse(response[i]);
                 }
+                if (seats.Length > 0)
+                {
+                    roomID = seats[0].GetValue("RoomID").ToString();
+                    roomName = seats[1].GetValue("RoomName").ToString();
+
+                    foreach (var i in seats)
+                    {
+                        BookedSlot.Add(i.GetValue("SlotID").ToString());
+                    }
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu ghế: " + ex.Message, "Lỗi");
             }
 
-            return seatData;
+            return BookedSlot;
         }
 
         // Tạo giao diện ghế
         private void GenerateSeats()
         {
-
-            int x = 10, y = 10;
-            int buttonWidth = 60, buttonHeight = 60;
-            int padding = 10;
-
-            foreach (var seat in seatData)
+            string query = @"QSELECT S.SlotID, ST.Price, ST.SlotTypeName, S.Row, S.Col FROM ((((dbo.ShowTimes T JOIN dbo.Room R ON R.RoomID = T.RoomID) JOIN dbo.SlotInRoom SR ON SR.RoomID = R.RoomID) JOIN dbo.Slot S ON S.SlotID = SR.SlotID) JOIN dbo.SlotType ST ON ST.SlotTypeID = S.SlotTypeID) WHERE ShowTimeID = " + ShowTimeID + ";";
+            string[] response = tcp.SendAndRevceiveStr(query).Split("<*>");
+            JObject[] seats = new JObject[response.Length - 1];
+            for (int i = 0; i < response.Length - 1; i++)
             {
-                string seatName = seat.Key;
-                bool isBooked = seat.Value.isBooked;
-                decimal price = seat.Value.price;
-
-                Button seatButton = new Button
-                {
-                    Name = $"btn{seatName}",
-                    Text = $"{seatName}\n{price:N0}₫",
-                    Width = buttonWidth,
-                    Height = buttonHeight,
-                    BackColor = isBooked ? Color.Red : Color.Green,
-                    Enabled = !isBooked,
-                    Tag = seatName
-                };
-
-                seatButton.Click += SeatButton_Click;
-
-                seatButton.Location = new Point(x, y);
-
-                x += buttonWidth + padding;
-
+                seats[i] = JObject.Parse(response[i]);
             }
+            foreach (var i in seats)
+            {
+                Slot sl = new Slot
+                {
+                    Id = i.GetValue("SlotID").ToString(),
+                    TypeName = i.GetValue("SlotTypeName").ToString(),
+                    Col = i.GetValue("Col").ToString(),
+                    Row = i.GetValue("Row").ToString(),
+                    price = i.GetValue("Price").ToString(),
+                };
+                bool check = bookedSeats.Contains(sl.Id);
+                Button btn = new Button
+                {
+                    Name = sl.Id,
+                    Text = sl.Col + sl.Row + ((sl.TypeName == "Vip")?'\n' + sl.TypeName:""),
+                    Enabled = !check,
+                    BackColor = !check ? Color.Lime : Color.Red,
+                    Size = new Size(75, 75),
+                    Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                    Margin = new Padding(4),
+                };
+                btn.Click += SelectBtn;
+                flowLayoutPanel1.Controls.Add(btn);
+            }
+
         }
 
-        // Sự kiện khi nhấn vào ghế
-        private void SeatButton_Click(object sender, EventArgs e)
+        private void SelectBtn(object? sender, EventArgs e)
         {
             Button seatButton = sender as Button;
-            string seatName = seatButton.Tag.ToString();
+            string seatName = seatButton.Name;
 
             if (selectedSeats.Contains(seatName))
             {
                 // Bỏ chọn ghế
                 selectedSeats.Remove(seatName);
-                seatButton.BackColor = Color.Green;
+                seatButton.BackColor = Color.Lime;
             }
             else
             {
@@ -119,15 +121,6 @@ namespace LTMCB_Final
                 selectedSeats.Add(seatName);
                 seatButton.BackColor = Color.Yellow;
             }
-
-            UpdateTotalPrice();
-        }
-
-        // Cập nhật tổng tiền
-        private void UpdateTotalPrice()
-        {
-            decimal totalPrice = selectedSeats.Sum(seat => seatData[seat].price);
-            label2.Text = $"Tổng tiền: {totalPrice:N0}₫";
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -142,11 +135,43 @@ namespace LTMCB_Final
                 return;
             }
 
-            MessageBox.Show($"Bạn đã chọn các ghế: {string.Join(", ", selectedSeats)}", "Xác nhận");
+            DialogResult rs = MessageBox.Show($"Bạn đã chọn các ghế: {string.Join(", ", selectedSeats)}", "Xác nhận",MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (rs == DialogResult.OK)
+            {
+                string query = @"CINSERT INTO dbo.Ticket(TicketID,SlotID,ShowTimeID)VALUES";
+                foreach (var i in selectedSeats)
+                {
+                    string ticket = Guid.NewGuid().ToString();
+                    query += @"('" + ticket + "', '" + i + "', " + ShowTimeID +"),";
+                    listTicket.Add(ticket);
+                }
+                query = query.Substring(0, query.Length - 1);
+                query += ";";
+                
+                if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
+                {
+                    Purchase pur = new Purchase(listTicket);
+                    pur.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại", "Lỗi");
+                }
+            }
         }
 
         private void seat_Click(object sender, EventArgs e)
         {
+
+        }
+        class Slot
+        {
+            public string Id { get; set; }
+            public string TypeName { get; set; }
+            public string price { get; set; }
+            public string Row { get; set; }
+            public string Col { get; set; }
 
         }
     }

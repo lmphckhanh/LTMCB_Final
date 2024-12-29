@@ -20,7 +20,10 @@ namespace LTMCB_Final.Manager
     {
         ClientTcpConnection tcp = Program.tcpConnection;
         string Status = "(0,1)";
-        ImageList imagelist = new ImageList();
+        ImageList imagelist = new ImageList
+        {
+            ImageSize = new Size(70, 100)
+        };
         public ManageMovie()
         {
             InitializeComponent();
@@ -33,6 +36,7 @@ namespace LTMCB_Final.Manager
 
         void LoadMovieList()
         {
+            lsvMovieList.Clear();
             switch (cbStatus.SelectedIndex)
             {
                 case 0:
@@ -84,13 +88,14 @@ namespace LTMCB_Final.Manager
                         Stream stream = client.OpenRead(url);
                         img = Image.FromStream(stream);
                     }
-                    
+
                 }
                 catch
                 {
                     img = Image.FromFile(@"..\..\..\Resources\UIT.png");
                 }
-                imagelist.Images.Add(MovieID,img);
+                imagelist.Images.Add(MovieID, img);
+                lsvMovieList.LargeImageList = imagelist;
                 item.ImageKey = MovieID;
 
 
@@ -117,7 +122,7 @@ namespace LTMCB_Final.Manager
         private void btnDeleteMovie_Click(object sender, EventArgs e)
         {
             string id = lsvMovieList.SelectedItems[0].SubItems[1].Text;
-            string query = @"CDELETE FROM dbo.MovieOnCat WHERE MovieID = '" + id + "'; DELETE FROM dbo.MovieOnType WHERE MovieID = '" + id + "'; DELETE FROM dbo.Movie WHERE MovieID = '" + id +"'";
+            string query = @"CDELETE FROM dbo.MovieOnCat WHERE MovieID = '" + id + "'; DELETE FROM dbo.MovieOnType WHERE MovieID = '" + id + "'; DELETE FROM dbo.Movie WHERE MovieID = '" + id + "'";
 
             string rs = tcp.SendAndRevceiveStr(query);
             if (Int32.Parse(rs) > 0)
@@ -132,3 +137,5 @@ namespace LTMCB_Final.Manager
         }
     }
 }
+  
+

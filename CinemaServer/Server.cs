@@ -122,7 +122,7 @@ namespace CinemaServer
                     {
                         string syntax = mess.Substring(0, 1);
                         mess = mess.Substring(1);
-                        if (mess == "GETMOMO")
+                        if (syntax + mess == "GETMOMO")
                         {
                             JObject json = new JObject
                             {
@@ -137,7 +137,6 @@ namespace CinemaServer
                             };
                             TcpSend(client, json.ToString());
                             mess = "";
-
                         }
                         else if (syntax == "Q") //Query -> list
                         {

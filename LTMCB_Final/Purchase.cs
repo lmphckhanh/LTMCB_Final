@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LTMCB_Final
 {
@@ -21,12 +22,14 @@ namespace LTMCB_Final
         ClientTcpConnection tcp = Program.tcpConnection;
         public MomoInfo momo = new MomoInfo();
         string[] Ticket; //List Tickets from previous step
-        string AccountID = ""; //Current Logged in account
+        string AccountID = "Account1";//login.AccountID; //Current Logged in account
 
-        public Purchase()
+        public Purchase(List<string> listTicket)
         {
+            Ticket = listTicket.ToArray();
             InitializeComponent();
             LoadInfo();
+            
         }
         //Khách hàng: Account "Select Name From dbo.Account Where AcccountID = " + AccountId
         //Tổng tiền : TicketOnBill 
@@ -35,7 +38,7 @@ namespace LTMCB_Final
         private void btnPurchase_Click(object sender, EventArgs e)
         {
 
-            JObject jMomo = JObject.Parse(tcp.SendAndRevceiveStr(@"GETMONO"));
+            JObject jMomo = JObject.Parse(tcp.SendAndRevceiveStr(@"GETMOMO"));
 
             momo.endpoint = jMomo.GetValue("endpoint").ToString();
             momo.partnerCode = jMomo.GetValue("partnerCode").ToString();
@@ -105,7 +108,11 @@ namespace LTMCB_Final
 
             JObject jmessage = JObject.Parse(responseFromMomo);
 
-            System.Diagnostics.Process.Start(jmessage.GetValue("payUrl").ToString());
+            //Process.Start(@"http://stackoverflow.com");
+            Process proc = new Process();
+            proc.StartInfo.UseShellExecute = true;
+            proc.StartInfo.FileName = jmessage.GetValue("payUrl").ToString();
+            proc.Start();
 
             /*----------------------------------------------------------------------*/
             //Lấy kết quả cuối cùng của đợt thanh toán
@@ -138,14 +145,21 @@ namespace LTMCB_Final
                 string transId = jquerymessage.GetValue("transId").ToString();
                 try
                 {
-                    MessageBox.Show("Thanh toán thành công, vé của bạn đã được đặt!\nChân thành cảm ơn quý kách",
-                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     for (int i = 0; i < Ticket.Length; i++)
                     {
-                        string addRecord = "E"
+                        string addRecord = "C"
                             + @"EXEC dbo.Pro_Purchase @Bill = '" + orderId + "',@RequestID = '" + requestId + "',@TransID = '" + transId + "', @Ticket = '" + Ticket[i] + "', @Account = '" + AccountID + "';";
-                        tcp.TcpSend(addRecord);
+                        if (Int32.Parse(tcp.SendAndRevceiveStr(addRecord)) == 0)
+                        {
+                            MessageBox.Show("Đã xảy ra lỗi, bạn sẽ được hoàn tiền trong thời gian sớm nhất!\n Chân thành xin lỗi vì sự cố này!"
+                                    , "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                            //refund
+                        }
+                        MessageBox.Show("Đặt vé thành công!\nChân thành cảm ơn quý khách.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +194,8 @@ namespace LTMCB_Final
 
                 string list = "(";
                 foreach (var i in Ticket) list += "'" + i + "',";
-                list += "\b)";
+                list = list.Substring(0, list.Length - 1);
+                list += ")";
 
                 json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT SUM(SLT.Price) AS Price FROM ((dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Slot Sl ON Sl.SlotID = TK.SlotID) JOIN dbo.SlotType SlT ON SlT.SlotTypeID = Sl.SlotTypeID WHERE TK.TicketID IN " + list + ";"));
                 lbTotal.Text = json.GetValue("Price").ToString();

@@ -253,7 +253,7 @@ CREATE TABLE Account
 	AccountID VARCHAR(100) PRIMARY KEY,
 	Name NVARCHAR(50) NOT NULL,
 	Email NVARCHAR(50) NOT NULL,
-	Phone NVARCHAR(11) NOT NULL,
+	Phone NVARCHAR(11) UNIQUE NOT NULL,
 	Password VARCHAR(MAX) NOT NULL,
 	--Sex NVARCHAR(6) NOT NULL,--Male, Female, Other
 	BirthDay DATE NOT NULL,
@@ -652,4 +652,3 @@ END
 
 GO
 --------------------------------------------------------------------------------------------------
-

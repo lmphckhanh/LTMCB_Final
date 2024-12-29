@@ -31,7 +31,6 @@
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
-            label2 = new Label();
             groupBox2 = new GroupBox();
             label5 = new Label();
             label4 = new Label();
@@ -40,9 +39,7 @@
             button4 = new Button();
             button3 = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            button33 = new Button();
             groupBox2.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -79,17 +76,6 @@
             button2.Text = "Next";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(573, 426);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(121, 33);
-            label2.TabIndex = 7;
-            label2.Text = "Tổng tiền";
             // 
             // groupBox2
             // 
@@ -176,22 +162,10 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Controls.Add(button33);
             flowLayoutPanel1.Location = new Point(34, 111);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(506, 498);
             flowLayoutPanel1.TabIndex = 9;
-            // 
-            // button33
-            // 
-            button33.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button33.Location = new Point(4, 4);
-            button33.Margin = new Padding(4);
-            button33.Name = "button33";
-            button33.Size = new Size(75, 75);
-            button33.TabIndex = 28;
-            button33.Text = "S";
-            button33.UseVisualStyleBackColor = true;
             // 
             // SelectSeat
             // 
@@ -200,7 +174,6 @@
             ClientSize = new Size(908, 628);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(groupBox2);
-            Controls.Add(label2);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
@@ -209,7 +182,6 @@
             Text = "SelectSeat";
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -219,7 +191,6 @@
         private Label label1;
         private Button button1;
         private Button button2;
-        private Label label2;
         private GroupBox groupBox2;
         private Button button3;
         private Label label5;
@@ -228,6 +199,5 @@
         private Button button5;
         private Button button4;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Button button33;
     }
 }
