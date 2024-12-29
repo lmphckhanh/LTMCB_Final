@@ -60,5 +60,10 @@ namespace LTMCB_Final
                 MessageBox.Show("Error");
             }
         }
+
+        private void lbMovieName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

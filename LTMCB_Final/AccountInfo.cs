@@ -4,6 +4,7 @@ using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,30 +17,45 @@ namespace LTMCB_Final
 {
     public partial class AccountInfo : Form
     {
-        ClientTcpConnection tcpConnection = Program.tcpConnection;
+        ClientTcpConnection tcp = Program.tcpConnection;
 
         public AccountInfo()
         {
             InitializeComponent();
-           // LoadInfo();
+
         }
 
-
-       /* void LoadInfo()
+        public AccountInfo(string name,string email, string phone)
         {
-            JObject json = new JObject();
-            string temp = string.Empty;
+            lblName.Text = name;
+            lblEmail.Text = email;
+            lblPhoneNumber.Text = phone;
 
-           // tcpConnection.TcpSend(@"GSELECT TOP 1 Name, Phone, Address, Email FROM dbo.Account WHERE AccountID = '" + AccountID + "';");
-            while ((temp = tcpConnection.TcpReceive()).IsNullOrEmpty()) { };
-            json = JObject.Parse(temp);
-
-            lblName.Text = json.GetValue("Name").ToString();
-            lblPhoneNumber.Text = json.GetValue("Phone").ToString();
-            lblAddress.Text = json.GetValue("Address").ToString();
-            lblEmail.Text = json.GetValue("Email").ToString();
         }
-       */
+
+        public AccountInfo(string id)
+        {
+            InitializeComponent();
+            string query = @"GSELECT AccountID, Name, Email, Phone FROM dbo.Account;";
+
+            string json = tcp.SendAndRevceiveStr(query);
+            JObject job = new JObject();
+            try
+            {
+                job = JObject.Parse(json);
+                lblName.Text = job.GetValue("Name").ToString();
+                lblEmail.Text = job.GetValue("Email").ToString();
+                lblPhoneNumber.Text = job.GetValue("Phone").ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
+
+
+        }
+
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -50,6 +66,11 @@ namespace LTMCB_Final
         {
             Edit_Info edit_Info = new Edit_Info();
             edit_Info.Show();
+        }
+
+        private void lblName_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

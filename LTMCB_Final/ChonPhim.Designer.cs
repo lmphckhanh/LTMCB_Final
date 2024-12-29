@@ -33,10 +33,10 @@ namespace LTMCB_Final
             components = new System.ComponentModel.Container();
             helpProvider1 = new HelpProvider();
             tableLayoutPanel1 = new TableLayoutPanel();
-            btnHome = new Button();
             label1 = new Label();
             comboBox1 = new ComboBox();
             label2 = new Label();
+            btnHome = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             toolStripMenuItem1 = new ToolStripMenuItem();
@@ -48,32 +48,21 @@ namespace LTMCB_Final
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.7014046F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.2985954F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 363F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 230F));
-            tableLayoutPanel1.Controls.Add(btnHome, 3, 0);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(comboBox1, 1, 1);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
+            tableLayoutPanel1.Controls.Add(btnHome, 2, 0);
             tableLayoutPanel1.Location = new Point(-4, 2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.0827065F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 66.91729F));
-            tableLayoutPanel1.Size = new Size(1105, 137);
+            tableLayoutPanel1.Size = new Size(972, 131);
             tableLayoutPanel1.TabIndex = 6;
-            // 
-            // btnHome
-            // 
-            btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnHome.Location = new Point(1004, 3);
-            btnHome.Name = "btnHome";
-            btnHome.Size = new Size(98, 36);
-            btnHome.TabIndex = 6;
-            btnHome.Text = "Tùy Chọn";
-            btnHome.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -88,29 +77,42 @@ namespace LTMCB_Final
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(262, 48);
+            comboBox1.Location = new Point(311, 46);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 2;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11F);
-            label2.Location = new Point(262, 0);
+            label2.Location = new Point(311, 0);
             label2.Name = "label2";
-            label2.Size = new Size(246, 45);
+            label2.Size = new Size(294, 43);
             label2.TabIndex = 3;
             label2.Text = "Thể Loại";
             label2.TextAlign = ContentAlignment.BottomLeft;
             // 
+            // btnHome
+            // 
+            btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnHome.Location = new Point(871, 3);
+            btnHome.Name = "btnHome";
+            btnHome.Size = new Size(98, 36);
+            btnHome.TabIndex = 6;
+            btnHome.Text = "Tùy Chọn";
+            btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click_1;
+            // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel1.Location = new Point(-4, 136);
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Location = new Point(-4, 81);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1105, 311);
+            flowLayoutPanel1.Size = new Size(972, 364);
             flowLayoutPanel1.TabIndex = 7;
             // 
             // contextMenuStrip1
@@ -143,7 +145,7 @@ namespace LTMCB_Final
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1102, 450);
+            ClientSize = new Size(969, 444);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);
             Name = "ChonPhim";
