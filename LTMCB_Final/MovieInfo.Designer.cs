@@ -198,7 +198,6 @@
             lbMovieName.Size = new Size(70, 20);
             lbMovieName.TabIndex = 8;
             lbMovieName.Text = "Tên phim";
-            lbMovieName.Click += lbMovieName_Click;
             // 
             // pbPoster
             // 

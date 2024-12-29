@@ -33,8 +33,8 @@ namespace LTMCB_Final.Manager
                 string.IsNullOrEmpty(tbReleaseDay.Text) ||
                 string.IsNullOrEmpty(tbLang.Text) ||
                 string.IsNullOrEmpty(tbPoster.Text) ||
-                lsvCategory.SelectedItems.Count == 0 ||
-                lsvMovieType.SelectedItems.Count == 0
+                lsvCategory.CheckedItems.Count == 0 ||
+                lsvMovieType.CheckedItems.Count == 0
                 )
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Lỗi");
@@ -54,11 +54,11 @@ namespace LTMCB_Final.Manager
 
             string cat = "";
             string movtype = "";
-            foreach(ListViewItem item in lsvCategory.SelectedItems)
+            foreach(ListViewItem item in lsvCategory.CheckedItems)
             {
                 cat += @" INSERT INTO dbo.MovieOnCat(MovieID,CategoryID)VALUES('" + tbMovieID.Text + "', '" + item.SubItems[1].Text + "');";
             }
-            foreach (ListViewItem item in lsvMovieType.SelectedItems)
+            foreach (ListViewItem item in lsvMovieType.CheckedItems)
             {
                 movtype += @" INSERT INTO	dbo.MovieOnType(MovieID,MovieTypeID)VALUES('" + tbMovieID.Text + "', '" + item.SubItems[1].Text + "');";
             }

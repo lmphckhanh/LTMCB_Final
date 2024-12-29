@@ -43,7 +43,6 @@ namespace LTMCB_Final.FunctionClass
             {
                 //NetworkStream ns = tcpClient.GetStream();
                 byte[] data = Encoding.UTF8.GetBytes(mess);
-                ns.Flush();
                 ns.WriteAsync(data, 0, data.Length);
                 //ns.Close();
 
@@ -78,6 +77,7 @@ namespace LTMCB_Final.FunctionClass
                     mess += Encoding.UTF8.GetString(listBytes.ToArray());
                     if (mess != "")
                     {
+                        listBytes.Clear();
                         return mess;
                     }
                 }
