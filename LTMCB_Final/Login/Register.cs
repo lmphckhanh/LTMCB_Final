@@ -24,7 +24,32 @@ namespace LTMCB_Final.Login
             InitializeComponent();
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+    
+
+        private void dtpBirthDay_ValueChanged(object sender, EventArgs e)
+        {
+            tbBirthDay.Text = dtpBirthDay.Value.ToShortDateString();
+        }
+
+        private bool IsValidPhone(string phone)
+        {
+            return Regex.IsMatch(phone, @"^[0-9]{10,11}$");
+        }
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
+        string Encryption(string input) //Encrypting password
+        {
+            HashAlgorithm alg = SHA256.Create(); //use SHA256 Encryption
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input); //Turning input into byte array
+            byte[] hashBytes = alg.ComputeHash(inputBytes); //Hash byte array
+            string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
+            return HashPassword;
+        }
+
+        private void btnRegister_Click_1(object sender, EventArgs e)
         {
             if (tbUsername.Text == string.Empty)
             {
@@ -84,29 +109,5 @@ namespace LTMCB_Final.Login
             }
 
         }
-
-        private void dtpBirthDay_ValueChanged(object sender, EventArgs e)
-        {
-            tbBirthDay.Text = dtpBirthDay.Value.ToShortDateString();
-        }
-
-        private bool IsValidPhone(string phone)
-        {
-            return Regex.IsMatch(phone, @"^[0-9]{10,11}$");
-        }
-        private bool IsValidEmail(string email)
-        {
-            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, pattern);
-        }
-        string Encryption(string input) //Encrypting password
-        {
-            HashAlgorithm alg = SHA256.Create(); //use SHA256 Encryption
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input); //Turning input into byte array
-            byte[] hashBytes = alg.ComputeHash(inputBytes); //Hash byte array
-            string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
-            return HashPassword;
-        }
-
     }
 }

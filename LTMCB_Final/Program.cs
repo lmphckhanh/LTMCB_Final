@@ -1,4 +1,5 @@
 ﻿using LTMCB_Final.FunctionClass;
+using LTMCB_Final.Manager;
 
 namespace LTMCB_Final
 {
@@ -16,7 +17,7 @@ namespace LTMCB_Final
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ChonPhim());
+            Application.Run(new AddMovie());
 
 
         }

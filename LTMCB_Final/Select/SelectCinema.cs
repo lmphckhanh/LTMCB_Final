@@ -59,10 +59,7 @@ namespace LTMCB_Final
 
                 listView1.Items.Clear();
 
-                string query = $@"
-                SELECT 
-                FROM 
-                WHERE ";
+                string query = $@"GSELECT  ";
 
                 string response = tcp.SendAndRevceiveStr(query);
                 JArray cinemas = JArray.Parse(response);
@@ -86,10 +83,7 @@ namespace LTMCB_Final
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
+       
 
         private void button1_Click(object sender, EventArgs e)
         {

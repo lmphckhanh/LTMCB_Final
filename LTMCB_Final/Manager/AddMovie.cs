@@ -115,7 +115,7 @@ namespace LTMCB_Final.Manager
                 ListViewItem item = new ListViewItem(i.GetValue("MovieTypeName").ToString());
                 item.SubItems.Add(i.GetValue("MovieTypeID").ToString());
 
-                lsvCategory.Items.Add(item);
+                lsvMovieType.Items.Add(item);
             }
         }
 
