@@ -50,7 +50,7 @@ namespace LTMCB_Final.Manager
             }
 
 
-            string query = @"QSELECT * FROM dbo.Movie WHERE Name LIKE '%" + tbSearch + "%' AND MinAge >= " + cbAge.Text.Replace("+", "") + " AND Rate >= " + cbRate.Text.Replace("+", "") + " AND Status IN " + Status + ";";
+            string query = @"QSELECT * FROM dbo.Movie WHERE Name LIKE '%" + tbSearch.Text + "%' AND MinAge >= " + cbAge.Text.Replace("+", "") + " AND Rate >= " + cbRate.Text.Replace("+", "") + " AND Status IN " + Status + ";";
 
             string[] list = tcp.SendAndRevceiveStr(query).Split("<*>");
             JObject[] jlist = new JObject[list.Length - 1];
@@ -65,7 +65,6 @@ namespace LTMCB_Final.Manager
             {
                 string MovieID = i.GetValue("MovieID").ToString();
                 string url = i.GetValue("Image").ToString();
-                byte[] pic = tcp.SendAndRevceiveBytes("P" + i.GetValue("Status").ToString());
                 ListViewItem item = new ListViewItem(i.GetValue("Name").ToString());
                 item.SubItems.Add(MovieID);//1
                 item.SubItems.Add(i.GetValue("Director").ToString());//2
@@ -89,12 +88,15 @@ namespace LTMCB_Final.Manager
                 }
                 catch
                 {
-
+                    img = Image.FromFile(@"..\..\..\Resources\UIT.png");
                 }
-                
+                imagelist.Images.Add(MovieID,img);
+                item.ImageKey = MovieID;
+
 
                 lsvMovieList.Items.Add(item);
             }
+            jlist = null;
         }
 
         private void lsvMovieList_ItemActivate(object sender, EventArgs e)
@@ -115,7 +117,7 @@ namespace LTMCB_Final.Manager
         private void btnDeleteMovie_Click(object sender, EventArgs e)
         {
             string id = lsvMovieList.SelectedItems[0].SubItems[1].Text;
-            string query = @"CDELETE FROM dbo.Movie WHERE MovieID = '" + id + "';";
+            string query = @"CDELETE FROM dbo.MovieOnCat WHERE MovieID = '" + id + "'; DELETE FROM dbo.MovieOnType WHERE MovieID = '" + id + "'; DELETE FROM dbo.Movie WHERE MovieID = '" + id +"'";
 
             string rs = tcp.SendAndRevceiveStr(query);
             if (Int32.Parse(rs) > 0)
