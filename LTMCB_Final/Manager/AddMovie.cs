@@ -121,7 +121,7 @@ namespace LTMCB_Final.Manager
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            tbReleaseDay.Text = dtpReleaseDay.Value.ToShortDateString();
+            tbReleaseDay.Text = dtpReleaseDay.Value.ToString("MM/dd/yyyy");
         }
     }
 }

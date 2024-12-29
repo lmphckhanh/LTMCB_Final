@@ -58,7 +58,7 @@
             // 
             lsvCategory.CheckBoxes = true;
             lsvCategory.Location = new Point(426, 78);
-            lsvCategory.Margin = new Padding(2, 2, 2, 2);
+            lsvCategory.Margin = new Padding(2);
             lsvCategory.Name = "lsvCategory";
             lsvCategory.Size = new Size(186, 134);
             lsvCategory.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             lsvMovieType.CheckBoxes = true;
             lsvMovieType.Location = new Point(426, 267);
-            lsvMovieType.Margin = new Padding(2, 2, 2, 2);
+            lsvMovieType.Margin = new Padding(2);
             lsvMovieType.Name = "lsvMovieType";
             lsvMovieType.Size = new Size(186, 134);
             lsvMovieType.TabIndex = 1;
@@ -169,7 +169,7 @@
             // tbMovieID
             // 
             tbMovieID.Location = new Point(182, 86);
-            tbMovieID.Margin = new Padding(2, 2, 2, 2);
+            tbMovieID.Margin = new Padding(2);
             tbMovieID.Name = "tbMovieID";
             tbMovieID.Size = new Size(121, 27);
             tbMovieID.TabIndex = 11;
@@ -177,7 +177,7 @@
             // tbMovieName
             // 
             tbMovieName.Location = new Point(182, 113);
-            tbMovieName.Margin = new Padding(2, 2, 2, 2);
+            tbMovieName.Margin = new Padding(2);
             tbMovieName.Name = "tbMovieName";
             tbMovieName.Size = new Size(121, 27);
             tbMovieName.TabIndex = 13;
@@ -185,7 +185,7 @@
             // tbDirector
             // 
             tbDirector.Location = new Point(182, 142);
-            tbDirector.Margin = new Padding(2, 2, 2, 2);
+            tbDirector.Margin = new Padding(2);
             tbDirector.Name = "tbDirector";
             tbDirector.Size = new Size(121, 27);
             tbDirector.TabIndex = 14;
@@ -193,7 +193,7 @@
             // tbDuration
             // 
             tbDuration.Location = new Point(182, 176);
-            tbDuration.Margin = new Padding(2, 2, 2, 2);
+            tbDuration.Margin = new Padding(2);
             tbDuration.Name = "tbDuration";
             tbDuration.Size = new Size(121, 27);
             tbDuration.TabIndex = 15;
@@ -201,7 +201,7 @@
             // tbLang
             // 
             tbLang.Location = new Point(182, 242);
-            tbLang.Margin = new Padding(2, 2, 2, 2);
+            tbLang.Margin = new Padding(2);
             tbLang.Name = "tbLang";
             tbLang.Size = new Size(121, 27);
             tbLang.TabIndex = 18;
@@ -209,7 +209,7 @@
             // tbPoster
             // 
             tbPoster.Location = new Point(182, 314);
-            tbPoster.Margin = new Padding(2, 2, 2, 2);
+            tbPoster.Margin = new Padding(2);
             tbPoster.Name = "tbPoster";
             tbPoster.Size = new Size(121, 27);
             tbPoster.TabIndex = 19;
@@ -237,7 +237,7 @@
             // btnAdd
             // 
             btnAdd.Location = new Point(182, 402);
-            btnAdd.Margin = new Padding(2, 2, 2, 2);
+            btnAdd.Margin = new Padding(2);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(90, 27);
             btnAdd.TabIndex = 23;
@@ -250,7 +250,7 @@
             cbStatus.FormattingEnabled = true;
             cbStatus.Items.AddRange(new object[] { "Chưa công chiếu", "Công chiếu" });
             cbStatus.Location = new Point(182, 349);
-            cbStatus.Margin = new Padding(2, 2, 2, 2);
+            cbStatus.Margin = new Padding(2);
             cbStatus.Name = "cbStatus";
             cbStatus.Size = new Size(121, 28);
             cbStatus.TabIndex = 24;
@@ -258,16 +258,16 @@
             // dtpReleaseDay
             // 
             dtpReleaseDay.Location = new Point(306, 210);
-            dtpReleaseDay.Margin = new Padding(2, 2, 2, 2);
+            dtpReleaseDay.Margin = new Padding(2);
             dtpReleaseDay.Name = "dtpReleaseDay";
-            dtpReleaseDay.Size = new Size(23, 27);
+            dtpReleaseDay.Size = new Size(22, 27);
             dtpReleaseDay.TabIndex = 25;
             dtpReleaseDay.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // tbReleaseDay
             // 
             tbReleaseDay.Location = new Point(182, 210);
-            tbReleaseDay.Margin = new Padding(2, 2, 2, 2);
+            tbReleaseDay.Margin = new Padding(2);
             tbReleaseDay.Name = "tbReleaseDay";
             tbReleaseDay.Size = new Size(121, 27);
             tbReleaseDay.TabIndex = 26;
@@ -277,7 +277,7 @@
             cbMinAge.FormattingEnabled = true;
             cbMinAge.Items.AddRange(new object[] { "0+", "12+", "16+", "18+" });
             cbMinAge.Location = new Point(182, 281);
-            cbMinAge.Margin = new Padding(2, 2, 2, 2);
+            cbMinAge.Margin = new Padding(2);
             cbMinAge.Name = "cbMinAge";
             cbMinAge.Size = new Size(121, 28);
             cbMinAge.TabIndex = 27;
@@ -311,7 +311,7 @@
             Controls.Add(label1);
             Controls.Add(lsvMovieType);
             Controls.Add(lsvCategory);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "AddMovie";
             Text = "AddMovie";
             ResumeLayout(false);
