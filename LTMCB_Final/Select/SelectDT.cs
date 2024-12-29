@@ -118,10 +118,10 @@ namespace LTMCB_Final
                 return;
             }
 
-            string stID = lsvShowTimes.SelectedItems[0].SubItems[1].Text;
-            SelectSeat selectSeat = new SelectSeat(stID);
-            selectSeat.Show();
-            this.Close();
+            //string stID = lsvShowTimes.SelectedItems[0].SubItems[1].Text;
+            //SelectSeat selectSeat = new SelectSeat(stID);
+            //selectSeat.Show();
+            //this.Close();
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)

@@ -70,7 +70,6 @@ namespace LTMCB_Final
         // Tạo giao diện ghế
         private void GenerateSeats()
         {
-            groupBox1.Controls.Clear();
 
             int x = 10, y = 10;
             int buttonWidth = 60, buttonHeight = 60;
@@ -94,15 +93,11 @@ namespace LTMCB_Final
                 };
 
                 seatButton.Click += SeatButton_Click;
-                groupBox1.Controls.Add(seatButton);
+
                 seatButton.Location = new Point(x, y);
 
                 x += buttonWidth + padding;
-                if (x + buttonWidth > groupBox1.Width)
-                {
-                    x = 10;
-                    y += buttonHeight + padding;
-                }
+
             }
         }
 

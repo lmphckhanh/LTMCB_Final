@@ -133,24 +133,24 @@ CREATE TABLE Movie
 	Image NVARCHAR(MAX) NOT NULL, --8
 	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu --9
 )
-SELECT ST.ShowTimeID,ST.Date, S.Time FROM dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID	WHERE ST.Date >=  CONVERT(DATE,GETDATE()) AND S.Time >= CONVERT(DATE,GETDATE())
+
 CREATE TABLE MovieOnType
 (
 	MovieID VARCHAR(6) NOT NULL,
 	MovieTypeID VARCHAR(2) NOT NULL,
 )
 -----
---CREATE TABLE MovieOnCat
---(
---	MovieID VARCHAR(6) NOT NULL,
---	CategoryID VARCHAR(4) NOT NULL,
---)
-
-CREATE TABLE TypicalActor
+CREATE TABLE MovieOnCat
 (
 	MovieID VARCHAR(6) NOT NULL,
-	ActorName NVARCHAR(50) NOT NULL,
+	CategoryID VARCHAR(4) NOT NULL,
 )
+
+--CREATE TABLE TypicalActor
+--(
+--	MovieID VARCHAR(6) NOT NULL,
+--	ActorName NVARCHAR(50) NOT NULL,
+--)
 
 CREATE TABLE SlotType
 (
