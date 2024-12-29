@@ -20,7 +20,7 @@ namespace LTMCB_Final
 
         public static Bill instance;
         string BillID = "";
-        public string AccountID = "";
+        public string AccountID = login.AccountID;
 
         public Bill()
         {
@@ -60,7 +60,7 @@ namespace LTMCB_Final
                 lbRoom.Text = json.GetValue("RoomName").ToString() + " (" + json.GetValue("Col").ToString() + json.GetValue("Row").ToString();
                 lbAddress.Text = json.GetValue("Address").ToString();
             }
-            for (int i = 1; i < rs.Length; i++)
+            for (int i = 1; i < rs.Length - 1; i++)
             {
                 json = JObject.Parse(rs[i]);
                 lbRoom.Text += "," + json.GetValue("Col").ToString() + json.GetValue("Row").ToString();
@@ -69,8 +69,8 @@ namespace LTMCB_Final
 
             json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT TOP 1 Date, Time, TotalPrice FROM dbo.Bill WHERE BillID = '" + BillID + "';"));
 
-            lbTotal.Text = json.GetValue("TotalPrice").ToString();
-            lbDateTime.Text = json.GetValue("Date").ToString() + " " + json.GetValue("Time").ToString();
+            lbTotal.Text = json.GetValue("TotalPrice").ToString() + "VND";
+            lbDateTime.Text = json.GetValue("Date").ToString().Split(" ")[0] + " " + json.GetValue("Time").ToString().Split(".")[0];
         }
 
         private void btnExit_Click(object sender, EventArgs e)

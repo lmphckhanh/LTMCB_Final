@@ -53,11 +53,6 @@ namespace LTMCB_Final
             {
                 SendEmail(email, verificationCode);
                 MessageBox.Show("Mã xác nhận đã được gửi đến email của bạn.", "Thông báo");
-
-                // Mở Form nhập mã xác nhận và mật khẩu mới
-                LTMCB_Final.Login.ResetPw resetForm = new LTMCB_Final.Login.ResetPw(email, verificationCode);
-                resetForm.ShowDialog();
-                this.Close();
             }
             catch (Exception ex)
             {
@@ -68,16 +63,8 @@ namespace LTMCB_Final
         // Hàm kiểm tra email có tồn tại trong cơ sở dữ liệu
         private bool IsEmailRegistered(string email)
         {
-            string rs = tcp.SendAndRevceiveStr(@"SELECT TOP 1 * FROM dbo.Account WHERE Email = '';");
-            try
-            {
-                JObject js = JObject.Parse(rs);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            string rs = tcp.SendAndRevceiveStr(@"GSELECT TOP 1 AccountID FROM dbo.Account WHERE Email = '" + tbEmail.Text + "';");
+            return !string.IsNullOrEmpty(rs);
         }
         private void SendEmail(string toEmail, string code)
         {
@@ -86,7 +73,7 @@ namespace LTMCB_Final
                 var from = new MailAddress("lekhoi323@gmail.com");
                 var to = new MailAddress(toEmail);
                 string pass = "llfj qmft ydtb tvrd";
-                string subject = "Test";
+                string subject = "Đặt lại mật khẩu";
                 string body = code;
 
                 var smtp = new SmtpClient
@@ -113,7 +100,21 @@ namespace LTMCB_Final
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                //MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (tbCode.Text == verificationCode)
+            {
+                ResetPw rs = new ResetPw(tbEmail.Text);
+                rs.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Mã xác nhận không chính xác!", "Lỗi");
             }
         }
     }

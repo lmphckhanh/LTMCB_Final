@@ -21,7 +21,7 @@ namespace LTMCB_Final
     {
         public static ListBill instance;
         public string selectedBill;
-        string AccountID = "";
+        string AccountID = login.AccountID;
         string BillStatus = "(0,1)";
         ClientTcpConnection tcp = Program.tcpConnection;
         public ListBill()
@@ -115,6 +115,7 @@ namespace LTMCB_Final
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            lsvList.Items.Clear();
             LoadBillList();
         }
 
@@ -149,6 +150,7 @@ namespace LTMCB_Final
                     {
                         //Thành công
                         MessageBox.Show("Hủy vé thành công!\nBạn sẽ được hoàn tiền trong thời gian sớm nhất", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lsvList.Items.Clear();
                         LoadBillList();
                     }
                     else
@@ -166,8 +168,13 @@ namespace LTMCB_Final
             }
             catch (Exception ex)
             {
-                
+
             }
+        }
+
+        private void lsvList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

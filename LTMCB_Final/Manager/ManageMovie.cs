@@ -136,7 +136,24 @@ namespace LTMCB_Final.Manager
 
         }
 
-        
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            lsvMovieList.Items.Clear();
+            LoadMovieList();
+        }
+
+        private void btnAddMovie_Click(object sender, EventArgs e)
+        {
+            AddMovie addMovie = new AddMovie();
+            addMovie.ShowDialog();
+        }
+
+        private void ManageMovie_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ChonPhim chonPhim = new ChonPhim();
+            chonPhim.Show();
+            this.Hide();
+        }
     }
 }
   

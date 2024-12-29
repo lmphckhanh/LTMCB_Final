@@ -16,8 +16,8 @@ namespace LTMCB_Final
             poster = new PictureBox();
             poster.SizeMode = PictureBoxSizeMode.StretchImage; // Điều chỉnh cách hiển thị ảnh
             this.Controls.Add(poster); // Thêm PictureBox vào UserControl
-            poster.Location = new Point(40, 10);
-            poster.Size = new Size(100, 150); // Kích thước của poster (có thể điều chỉnh)
+            poster.Location = new Point(45, 10);
+            poster.Size = new Size(140, 203); // Kích thước của poster (có thể điều chỉnh)231, 319
             lbName.Text = title;
 
             // Optional: Initialize a loading label or progress bar
@@ -97,20 +97,26 @@ namespace LTMCB_Final
 
         private void lbName_Click(object sender, EventArgs e)
         {
-
+            MovieInfo movieInfo = new MovieInfo(ID);
+            movieInfo.ShowDialog();
         }
 
         private void btnBook_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            Movie selectedMovie = button.Tag as Movie; // Lấy thông tin phim từ nút
+            //Movie selectedMovie = button.Tag as Movie; // Lấy thông tin phim từ nút
 
             // Mở form đặt vé và truyền thông tin phim
-            SelectCinema datVeForm = new SelectCinema();
+            SelectDT datVeForm = new SelectDT(ID);
             datVeForm.Show(); // Hiển thị form đặt vé
         }
 
         private void movielistitem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void movielistitem_DoubleClick(object sender, EventArgs e)
         {
 
         }

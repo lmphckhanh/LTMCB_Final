@@ -38,6 +38,7 @@
             // 
             lbName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lbName.AutoSize = true;
+            lbName.Cursor = Cursors.Hand;
             lbName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbName.ForeColor = Color.Red;
             lbName.Location = new Point(4, 0);
@@ -52,8 +53,9 @@
             // btnBook
             // 
             btnBook.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnBook.Cursor = Cursors.Hand;
             btnBook.Location = new Point(4, 66);
-            btnBook.Margin = new Padding(4, 4, 4, 4);
+            btnBook.Margin = new Padding(4);
             btnBook.Name = "btnBook";
             btnBook.Size = new Size(217, 54);
             btnBook.TabIndex = 1;
@@ -68,7 +70,7 @@
             tableLayoutPanel1.Controls.Add(lbName, 0, 0);
             tableLayoutPanel1.Controls.Add(btnBook, 0, 1);
             tableLayoutPanel1.Location = new Point(4, 194);
-            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -82,10 +84,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             Controls.Add(tableLayoutPanel1);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "movielistitem";
             Size = new Size(231, 319);
             Click += movielistitem_Click;
+            DoubleClick += movielistitem_DoubleClick;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

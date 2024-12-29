@@ -26,11 +26,11 @@ namespace LTMCB_Final
         public SelectDT(string MovieID)
         {
             InitializeComponent();
-            imagelist.Images.Add("UIT", Image.FromFile(@"../../../Resources"));
+            imagelist.Images.Add("UIT", Image.FromFile(@"../../../Resources/UIT.png"));
             lsvShowTimes.LargeImageList = imagelist;
-            MovieID = MovieID;
+            this.MovieID = MovieID;
             LoadCinema();
-            LoadShowTimes();
+            //LoadShowTimes();
         }
 
         // Tải danh sách khung giờ
@@ -38,16 +38,17 @@ namespace LTMCB_Final
         {
             string cinema = "";
             string selectedDate = "";
-            string query = @"QSELECT ST.ShowTimeID, ST.Date, S.Time FROM (dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID) JOIN dbo.RoomInCinema RC ON RC.RoomID = ST.RoomID WHERE ST.MovieID = '" + MovieID + "' AND S.Time >= CONVERT(VARCHAR(20),CONVERT(TIME,GETDATE()))"; 
+            string headquery = @"QSELECT ST.ShowTimeID, ST.Date, S.Time FROM (dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID) JOIN dbo.RoomInCinema RC ON RC.RoomID = ST.RoomID WHERE ST.MovieID = '" + MovieID +"'";
+            string query = "";
             //" AND RC.CinemaID = '" + cinema + "' AND ST.Date >=  CONVERT(VARCHAR(20),GETDATE())";
 
-            if (!string.IsNullOrEmpty(tbDate.Text))
+            if (string.IsNullOrEmpty(tbDate.Text))
             {
-                query += @" AND ST.Date >=  CONVERT(VARCHAR(20),GETDATE())";
+                query += headquery + @" AND CAST(ST.Date as DATETIME) + CAST(S.Time as DATETIME) >= GETDATE()";
             }
             else
             {
-                query += @" AND ST.Date = '" + tbDate.Text + "'";
+                query += headquery + @" AND ST.Date = '" + tbDate.Text + "'";
             }
 
             if (!string.IsNullOrEmpty(tbCinema.Text))
@@ -60,19 +61,23 @@ namespace LTMCB_Final
             {
 
                 string[] response = tcp.SendAndRevceiveStr(query).Split("<*>");
-                JObject[] jlsit = new JObject[response.Length - 1];
 
-                for(int i = 0; i < jlist.Length; i++)
+                JObject[] list = new JObject[response.Length - 1];
+
+                if (string.IsNullOrEmpty(response[0])) return;
+
+                for (int i = 0; i < response.Length - 1; i++)
                 {
-                    jlist[i] = JObject.Parse(response[i]);
+                    list[i] = JObject.Parse(response[i]);
                 }
-                foreach (var i in jlist)
+                foreach (var i in list)
                 {
                     string date = i.GetValue("Date").ToString();
                     string time = i.GetValue("Time").ToString();
-                    ListViewItem item = new ListViewItem(date + "\n" + time);
+                    ListViewItem item = new ListViewItem(date.Split(" ")[0] + "\n" + time);
                     item.SubItems.Add(i.GetValue("ShowTimeID").ToString());
                     item.ImageKey = "UIT";
+                    lsvShowTimes.Items.Add(item);
                 }
 
             }
@@ -85,7 +90,7 @@ namespace LTMCB_Final
         // Tải thông tin phim
         private void LoadCinema()
         {
-            string query = @"SELECT * FROM dbo.Cinema;";
+            string query = @"QSELECT * FROM dbo.Cinema;";
             string[] list = tcp.SendAndRevceiveStr(query).Split("<*>");
             jlist = new JObject[list.Length - 1];
 
@@ -114,7 +119,7 @@ namespace LTMCB_Final
             //Next
             if (lsvShowTimes.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn ca chiếu","Lỗi",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn ca chiếu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -133,6 +138,16 @@ namespace LTMCB_Final
         {
             tbCinema.Text = jlist[cbCinema.SelectedIndex].GetValue("CinemaID").ToString();
             tbAddress.Text = jlist[cbCinema.SelectedIndex].GetValue("Address").ToString();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            lsvShowTimes.Items.Clear();
+            if (string.IsNullOrEmpty(tbCinema.Text))
+            {
+                return;
+            }
+            LoadShowTimes();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Azure;
 using LTMCB_Final.FunctionClass;
+using LTMCB_Final.Login;
+using LTMCB_Final.Manager;
 using LTMCB_Final.Momo;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
@@ -24,36 +26,31 @@ namespace LTMCB_Final
         {
             InitializeComponent();
             LoadInfo();
+            if (login.RoleID == "QL")
+            {
+                btnListBill.Text = "Quản lý hóa đơn";
+            }
         }
 
-      
+
 
         public AccountInfo(string id)
         {
             InitializeComponent();
-           
-            LoadInfo(); 
+
+            LoadInfo();
         }
         private void LoadInfo()
         {
 
-            string id = login.AccountID;
             try
             {
 
-                string query = @"GSELECT TOP 1 Name, Phone, Email FROM dbo.Account WHERE AccountID = '" + id + "';";
-                string rs = tcp.SendAndRevceiveStr(query);
-                if (string.IsNullOrEmpty(rs))
-                {
-                    MessageBox.Show("Không thể tải thông tin tài khoản. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                
-                
-                    JObject json = new JObject();
+                string query = @"GSELECT TOP 1 Name, Phone, Email FROM dbo.Account WHERE AccountID = '" + AccountID + "';";
+                JObject json = new JObject();
                 try
                 {
-                    json = JObject.Parse(rs);
+                    json = JObject.Parse(tcp.SendAndRevceiveStr(query));
                 }
                 catch (Exception)
                 {
@@ -61,10 +58,10 @@ namespace LTMCB_Final
                     return;
                 }
 
-                    lblName.Text = json.GetValue("Name").ToString();
-                    lblPhoneNumber.Text = json.GetValue("Phone").ToString();
-                    lblEmail.Text = json.GetValue("Email").ToString();                
-             }
+                lblName.Text = json.GetValue("Name").ToString();
+                lblPhoneNumber.Text = json.GetValue("Phone").ToString();
+                lblEmail.Text = json.GetValue("Email").ToString();
+            }
 
             catch (Exception ex)
             {
@@ -82,12 +79,29 @@ namespace LTMCB_Final
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Edit_Info edit_Info = new Edit_Info();
-            edit_Info.Show();
+            ResetPw reset = new ResetPw();
+            reset.ShowDialog();
         }
 
         private void lblName_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnListBill_Click(object sender, EventArgs e)
+        {
+            if(login.RoleID == "QL")
+            {
+                ListBillforManager list = new ListBillforManager();
+                list.Show();
+                this.Hide();
+            }
+            else
+            {
+                ListBill listBill = new ListBill();
+                listBill.Show();
+                this.Hide();
+            }
 
         }
     }

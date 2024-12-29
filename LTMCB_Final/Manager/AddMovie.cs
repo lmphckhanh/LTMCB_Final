@@ -74,6 +74,7 @@ namespace LTMCB_Final.Manager
             if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
             {
                 MessageBox.Show("Thêm phim thành công!", "Thành công");
+                tbDirector.Text = tbDuration.Text = tbLang.Text = tbMovieID.Text = tbMovieName.Text = tbPoster.Text = tbReleaseDay.Text = string.Empty;
             }
             else
             {

@@ -99,13 +99,13 @@ namespace LTMCB_Final.Login
             string AccountId = Guid.NewGuid().ToString();
             string pass = Encryption(tbPassword.Text);
             string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + AccountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', '" + tbBirthDay.Text + "',DEFAULT);";
-            string rs = tcp.SendAndRevceiveStr(query);
-            
-            JObject json = new JObject();
 
             if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
             {
                 MessageBox.Show("Đăng Ký thành công!", "Thành công");
+                login login = new login();
+                login.Show();
+                this.Hide();
             }
             else
             {
@@ -113,13 +113,34 @@ namespace LTMCB_Final.Login
             }
 
 
-        
+
 
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();    
+            login login = new login();
+            login.Show();
+            this.Hide();
+        }
+
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            if (tbPassword.UseSystemPasswordChar && tbConfirmPassword.UseSystemPasswordChar)
+            {
+                tbConfirmPassword.UseSystemPasswordChar = false;
+                tbPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbConfirmPassword.UseSystemPasswordChar = true;
+                tbPassword.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void Register_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

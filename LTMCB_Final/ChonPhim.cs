@@ -5,6 +5,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using LTMCB_Final.FunctionClass;
 using Newtonsoft.Json.Linq;
+using System.Collections;
+using System.CodeDom;
+using LTMCB_Final.Manager;
 
 
 namespace LTMCB_Final
@@ -19,6 +22,16 @@ namespace LTMCB_Final
         public ChonPhim()
         {
             InitializeComponent();
+            if (login.RoleID == "QL")
+            {
+                btnManage.Visible = true;
+                btnManage.Enabled = true;
+            }
+            else
+            {
+                btnManage.Visible = false;
+                btnManage.Enabled = false;
+            }
         }
 
         public List<Movie> movies;
@@ -30,13 +43,13 @@ namespace LTMCB_Final
             LoadCategories();
 
         }
-      
+
         private void LoadCategories()
         {
             try
             {
                 // Truy vấn SQL lấy danh sách thể loại
-                string query = @"QSELECT  CategoryName FROM dbo.Category;"; // Thay đổi với câu truy vấn thực tế
+                string query = @"QSELECT CategoryName FROM dbo.Category;"; // Thay đổi với câu truy vấn thực tế
                 string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>"); // Tách dữ liệu từ phản hồi
 
                 JObject[] jlist = new JObject[rs.Length - 1]; // Khởi tạo mảng JObject
@@ -51,10 +64,10 @@ namespace LTMCB_Final
                 foreach (var item in jlist)
                 {
                     string categoryName = item.GetValue("CategoryName").ToString();
-                  
+
 
                     comboBox1.Items.Add(categoryName);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -70,9 +83,16 @@ namespace LTMCB_Final
             {
                 try
                 {
+                    string query = "";
                     movies = new List<Movie>();
-
-                    string query = @"QSELECT MovieID, Name, Image FROM dbo.Movie";
+                    if (comboBox1.Text == string.Empty)
+                    {
+                        query = @"QSELECT MovieID, Name, Image FROM dbo.Movie;";
+                    }
+                    else
+                    {
+                        query = @"QSELECT DISTINCT M.MovieID, M.Name, M.Image FROM (dbo.Movie M JOIN dbo.MovieOnCat MC ON MC.MovieID = M.MovieID) JOIN dbo.Category C ON C.CategoryID = MC.CategoryID WHERE C.CategoryName =  N'" + comboBox1.Text + "';";
+                    }
                     string[] rs = tcp.SendAndRevceiveStr(query).Split("<*>");
                     JObject[] jlist = new JObject[rs.Length - 1];
                     for (int i = 0; i < rs.Length - 1; i++)
@@ -111,7 +131,8 @@ namespace LTMCB_Final
                     movielistitem listItem = new movielistitem(movie.Name)
                     {
                         Title = movie.Name,
-                        URL = movie.Image
+                        URL = movie.Image,
+                        ID = movie.ID
                     };
 
                     // Add a booking button
@@ -162,7 +183,34 @@ namespace LTMCB_Final
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadMovies();
+        }
+
+        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            comboBox1.Text = string.Empty;
+        }
+
+        private void btnManage_Click(object sender, EventArgs e)
+        {
+            ManageMovie manage = new ManageMovie();
+            manage.Show();
+            this.Hide();
+        }
+
+        private void ChonPhim_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 

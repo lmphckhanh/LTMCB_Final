@@ -55,48 +55,62 @@
             lsvList.Columns.AddRange(new ColumnHeader[] { STT, BillID, MovieName, Price, Date, Time, Status });
             lsvList.Font = new Font("Times New Roman", 13.8F);
             lsvList.ForeColor = Color.MidnightBlue;
-            lsvList.Location = new Point(18, 131);
+            lsvList.FullRowSelect = true;
+            lsvList.Location = new Point(22, 164);
             lsvList.Margin = new Padding(2);
             lsvList.MultiSelect = false;
             lsvList.Name = "lsvList";
-            lsvList.Size = new Size(618, 371);
+            lsvList.Size = new Size(1190, 463);
             lsvList.TabIndex = 0;
             lsvList.UseCompatibleStateImageBehavior = false;
+            lsvList.View = View.Details;
             lsvList.ItemActivate += lsvList_ItemActivate;
+            lsvList.SelectedIndexChanged += lsvList_SelectedIndexChanged;
+            // 
+            // STT
+            // 
+            STT.Text = "STT";
             // 
             // BillID
             // 
             BillID.Text = "Mã hóa đơn";
+            BillID.Width = 150;
             // 
             // MovieName
             // 
             MovieName.Text = "Tên phim";
+            MovieName.Width = 300;
             // 
             // Price
             // 
             Price.Text = "Tổng tiền";
+            Price.Width = 200;
             // 
             // Date
             // 
             Date.Text = "Ngày";
+            Date.Width = 150;
             // 
             // Time
             // 
             Time.Text = "Giờ";
+            Time.Width = 150;
             // 
             // Status
             // 
             Status.Text = "Trạng thái";
+            Status.Width = 200;
             // 
             // btnRefresh
             // 
             btnRefresh.BackColor = Color.CornflowerBlue;
+            btnRefresh.Cursor = Cursors.Hand;
             btnRefresh.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(526, 76);
+            btnRefresh.Location = new Point(1074, 90);
             btnRefresh.Margin = new Padding(2);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(110, 50);
+            btnRefresh.Size = new Size(138, 62);
             btnRefresh.TabIndex = 1;
             btnRefresh.Text = "Làm mới";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -107,10 +121,10 @@
             btnDeleteBill.BackColor = Color.CornflowerBlue;
             btnDeleteBill.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold);
             btnDeleteBill.ForeColor = Color.White;
-            btnDeleteBill.Location = new Point(526, 506);
+            btnDeleteBill.Location = new Point(1074, 631);
             btnDeleteBill.Margin = new Padding(2);
             btnDeleteBill.Name = "btnDeleteBill";
-            btnDeleteBill.Size = new Size(110, 50);
+            btnDeleteBill.Size = new Size(138, 62);
             btnDeleteBill.TabIndex = 2;
             btnDeleteBill.Text = "Hủy vé";
             btnDeleteBill.UseVisualStyleBackColor = false;
@@ -121,10 +135,10 @@
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.MidnightBlue;
-            label1.Location = new Point(18, 20);
+            label1.Location = new Point(22, 25);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(246, 32);
+            label1.Size = new Size(284, 37);
             label1.TabIndex = 3;
             label1.Text = "Danh sách hóa đơn";
             // 
@@ -132,10 +146,10 @@
             // 
             dtpFrom.Font = new Font("Times New Roman", 13.8F);
             dtpFrom.Format = DateTimePickerFormat.Short;
-            dtpFrom.Location = new Point(116, 93);
+            dtpFrom.Location = new Point(233, 113);
             dtpFrom.Margin = new Padding(2);
             dtpFrom.Name = "dtpFrom";
-            dtpFrom.Size = new Size(24, 34);
+            dtpFrom.Size = new Size(29, 39);
             dtpFrom.TabIndex = 4;
             dtpFrom.ValueChanged += dtpFrom_ValueChanged;
             // 
@@ -144,10 +158,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 13.8F);
             label2.ForeColor = Color.MidnightBlue;
-            label2.Location = new Point(18, 65);
+            label2.Location = new Point(36, 78);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(88, 26);
+            label2.Size = new Size(105, 33);
             label2.TabIndex = 6;
             label2.Text = "Từ ngày";
             // 
@@ -156,10 +170,10 @@
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 13.8F);
             label3.ForeColor = Color.MidnightBlue;
-            label3.Location = new Point(206, 65);
+            label3.Location = new Point(266, 79);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(101, 26);
+            label3.Size = new Size(120, 33);
             label3.TabIndex = 7;
             label3.Text = "Đến ngày";
             // 
@@ -167,10 +181,10 @@
             // 
             dtpTo.Font = new Font("Times New Roman", 13.8F);
             dtpTo.Format = DateTimePickerFormat.Short;
-            dtpTo.Location = new Point(302, 93);
+            dtpTo.Location = new Point(460, 114);
             dtpTo.Margin = new Padding(2);
             dtpTo.Name = "dtpTo";
-            dtpTo.Size = new Size(24, 34);
+            dtpTo.Size = new Size(29, 39);
             dtpTo.TabIndex = 8;
             dtpTo.ValueChanged += dtpTo_ValueChanged;
             // 
@@ -178,24 +192,24 @@
             // 
             tbDateFrom.Font = new Font("Times New Roman", 13.8F);
             tbDateFrom.ForeColor = Color.MidnightBlue;
-            tbDateFrom.Location = new Point(18, 93);
+            tbDateFrom.Location = new Point(36, 113);
             tbDateFrom.Margin = new Padding(2);
             tbDateFrom.Name = "tbDateFrom";
             tbDateFrom.PlaceholderText = "mm/dd/yyyy";
             tbDateFrom.ReadOnly = true;
-            tbDateFrom.Size = new Size(94, 34);
+            tbDateFrom.Size = new Size(193, 39);
             tbDateFrom.TabIndex = 9;
             // 
             // tbDateTo
             // 
             tbDateTo.Font = new Font("Times New Roman", 13.8F);
             tbDateTo.ForeColor = Color.MidnightBlue;
-            tbDateTo.Location = new Point(206, 93);
+            tbDateTo.Location = new Point(266, 114);
             tbDateTo.Margin = new Padding(2);
             tbDateTo.Name = "tbDateTo";
             tbDateTo.PlaceholderText = "mm/dd/yyyy";
             tbDateTo.ReadOnly = true;
-            tbDateTo.Size = new Size(92, 34);
+            tbDateTo.Size = new Size(190, 39);
             tbDateTo.TabIndex = 10;
             // 
             // cbBillStatus
@@ -204,10 +218,10 @@
             cbBillStatus.ForeColor = Color.MidnightBlue;
             cbBillStatus.FormattingEnabled = true;
             cbBillStatus.Items.AddRange(new object[] { "Còn hiệu lực", "Hết hiệu lực", "Tất cả" });
-            cbBillStatus.Location = new Point(356, 92);
+            cbBillStatus.Location = new Point(565, 111);
             cbBillStatus.Margin = new Padding(2);
             cbBillStatus.Name = "cbBillStatus";
-            cbBillStatus.Size = new Size(146, 34);
+            cbBillStatus.Size = new Size(182, 41);
             cbBillStatus.TabIndex = 11;
             // 
             // label4
@@ -215,22 +229,23 @@
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.8F);
             label4.ForeColor = Color.MidnightBlue;
-            label4.Location = new Point(356, 64);
+            label4.Location = new Point(565, 76);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(106, 26);
+            label4.Size = new Size(127, 33);
             label4.TabIndex = 12;
             label4.Text = "Trạng thái";
             // 
             // btnClearDate
             // 
             btnClearDate.BackColor = Color.Salmon;
+            btnClearDate.Cursor = Cursors.Hand;
             btnClearDate.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnClearDate.ForeColor = Color.Black;
-            btnClearDate.Location = new Point(144, 93);
+            btnClearDate.Location = new Point(504, 111);
             btnClearDate.Margin = new Padding(2);
             btnClearDate.Name = "btnClearDate";
-            btnClearDate.Size = new Size(34, 34);
+            btnClearDate.Size = new Size(42, 42);
             btnClearDate.TabIndex = 13;
             btnClearDate.Text = "[x]";
             btnClearDate.UseVisualStyleBackColor = false;
@@ -238,10 +253,10 @@
             // 
             // ListBill
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
-            ClientSize = new Size(647, 567);
+            ClientSize = new Size(1223, 709);
             Controls.Add(btnClearDate);
             Controls.Add(label4);
             Controls.Add(cbBillStatus);
@@ -257,6 +272,7 @@
             Controls.Add(lsvList);
             Margin = new Padding(2);
             Name = "ListBill";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ListBill";
             ResumeLayout(false);
             PerformLayout();

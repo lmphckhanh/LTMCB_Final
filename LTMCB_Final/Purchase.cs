@@ -22,7 +22,7 @@ namespace LTMCB_Final
         ClientTcpConnection tcp = Program.tcpConnection;
         public MomoInfo momo = new MomoInfo();
         string[] Ticket; //List Tickets from previous step
-        string AccountID = "Account1";//login.AccountID; //Current Logged in account
+        string AccountID = login.AccountID; //Current Logged in account
 
         public Purchase(List<string> listTicket)
         {
@@ -49,7 +49,7 @@ namespace LTMCB_Final
             momo.storeId = jMomo.GetValue("storeId").ToString();
             momo.partnerName = jMomo.GetValue("partnerName").ToString();
             momo.amount = lbTotal.Text;
-            momo.orderInfo = lbCustomer.Text + "thanh toán";
+            momo.orderInfo = lbCustomer.Text + " thanh toán";
 
             Payment();
         }
@@ -154,11 +154,13 @@ namespace LTMCB_Final
                         {
                             MessageBox.Show("Đã xảy ra lỗi, bạn sẽ được hoàn tiền trong thời gian sớm nhất!\n Chân thành xin lỗi vì sự cố này!"
                                     , "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                            //refund
+
+                            MomoRequest.Refund(accessKey, transId, Int64.Parse(amount));
+                            return;
                         }
-                        MessageBox.Show("Đặt vé thành công!\nChân thành cảm ơn quý khách.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
+                    MessageBox.Show("Đặt vé thành công!\nChân thành cảm ơn quý khách.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
                 catch (Exception ex)
@@ -198,7 +200,7 @@ namespace LTMCB_Final
                 list += ")";
 
                 json = JObject.Parse(tcp.SendAndRevceiveStr(@"GSELECT SUM(SLT.Price) AS Price FROM ((dbo.Ticket TK JOIN dbo.ShowTimes ST ON ST.ShowTimeID = TK.ShowTimeID) JOIN dbo.Slot Sl ON Sl.SlotID = TK.SlotID) JOIN dbo.SlotType SlT ON SlT.SlotTypeID = Sl.SlotTypeID WHERE TK.TicketID IN " + list + ";"));
-                lbTotal.Text = json.GetValue("Price").ToString();
+                lbTotal.Text = json.GetValue("Price").ToString() + " VND";
             }
         }
     }

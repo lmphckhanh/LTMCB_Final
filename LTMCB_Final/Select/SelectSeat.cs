@@ -39,7 +39,7 @@ namespace LTMCB_Final
             List<string> BookedSlot = new List<string>();
             try
             {
-                string query = @"QSELECT T.SlotID, R.RoomID, R.RoomName FROM (dbo.Ticket T JOIN dbo.SlotInRoom SR ON SR.SlotID = T.SlotID) JOIN dbo.Room R ON R.RoomID = SR.RoomID WHERE T.ShowTimeID = " + ShowTimeID +";";
+                string query = @"QSELECT T.SlotID FROM (dbo.Ticket T JOIN dbo.SlotInRoom SR ON SR.SlotID = T.SlotID) JOIN dbo.Room R ON R.RoomID = SR.RoomID WHERE T.ShowTimeID = " + ShowTimeID +";";
 
                 string[] response = tcp.SendAndRevceiveStr(query).Split("<*>");
                 JObject[] seats = new JObject[response.Length - 1];
@@ -49,8 +49,8 @@ namespace LTMCB_Final
                 }
                 if (seats.Length > 0)
                 {
-                    roomID = seats[0].GetValue("RoomID").ToString();
-                    roomName = seats[1].GetValue("RoomName").ToString();
+                    //roomID = seats[0].GetValue("RoomID").ToString();
+                    //roomName = seats[0].GetValue("RoomName").ToString();
 
                     foreach (var i in seats)
                     {

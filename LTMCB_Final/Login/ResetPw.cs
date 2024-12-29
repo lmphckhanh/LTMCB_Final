@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using LTMCB_Final.FunctionClass;
 using Newtonsoft.Json.Linq;
+using System.Security.Cryptography;
 
 namespace LTMCB_Final.Login
 {
@@ -17,25 +18,22 @@ namespace LTMCB_Final.Login
     {
         private ClientTcpConnection tcp = Program.tcpConnection;
         private string userEmail;
-        private string verificationCode;
-        public ResetPw(string email, string code)
+        private string AccountID = login.AccountID;
+        public ResetPw()
+        {
+            InitializeComponent();
+        }
+        public ResetPw(string email)
         {
             InitializeComponent();
             userEmail = email;
-            verificationCode = code;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string inputCode = textBox1.Text.Trim();
             string newPassword = textBox2.Text.Trim();
             string confirmPassword = textBox3.Text.Trim();
 
-            if (inputCode != verificationCode)
-            {
-                MessageBox.Show("Mã xác nhận không chính xác!", "Lỗi");
-                return;
-            }
 
             if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
             {
@@ -50,32 +48,74 @@ namespace LTMCB_Final.Login
             }
 
             // Cập nhật mật khẩu mới vào database
-            if (UpdatePassword(userEmail, newPassword))
+            if (string.IsNullOrEmpty(AccountID))
             {
-                MessageBox.Show("Mật khẩu đã được cập nhật thành công!", "Thông báo");
-                this.Close();
+                if (UpdatePassword(userEmail, newPassword))
+                {
+                    MessageBox.Show("Mật khẩu đã được cập nhật thành công!", "Thông báo");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật mật khẩu thất bại. Vui lòng thử lại sau!", "Lỗi");
+                }
             }
             else
             {
-                MessageBox.Show("Cập nhật mật khẩu thất bại. Vui lòng thử lại sau!", "Lỗi");
+                if (UpdatePassword2(AccountID, newPassword))
+                {
+                    MessageBox.Show("Mật khẩu đã được cập nhật thành công!", "Thông báo");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật mật khẩu thất bại. Vui lòng thử lại sau!", "Lỗi");
+                }
             }
+
         }
 
         private bool UpdatePassword(string email, string newPassword)
         {
+            string pass = Encryption(newPassword);
             try
             {
-                string query = $"UPDATE dbo.Account SET Password = '{newPassword}' WHERE Email = '{email}'";
-                string response = tcp.SendAndRevceiveStr(query);
-                JObject jsonResponse = JObject.Parse(response);
-                string status = jsonResponse["status"].ToString();
-                return status == "success";
+                string query = $"CUPDATE dbo.Account SET Password = '{pass}' WHERE Email = '{email}'";
+                if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
+                {
+                    return true;
+                }
+                else return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi cập nhật mật khẩu: {ex.Message}", "Lỗi");
                 return false;
             }
+        }
+        private bool UpdatePassword2(string account, string newPassword)
+        {
+            string pass = Encryption(newPassword);
+            try
+            {
+                string query = $"CUPDATE dbo.Account SET Password = '{pass}' WHERE AccountID = '{AccountID}'";
+                if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        string Encryption(string input) //Encrypting password
+        {
+            HashAlgorithm alg = SHA256.Create(); //use SHA256 Encryption
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input); //Turning input into byte array
+            byte[] hashBytes = alg.ComputeHash(inputBytes); //Hash byte array
+            string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
+            return HashPassword;
         }
     }
 }

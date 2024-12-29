@@ -23,7 +23,7 @@ namespace LTMCB_Final
         public login()
         {
             InitializeComponent();
-            Loadinfo();
+            //Loadinfo();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace LTMCB_Final
 
             if (string.IsNullOrEmpty(num) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.", "Lỗi");
+                MessageBox.Show("Số điện thoại và mật khẩu không không được để trống!.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -44,18 +44,19 @@ namespace LTMCB_Final
             {
                 json = JObject.Parse(rs);
                 AccountID = json.GetValue("AccountID").ToString();
-                MessageBox.Show("Đăng Nhập Thành Công");
+                RoleID = json.GetValue("RoleID").ToString();
+                //MessageBox.Show("Đăng Nhập Thành Công");
                 this.Hide();
                 ChonPhim chonPhim = new ChonPhim();
                 chonPhim.Show();
-                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Đăng Nhập Thất Bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-           
+
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -67,7 +68,8 @@ namespace LTMCB_Final
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Register registerForm = new Register();
-            registerForm.ShowDialog();
+            registerForm.Show();
+            this.Hide();
         }
         string Encryption(string input) //Encrypting password
         {
@@ -77,26 +79,15 @@ namespace LTMCB_Final
             string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
             return HashPassword;
         }
-        private void Loadinfo()
+
+        private void btnShowPass_Click(object sender, EventArgs e)
         {
+            pw.UseSystemPasswordChar = !pw.UseSystemPasswordChar;
+        }
 
-            string num = phone.Text.Trim();
-            string password = Encryption(pw.Text.Trim());
-
-            string query = @"GSELECT TOP 1 RoleID, AccountID FROM dbo.Account WHERE Phone = '" + num + "' AND Password = '" + password + "';";
-            string rs = tcp.SendAndRevceiveStr(query);
-            JObject json = new JObject();
-            try
-            {
-                json = JObject.Parse(rs);
-              
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Tải thông tin người dùng thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+        private void login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

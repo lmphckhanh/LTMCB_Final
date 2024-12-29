@@ -23,6 +23,7 @@ namespace LTMCB_Final.Manager
         {
             InitializeComponent();
             cbBillStatus.SelectedIndex = 2;
+            LoadBillList();
 
         }
         void LoadBillList()
@@ -46,14 +47,15 @@ namespace LTMCB_Final.Manager
             }
             if (tbDateFrom.Text.IsNullOrEmpty() && tbDateTo.Text.IsNullOrEmpty())
             {
-                query = @"QSELECT DISTINCT B.BillID, A.Name, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from (((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)JOIN dbo.Account A ON A.AccountID = B.AccountID) WHERE B.Status IN " + BillStatus + " ORDER BY B.Date, B.Time DESC;";
+                query = @"QSELECT DISTINCT B.BillID, A.Name AS Customer, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from (((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)JOIN dbo.Account A ON A.AccountID = B.AccountID) WHERE B.Status IN " + BillStatus + " ORDER BY B.Date, B.Time DESC;";
             }
             else
             {
                 query = @"QSELECT DISTINCT B.BillID, A.Name, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from (((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)JOIN dbo.Account A ON A.AccountID = B.AccountID) WHERE B.Status IN " + BillStatus + " AND (Date BETWEEN '" + tbDateFrom.Text + "' AND '" + tbDateTo.Text + "') ORDER BY B.Date, B.Time DESC;";
             }
 
-            string[] jArr = tcp.SendAndRevceiveStr(query).Split("<*>");
+            string rs = tcp.SendAndRevceiveStr(query);
+            string[] jArr = rs.Split("<*>");
             JObject[] jlist = new JObject[jArr.Length - 1];
             for (int i = 0; i < jArr.Length - 1; i++)
             {
@@ -107,6 +109,7 @@ namespace LTMCB_Final.Manager
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            lsvList.Items.Clear();
             LoadBillList();
         }
 
@@ -141,6 +144,7 @@ namespace LTMCB_Final.Manager
                     {
                         //Thành công
                         MessageBox.Show("Hủy vé thành công!\nBạn sẽ được hoàn tiền trong thời gian sớm nhất", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lsvList.Items.Clear();
                         LoadBillList();
                     }
                     else
@@ -160,6 +164,11 @@ namespace LTMCB_Final.Manager
             {
 
             }
+        }
+
+        private void ListBillforManager_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

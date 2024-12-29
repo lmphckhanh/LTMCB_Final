@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ namespace LTMCB_Final
         ClientTcpConnection tcp = Program.tcpConnection;
         public MovieInfo()
         {
+
             InitializeComponent();
         }
         public MovieInfo(string Id, string Name, string Director, string Duration, string ReleaseDay, string lang, string MinAge, string Rate, string Status, Image img)
@@ -39,7 +41,7 @@ namespace LTMCB_Final
         {
             InitializeComponent();
             string query = @"GSELECT TOP 1 * FROM dbo.Movie WHERE MovieID = '" + Id + "';";
-
+            pbPoster.SizeMode = PictureBoxSizeMode.StretchImage;
             string json = tcp.SendAndRevceiveStr(query);
             JObject job = new JObject();
             try
@@ -52,7 +54,18 @@ namespace LTMCB_Final
                 lbLang.Text = job.GetValue("Language").ToString();
                 lbMinAge.Text = job.GetValue("MinAge").ToString();
                 lbRate.Text = job.GetValue("Rate").ToString();
-                lbStatus.Text = job.GetValue("Status").ToString();
+                string status = job.GetValue("Status").ToString();
+
+                if (status == "True")
+                {
+                    lbStatus.Text = "Đang công chiếu";
+                }
+                else
+                {
+                    lbStatus.Text = "Không công chiếu";
+                } 
+                    
+
                 pbPoster.LoadAsync(job.GetValue("Image").ToString());
             }
             catch

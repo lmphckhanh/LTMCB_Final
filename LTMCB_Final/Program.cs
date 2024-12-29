@@ -20,7 +20,6 @@ namespace LTMCB_Final
             ApplicationConfiguration.Initialize();
             Application.Run(new login());
 
-
         }
     }
 }

@@ -252,7 +252,7 @@ CREATE TABLE Account
 (
 	AccountID VARCHAR(100) PRIMARY KEY,
 	Name NVARCHAR(50) NOT NULL,
-	Email NVARCHAR(50) NOT NULL,
+	Email NVARCHAR(50) UNIQUE NOT NULL,
 	Phone NVARCHAR(11) UNIQUE NOT NULL,
 	Password VARCHAR(MAX) NOT NULL,
 	--Sex NVARCHAR(6) NOT NULL,--Male, Female, Other
@@ -652,3 +652,39 @@ END
 
 GO
 --------------------------------------------------------------------------------------------------
+SELECT * FROM dbo.Cinema
+SELECT * FROM dbo.ShowTimes
+INSERT INTO dbo.ShowTimes
+(
+    MovieID,
+    ShiftID,
+    RoomID,
+    Date,
+    EndTime
+)
+VALUES
+(   'GDHH',        -- MovieID - varchar(6)
+    DEFAULT,   -- ShiftID - int
+    'RCG001',        -- RoomID - varchar(6)
+    '12/30/2024', -- Date - date
+    NULL       -- EndTime - time(7)
+    )
+	SELECT * FROM dbo.Bill
+SELECT * FROM (dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID) JOIN dbo.RoomInCinema RC ON RC.RoomID = ST.RoomID WHERE ST.MovieID = 'GDHH'  AND RC.CinemaID = 'CG001'; 
+DECLARE @d DATE = GETDATE();
+DECLARE @t TIME = GETDATE();
+DECLARE @date DATETIME = CAST(@d as DATETIME) + CAST(@t as DATETIME);
+PRINT @date
+INSERT INTO dbo.Category
+(
+    CategoryID,
+    CategoryName
+)
+VALUES
+(   'PSYC', -- CategoryID - varchar(4)
+    N'Tâm lý' -- CategoryName - nvarchar(20)
+    )
+SELECT * FROM dbo.Category
+SELECT * FROM dbo.Bill
+UPDATE dbo.Account SET RoleID = 'QL' WHERE AccountID
+SELECT DISTINCT B.BillID, A.Name AS Customer, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from (((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)JOIN dbo.Account A ON A.AccountID = B.AccountID) WHERE B.Status IN (0,1) ORDER BY B.Date, B.Time DESC;
