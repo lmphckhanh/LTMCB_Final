@@ -50,6 +50,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
             label1.Location = new Point(243, 25);
             label1.Name = "label1";
             label1.Size = new Size(157, 35);
@@ -60,6 +61,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 13.8F);
+            label2.ForeColor = Color.MidnightBlue;
             label2.Location = new Point(48, 88);
             label2.Name = "label2";
             label2.Size = new Size(151, 26);
@@ -70,6 +72,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 13.8F);
+            label3.ForeColor = Color.MidnightBlue;
             label3.Location = new Point(48, 356);
             label3.Name = "label3";
             label3.Size = new Size(99, 26);
@@ -80,6 +83,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.8F);
+            label4.ForeColor = Color.MidnightBlue;
             label4.Location = new Point(48, 427);
             label4.Name = "label4";
             label4.Size = new Size(192, 26);
@@ -89,6 +93,7 @@
             // tbUsername
             // 
             tbUsername.Font = new Font("Times New Roman", 13.8F);
+            tbUsername.ForeColor = Color.MidnightBlue;
             tbUsername.Location = new Point(262, 80);
             tbUsername.Name = "tbUsername";
             tbUsername.Size = new Size(307, 34);
@@ -97,6 +102,7 @@
             // tbPassword
             // 
             tbPassword.Font = new Font("Times New Roman", 13.8F);
+            tbPassword.ForeColor = Color.MidnightBlue;
             tbPassword.Location = new Point(262, 348);
             tbPassword.Name = "tbPassword";
             tbPassword.Size = new Size(307, 34);
@@ -106,6 +112,7 @@
             // tbConfirmPassword
             // 
             tbConfirmPassword.Font = new Font("Times New Roman", 13.8F);
+            tbConfirmPassword.ForeColor = Color.MidnightBlue;
             tbConfirmPassword.Location = new Point(262, 419);
             tbConfirmPassword.Name = "tbConfirmPassword";
             tbConfirmPassword.Size = new Size(307, 34);
@@ -114,30 +121,36 @@
             // 
             // btnRegister
             // 
-            btnRegister.Font = new Font("Times New Roman", 13.8F);
+            btnRegister.BackColor = Color.CornflowerBlue;
+            btnRegister.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRegister.ForeColor = Color.White;
             btnRegister.Location = new Point(243, 488);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(157, 46);
             btnRegister.TabIndex = 7;
             btnRegister.Text = "Đăng ký";
-            btnRegister.UseVisualStyleBackColor = true;
+            btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click_1;
             // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabel1.ForeColor = Color.MidnightBlue;
+            linkLabel1.LinkColor = Color.MidnightBlue;
             linkLabel1.Location = new Point(273, 552);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(93, 22);
             linkLabel1.TabIndex = 8;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Đăng nhập";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Times New Roman", 13.8F);
+            label5.ForeColor = Color.MidnightBlue;
             label5.Location = new Point(48, 151);
             label5.Name = "label5";
             label5.Size = new Size(65, 26);
@@ -147,6 +160,7 @@
             // tbEmail
             // 
             tbEmail.Font = new Font("Times New Roman", 13.8F);
+            tbEmail.ForeColor = Color.MidnightBlue;
             tbEmail.Location = new Point(159, 143);
             tbEmail.Name = "tbEmail";
             tbEmail.Size = new Size(410, 34);
@@ -156,6 +170,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Times New Roman", 13.8F);
+            label6.ForeColor = Color.MidnightBlue;
             label6.Location = new Point(48, 218);
             label6.Name = "label6";
             label6.Size = new Size(105, 26);
@@ -166,6 +181,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Times New Roman", 13.8F);
+            label7.ForeColor = Color.MidnightBlue;
             label7.Location = new Point(48, 287);
             label7.Name = "label7";
             label7.Size = new Size(135, 26);
@@ -175,6 +191,7 @@
             // tbPhone
             // 
             tbPhone.Font = new Font("Times New Roman", 13.8F);
+            tbPhone.ForeColor = Color.MidnightBlue;
             tbPhone.Location = new Point(262, 279);
             tbPhone.Name = "tbPhone";
             tbPhone.Size = new Size(307, 34);
@@ -187,19 +204,22 @@
             dtpBirthDay.Name = "dtpBirthDay";
             dtpBirthDay.Size = new Size(26, 34);
             dtpBirthDay.TabIndex = 15;
+            dtpBirthDay.ValueChanged += dtpBirthDay_ValueChanged;
             // 
             // tbBirthDay
             // 
             tbBirthDay.Font = new Font("Times New Roman", 13.8F);
-            tbBirthDay.Location = new Point(231, 213);
+            tbBirthDay.ForeColor = Color.MidnightBlue;
+            tbBirthDay.Location = new Point(262, 213);
             tbBirthDay.Name = "tbBirthDay";
-            tbBirthDay.Size = new Size(307, 34);
+            tbBirthDay.Size = new Size(276, 34);
             tbBirthDay.TabIndex = 16;
             // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.AliceBlue;
             ClientSize = new Size(623, 587);
             Controls.Add(tbBirthDay);
             Controls.Add(dtpBirthDay);

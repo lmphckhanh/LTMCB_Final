@@ -36,7 +36,7 @@ namespace LTMCB_Final.Manager
 
         void LoadMovieList()
         {
-            lsvMovieList.Clear();
+            lsvMovieList.Items.Clear();
             switch (cbStatus.SelectedIndex)
             {
                 case 0:
@@ -135,6 +135,8 @@ namespace LTMCB_Final.Manager
             }
 
         }
+
+        
     }
 }
   

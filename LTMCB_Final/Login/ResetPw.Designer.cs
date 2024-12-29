@@ -42,6 +42,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
             label1.Location = new Point(66, 52);
             label1.Name = "label1";
             label1.Size = new Size(312, 35);
@@ -52,6 +53,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 13.8F);
+            label2.ForeColor = Color.MidnightBlue;
             label2.Location = new Point(12, 124);
             label2.Name = "label2";
             label2.Size = new Size(130, 26);
@@ -62,6 +64,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 13.8F);
+            label3.ForeColor = Color.MidnightBlue;
             label3.Location = new Point(12, 180);
             label3.Name = "label3";
             label3.Size = new Size(141, 26);
@@ -72,6 +75,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.8F);
+            label4.ForeColor = Color.MidnightBlue;
             label4.Location = new Point(12, 241);
             label4.Name = "label4";
             label4.Size = new Size(192, 26);
@@ -80,18 +84,21 @@
             // 
             // button1
             // 
-            button1.Font = new Font("Times New Roman", 13.8F);
+            button1.BackColor = Color.CornflowerBlue;
+            button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
             button1.Location = new Point(149, 303);
             button1.Name = "button1";
             button1.Size = new Size(146, 49);
             button1.TabIndex = 4;
             button1.Text = "Xác nhận";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // textBox1
             // 
             textBox1.Font = new Font("Times New Roman", 13.8F);
+            textBox1.ForeColor = Color.MidnightBlue;
             textBox1.Location = new Point(210, 116);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(204, 34);
@@ -100,6 +107,7 @@
             // textBox2
             // 
             textBox2.Font = new Font("Times New Roman", 13.8F);
+            textBox2.ForeColor = Color.MidnightBlue;
             textBox2.Location = new Point(210, 172);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(204, 34);
@@ -108,6 +116,7 @@
             // textBox3
             // 
             textBox3.Font = new Font("Times New Roman", 13.8F);
+            textBox3.ForeColor = Color.MidnightBlue;
             textBox3.Location = new Point(210, 233);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(195, 34);
@@ -117,6 +126,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.AliceBlue;
             ClientSize = new Size(426, 399);
             Controls.Add(textBox3);
             Controls.Add(textBox2);

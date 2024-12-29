@@ -1,4 +1,6 @@
 ﻿using LTMCB_Final.FunctionClass;
+using Microsoft.Identity.Client;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,11 +26,11 @@ namespace LTMCB_Final.Login
             InitializeComponent();
         }
 
-    
+
 
         private void dtpBirthDay_ValueChanged(object sender, EventArgs e)
         {
-            tbBirthDay.Text = dtpBirthDay.Value.ToShortDateString();
+            tbBirthDay.Text = dtpBirthDay.Value.ToString("MM/dd/yyyy");
         }
 
         private bool IsValidPhone(string phone)
@@ -94,20 +96,30 @@ namespace LTMCB_Final.Login
                 return;
             }
 
-            string accountId = Guid.NewGuid().ToString();
+            string AccountId = Guid.NewGuid().ToString();
             string pass = Encryption(tbPassword.Text);
-            string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + accountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', " + tbBirthDay + ",DEFAULT);";
+            string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + AccountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', '" + tbBirthDay.Text + "',DEFAULT);";
+            string rs = tcp.SendAndRevceiveStr(query);
+            
+            JObject json = new JObject();
 
-            int rs = Int32.Parse(tcp.SendAndRevceiveStr(query));
-            if (rs > 0)
+            if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
             {
-                //thanh cong
+                MessageBox.Show("Đăng Ký thành công!", "Thành công");
             }
             else
             {
-                //that bai
+                MessageBox.Show("Đăng Ký thất bại!", "Thất bại");
             }
 
+
+        
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();    
         }
     }
 }

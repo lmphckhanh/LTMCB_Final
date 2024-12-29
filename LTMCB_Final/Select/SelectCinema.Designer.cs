@@ -40,6 +40,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
             label1.Location = new Point(134, 31);
             label1.Name = "label1";
             label1.Size = new Size(175, 35);
@@ -49,38 +50,42 @@
             // comboBox2
             // 
             comboBox2.Font = new Font("Times New Roman", 13.8F);
+            comboBox2.ForeColor = Color.MidnightBlue;
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(193, 98);
+            comboBox2.Location = new Point(193, 79);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(199, 34);
             comboBox2.TabIndex = 2;
-           
             // 
             // listView1
             // 
             listView1.Font = new Font("Times New Roman", 13.8F);
-            listView1.Location = new Point(35, 207);
+            listView1.ForeColor = Color.MidnightBlue;
+            listView1.Location = new Point(35, 188);
             listView1.Name = "listView1";
-            listView1.Size = new Size(357, 218);
+            listView1.Size = new Size(357, 230);
             listView1.TabIndex = 3;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
             // button1
             // 
-            button1.Font = new Font("Times New Roman", 13.8F);
+            button1.BackColor = Color.CornflowerBlue;
+            button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
             button1.Location = new Point(134, 440);
             button1.Name = "button1";
             button1.Size = new Size(175, 42);
             button1.TabIndex = 4;
             button1.Text = "Next";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 13.8F);
-            label3.Location = new Point(35, 107);
+            label3.ForeColor = Color.MidnightBlue;
+            label3.Location = new Point(35, 88);
             label3.Name = "label3";
             label3.Size = new Size(93, 26);
             label3.TabIndex = 6;
@@ -90,7 +95,8 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 13.8F);
-            label4.Location = new Point(35, 166);
+            label4.ForeColor = Color.MidnightBlue;
+            label4.Location = new Point(35, 147);
             label4.Name = "label4";
             label4.Size = new Size(145, 26);
             label4.TabIndex = 7;
@@ -100,6 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.AliceBlue;
             ClientSize = new Size(426, 508);
             Controls.Add(label4);
             Controls.Add(label3);
