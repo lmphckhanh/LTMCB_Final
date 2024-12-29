@@ -19,9 +19,11 @@ namespace LTMCB_Final
     {
         ClientTcpConnection tcp = Program.tcpConnection;
         public static string AccountID = "";
+        public static string RoleID = "";
         public login()
         {
             InitializeComponent();
+            Loadinfo();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace LTMCB_Final
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Đăng Nhập Thất Bại!");
+                MessageBox.Show("Đăng Nhập Thất Bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
            
@@ -74,6 +76,27 @@ namespace LTMCB_Final
             byte[] hashBytes = alg.ComputeHash(inputBytes); //Hash byte array
             string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
             return HashPassword;
+        }
+        private void Loadinfo()
+        {
+
+            string num = phone.Text.Trim();
+            string password = Encryption(pw.Text.Trim());
+
+            string query = @"GSELECT TOP 1 RoleID, AccountID FROM dbo.Account WHERE Phone = '" + num + "' AND Password = '" + password + "';";
+            string rs = tcp.SendAndRevceiveStr(query);
+            JObject json = new JObject();
+            try
+            {
+                json = JObject.Parse(rs);
+              
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Tải thông tin người dùng thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }
