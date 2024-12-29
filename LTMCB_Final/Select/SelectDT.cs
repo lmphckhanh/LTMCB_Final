@@ -10,79 +10,71 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using LTMCB_Final.FunctionClass;
 using Newtonsoft.Json.Linq;
+using Azure;
 
 namespace LTMCB_Final
 {
     public partial class SelectDT : Form
     {
-        private string cinemaName;
+        string MovieID = "";
         private ClientTcpConnection tcp = Program.tcpConnection;
-        public SelectDT(string cinemaName)
+        ImageList imagelist = new ImageList
+        {
+            ImageSize = new Size(100, 100),
+        };
+        JObject[] jlist;
+        public SelectDT(string MovieID)
         {
             InitializeComponent();
-            this.cinemaName = cinemaName;
-
-            label2.Text = $"Chọn phim tại {cinemaName}"; // Hiển thị rạp đang chọn
+            imagelist.Images.Add("UIT", Image.FromFile(@"../../../Resources"));
+            lsvShowTimes.LargeImageList = imagelist;
+            MovieID = MovieID;
+            LoadCinema();
             LoadShowTimes();
-            LoadMovies();
         }
 
         // Tải danh sách khung giờ
         private void LoadShowTimes()
         {
-            comboBox1.Items.AddRange(new string[] { "10:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM" });
-            comboBox1.SelectedIndex = 0;
-        }
+            string cinema = "";
+            string selectedDate = "";
+            string query = @"QSELECT ST.ShowTimeID, ST.Date, S.Time FROM (dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID) JOIN dbo.RoomInCinema RC ON RC.RoomID = ST.RoomID WHERE ST.MovieID = '" + MovieID + "' AND S.Time >= CONVERT(VARCHAR(20),CONVERT(TIME,GETDATE()))"; 
+            //" AND RC.CinemaID = '" + cinema + "' AND ST.Date >=  CONVERT(VARCHAR(20),GETDATE())";
 
-        // Tải thông tin phim
-        private void LoadMovies()
-        {
-            flowLayoutPanel1.Controls.Clear();
+            if (!string.IsNullOrEmpty(tbDate.Text))
+            {
+                query += @" AND ST.Date >=  CONVERT(VARCHAR(20),GETDATE())";
+            }
+            else
+            {
+                query += @" AND ST.Date = '" + tbDate.Text + "'";
+            }
 
-            string selectedDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-            string selectedTime = comboBox1.SelectedItem.ToString();
+            if (!string.IsNullOrEmpty(tbCinema.Text))
+            {
+                query += @" AND RC.CinemaID = '" + tbCinema.Text + "'";
+            }
+            query += ";";
 
             try
             {
-                string query = $@"
-                    SELECT 
-                    FROM 
-                    WHERE ";
 
-                string response = tcp.SendAndRevceiveStr(query);
-                JArray movies = JArray.Parse(response);
+                string[] response = tcp.SendAndRevceiveStr(query).Split("<*>");
+                JObject[] jlsit = new JObject[response.Length - 1];
 
-                foreach (var movie in movies)
+                for(int i = 0; i < jlist.Length; i++)
                 {
-                    GroupBox movieGroup = new GroupBox
-                    {
-                        Width = flowLayoutPanel1.Width - 20,
-                        Height = 150,
-                        Text = movie[" "].ToString()
-                    };
-
-                    PictureBox poster = new PictureBox
-                    {
-                        ImageLocation = movie[" "].ToString(),
-                        SizeMode = PictureBoxSizeMode.StretchImage,
-                        Width = 100,
-                        Height = 120,
-                        Location = new Point(10, 20)
-                    };
-
-                    Label details = new Label
-                    {
-                        Text = $"Thời lượng: {movie["Duration"]} phút\n" +
-                               $"Giờ chiếu: {movie["ShowTime"]}\n" +
-                               $"{movie["Description"]}",
-                        Location = new Point(120, 20),
-                        AutoSize = true
-                    };
-
-                    movieGroup.Controls.Add(poster);
-                    movieGroup.Controls.Add(details);
-                    flowLayoutPanel1.Controls.Add(movieGroup);
+                    jlist[i] = JObject.Parse(response[i]);
                 }
+                foreach (var i in jlist)
+                {
+                    string date = i.GetValue("Date").ToString();
+                    string time = i.GetValue("Time").ToString();
+                    ListViewItem item = new ListViewItem(date + "\n" + time);
+                    item.SubItems.Add(i.GetValue("ShowTimeID").ToString());
+                    item.ImageKey = "UIT";
+                }
+
             }
             catch (Exception ex)
             {
@@ -90,32 +82,57 @@ namespace LTMCB_Final
             }
         }
 
+        // Tải thông tin phim
+        private void LoadCinema()
+        {
+            string query = @"SELECT * FROM dbo.Cinema;";
+            string[] list = tcp.SendAndRevceiveStr(query).Split("<*>");
+            jlist = new JObject[list.Length - 1];
+
+            for (int i = 0; i < list.Length - 1; i++)
+            {
+                jlist[i] = JObject.Parse(list[i]);
+            }
+            foreach (var i in jlist)
+            {
+                cbCinema.Items.Add(i.GetValue("CinemaName").ToString());
+            }
+        }
+
         // Sự kiện thay đổi ngày
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            LoadMovies();
-        }
-
-        // Sự kiện thay đổi giờ
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadMovies();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var selectCinemaForm = new SelectCinema();
-            this.Hide();
-            selectCinemaForm.ShowDialog();
-            this.Close();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var selectSeatForm = new SelectSeat(cinemaName, dateTimePicker1.Value, comboBox1.SelectedItem.ToString());
-            this.Hide();
-            selectSeatForm.ShowDialog();
+            //Next
+            if (lsvShowTimes.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn ca chiếu","Lỗi",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
+            string stID = lsvShowTimes.SelectedItems[0].SubItems[1].Text;
+            SelectSeat selectSeat = new SelectSeat(stID);
+            selectSeat.Show();
             this.Close();
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            tbDate.Text = dtpDate.Value.ToShortDateString();
+        }
+
+        private void cbCinema_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbCinema.Text = jlist[cbCinema.SelectedIndex].GetValue("CinemaID").ToString();
+            tbAddress.Text = jlist[cbCinema.SelectedIndex].GetValue("Address").ToString();
         }
     }
 }

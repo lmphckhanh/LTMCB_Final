@@ -23,7 +23,7 @@ namespace LTMCB_Final
 
         private ClientTcpConnection tcp = Program.tcpConnection;
 
-        public SelectSeat(string cinemaName, DateTime selectedDate, string selectedTime)
+        public SelectSeat(string cinemaName, DateTime selectedDate)
         {
             InitializeComponent();
             this.cinemaName = cinemaName;
@@ -148,6 +148,11 @@ namespace LTMCB_Final
             }
 
             MessageBox.Show($"Bạn đã chọn các ghế: {string.Join(", ", selectedSeats)}", "Xác nhận");
+        }
+
+        private void seat_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

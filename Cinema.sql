@@ -133,7 +133,7 @@ CREATE TABLE Movie
 	Image NVARCHAR(MAX) NOT NULL, --8
 	Status BIT DEFAULT 1 NOT NULL, --1: Trong thời gian công chiếu, 0: Không đc công chiếu --9
 )
-SELECT DISTINCT B.BillID, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from ((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)
+SELECT ST.ShowTimeID,ST.Date, S.Time FROM dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID	WHERE ST.Date >=  CONVERT(DATE,GETDATE()) AND S.Time >= CONVERT(DATE,GETDATE())
 CREATE TABLE MovieOnType
 (
 	MovieID VARCHAR(6) NOT NULL,
