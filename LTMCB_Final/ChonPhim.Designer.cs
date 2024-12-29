@@ -52,10 +52,10 @@ namespace LTMCB_Final
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.7014046F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.2985954F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 363F));
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(comboBox1, 1, 1);
-            tableLayoutPanel1.Controls.Add(label2, 1, 0);
             tableLayoutPanel1.Controls.Add(btnHome, 2, 0);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(label2, 1, 0);
             tableLayoutPanel1.Location = new Point(-4, 2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
@@ -67,19 +67,22 @@ namespace LTMCB_Final
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(191, 30);
+            label1.Size = new Size(228, 32);
             label1.TabIndex = 0;
             label1.Text = "Phim Đang Chiếu";
             // 
             // comboBox1
             // 
+            comboBox1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox1.ForeColor = Color.MidnightBlue;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(311, 46);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
+            comboBox1.Size = new Size(151, 34);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -87,7 +90,8 @@ namespace LTMCB_Final
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11F);
+            label2.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.MidnightBlue;
             label2.Location = new Point(311, 0);
             label2.Name = "label2";
             label2.Size = new Size(294, 43);
@@ -98,18 +102,23 @@ namespace LTMCB_Final
             // btnHome
             // 
             btnHome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnHome.Location = new Point(871, 3);
+            btnHome.BackColor = Color.CornflowerBlue;
+            btnHome.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnHome.ForeColor = Color.White;
+            btnHome.Location = new Point(838, 3);
             btnHome.Name = "btnHome";
-            btnHome.Size = new Size(98, 36);
+            btnHome.Size = new Size(131, 36);
             btnHome.TabIndex = 6;
             btnHome.Text = "Tùy Chọn";
-            btnHome.UseVisualStyleBackColor = true;
+            btnHome.UseVisualStyleBackColor = false;
             btnHome.Click += btnHome_Click_1;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            flowLayoutPanel1.ForeColor = Color.MidnightBlue;
             flowLayoutPanel1.Location = new Point(-4, 81);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(972, 364);
@@ -145,6 +154,7 @@ namespace LTMCB_Final
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.AliceBlue;
             ClientSize = new Size(969, 444);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);

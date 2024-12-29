@@ -54,10 +54,12 @@
             // lbBillTitle
             // 
             lbBillTitle.AutoSize = true;
-            lbBillTitle.Location = new Point(170, 50);
+            lbBillTitle.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbBillTitle.ForeColor = Color.MidnightBlue;
+            lbBillTitle.Location = new Point(174, 57);
             lbBillTitle.Margin = new Padding(2, 0, 2, 0);
             lbBillTitle.Name = "lbBillTitle";
-            lbBillTitle.Size = new Size(67, 20);
+            lbBillTitle.Size = new Size(119, 32);
             lbBillTitle.TabIndex = 0;
             lbBillTitle.Text = "Hóa đơn";
             lbBillTitle.Click += lbBillTitle_Click;
@@ -65,10 +67,12 @@
             // lbCustomer
             // 
             lbCustomer.AutoSize = true;
-            lbCustomer.Location = new Point(174, 109);
+            lbCustomer.Font = new Font("Times New Roman", 13.8F);
+            lbCustomer.ForeColor = Color.MidnightBlue;
+            lbCustomer.Location = new Point(200, 100);
             lbCustomer.Margin = new Padding(2, 0, 2, 0);
             lbCustomer.Name = "lbCustomer";
-            lbCustomer.Size = new Size(89, 20);
+            lbCustomer.Size = new Size(129, 26);
             lbCustomer.TabIndex = 1;
             lbCustomer.Text = "Khách hàng:";
             lbCustomer.Click += lbCustomer_Click;
@@ -76,192 +80,232 @@
             // lbMovieName
             // 
             lbMovieName.AutoSize = true;
-            lbMovieName.Location = new Point(175, 202);
+            lbMovieName.Font = new Font("Times New Roman", 13.8F);
+            lbMovieName.ForeColor = Color.MidnightBlue;
+            lbMovieName.Location = new Point(200, 200);
             lbMovieName.Margin = new Padding(2, 0, 2, 0);
             lbMovieName.Name = "lbMovieName";
-            lbMovieName.Size = new Size(45, 20);
+            lbMovieName.Size = new Size(67, 26);
             lbMovieName.TabIndex = 2;
             lbMovieName.Text = "Phim:";
             // 
             // lbTicketAmount
             // 
             lbTicketAmount.AutoSize = true;
-            lbTicketAmount.Location = new Point(174, 243);
+            lbTicketAmount.Font = new Font("Times New Roman", 13.8F);
+            lbTicketAmount.ForeColor = Color.MidnightBlue;
+            lbTicketAmount.Location = new Point(200, 250);
             lbTicketAmount.Margin = new Padding(2, 0, 2, 0);
             lbTicketAmount.Name = "lbTicketAmount";
-            lbTicketAmount.Size = new Size(72, 20);
+            lbTicketAmount.Size = new Size(102, 26);
             lbTicketAmount.TabIndex = 3;
             lbTicketAmount.Text = "Số lượng:";
             // 
             // lbBillId
             // 
             lbBillId.AutoSize = true;
-            lbBillId.Location = new Point(174, 330);
+            lbBillId.Font = new Font("Times New Roman", 13.8F);
+            lbBillId.ForeColor = Color.MidnightBlue;
+            lbBillId.Location = new Point(200, 350);
             lbBillId.Margin = new Padding(2, 0, 2, 0);
             lbBillId.Name = "lbBillId";
-            lbBillId.Size = new Size(92, 20);
+            lbBillId.Size = new Size(129, 26);
             lbBillId.TabIndex = 4;
             lbBillId.Text = "Mã hóa đơn:";
             // 
             // lbDateTime
             // 
             lbDateTime.AutoSize = true;
-            lbDateTime.Location = new Point(172, 371);
+            lbDateTime.Font = new Font("Times New Roman", 13.8F);
+            lbDateTime.ForeColor = Color.MidnightBlue;
+            lbDateTime.Location = new Point(200, 400);
             lbDateTime.Margin = new Padding(2, 0, 2, 0);
             lbDateTime.Name = "lbDateTime";
-            lbDateTime.Size = new Size(74, 20);
+            lbDateTime.Size = new Size(107, 26);
             lbDateTime.TabIndex = 5;
             lbDateTime.Text = "Thời gian:";
             // 
             // lbNumber
             // 
             lbNumber.AutoSize = true;
-            lbNumber.Location = new Point(175, 154);
+            lbNumber.Font = new Font("Times New Roman", 13.8F);
+            lbNumber.ForeColor = Color.MidnightBlue;
+            lbNumber.Location = new Point(200, 150);
             lbNumber.Margin = new Padding(2, 0, 2, 0);
             lbNumber.Name = "lbNumber";
-            lbNumber.Size = new Size(104, 20);
+            lbNumber.Size = new Size(147, 26);
             lbNumber.TabIndex = 6;
             lbNumber.Text = "Số điện thoại: ";
             // 
             // lbTotal
             // 
             lbTotal.AutoSize = true;
-            lbTotal.Location = new Point(170, 414);
+            lbTotal.Font = new Font("Times New Roman", 13.8F);
+            lbTotal.ForeColor = Color.MidnightBlue;
+            lbTotal.Location = new Point(200, 450);
             lbTotal.Margin = new Padding(2, 0, 2, 0);
             lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(94, 20);
+            lbTotal.Size = new Size(134, 26);
             lbTotal.TabIndex = 7;
             lbTotal.Text = "Tổng số tiền:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(59, 109);
+            label1.Font = new Font("Times New Roman", 13.8F);
+            label1.ForeColor = Color.MidnightBlue;
+            label1.Location = new Point(40, 100);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(129, 26);
             label1.TabIndex = 8;
             label1.Text = "Khách hàng:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(59, 202);
+            label2.Font = new Font("Times New Roman", 13.8F);
+            label2.ForeColor = Color.MidnightBlue;
+            label2.Location = new Point(40, 200);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(45, 20);
+            label2.Size = new Size(67, 26);
             label2.TabIndex = 9;
             label2.Text = "Phim:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(58, 243);
+            label3.Font = new Font("Times New Roman", 13.8F);
+            label3.ForeColor = Color.MidnightBlue;
+            label3.Location = new Point(40, 250);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(72, 20);
+            label3.Size = new Size(102, 26);
             label3.TabIndex = 10;
             label3.Text = "Số lượng:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(58, 330);
+            label4.Font = new Font("Times New Roman", 13.8F);
+            label4.ForeColor = Color.MidnightBlue;
+            label4.Location = new Point(40, 350);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(92, 20);
+            label4.Size = new Size(129, 26);
             label4.TabIndex = 11;
             label4.Text = "Mã hóa đơn:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(58, 371);
+            label5.Font = new Font("Times New Roman", 13.8F);
+            label5.ForeColor = Color.MidnightBlue;
+            label5.Location = new Point(40, 400);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(74, 20);
+            label5.Size = new Size(107, 26);
             label5.TabIndex = 12;
             label5.Text = "Thời gian:";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(58, 154);
+            label6.Font = new Font("Times New Roman", 13.8F);
+            label6.ForeColor = Color.MidnightBlue;
+            label6.Location = new Point(40, 150);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(104, 20);
+            label6.Size = new Size(147, 26);
             label6.TabIndex = 13;
             label6.Text = "Số điện thoại: ";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(58, 414);
+            label7.Font = new Font("Times New Roman", 13.8F);
+            label7.ForeColor = Color.MidnightBlue;
+            label7.Location = new Point(40, 450);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(94, 20);
+            label7.Size = new Size(134, 26);
             label7.TabIndex = 14;
             label7.Text = "Tổng số tiền:";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(58, 291);
+            label8.Font = new Font("Times New Roman", 13.8F);
+            label8.ForeColor = Color.MidnightBlue;
+            label8.Location = new Point(40, 300);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
-            label8.Size = new Size(54, 20);
+            label8.Size = new Size(78, 26);
             label8.TabIndex = 15;
             label8.Text = "Phòng:";
             // 
             // lbRoom
             // 
             lbRoom.AutoSize = true;
-            lbRoom.Location = new Point(174, 291);
+            lbRoom.Font = new Font("Times New Roman", 13.8F);
+            lbRoom.ForeColor = Color.MidnightBlue;
+            lbRoom.Location = new Point(200, 300);
             lbRoom.Margin = new Padding(2, 0, 2, 0);
             lbRoom.Name = "lbRoom";
-            lbRoom.Size = new Size(50, 20);
+            lbRoom.Size = new Size(67, 26);
             lbRoom.TabIndex = 16;
             lbRoom.Text = "label9";
             // 
             // btnDropBill
             // 
-            btnDropBill.Location = new Point(305, 464);
+            btnDropBill.BackColor = Color.CornflowerBlue;
+            btnDropBill.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold);
+            btnDropBill.ForeColor = Color.White;
+            btnDropBill.Location = new Point(353, 567);
             btnDropBill.Margin = new Padding(2);
             btnDropBill.Name = "btnDropBill";
-            btnDropBill.Size = new Size(86, 34);
+            btnDropBill.Size = new Size(101, 50);
             btnDropBill.TabIndex = 17;
             btnDropBill.Text = "Hủy vé";
-            btnDropBill.UseVisualStyleBackColor = true;
+            btnDropBill.UseVisualStyleBackColor = false;
             btnDropBill.Click += btnDropBill_Click;
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(305, 10);
+            btnExit.BackColor = Color.Salmon;
+            btnExit.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnExit.ForeColor = Color.Black;
+            btnExit.Location = new Point(397, 11);
             btnExit.Margin = new Padding(2);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(86, 34);
+            btnExit.Size = new Size(57, 57);
             btnExit.TabIndex = 18;
             btnExit.Text = "[X]";
-            btnExit.UseVisualStyleBackColor = true;
+            btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += btnExit_Click;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(62, 448);
+            label9.Font = new Font("Times New Roman", 13.8F);
+            label9.ForeColor = Color.MidnightBlue;
+            label9.Location = new Point(40, 500);
             label9.Margin = new Padding(2, 0, 2, 0);
             label9.Name = "label9";
-            label9.Size = new Size(55, 20);
+            label9.Size = new Size(85, 26);
             label9.TabIndex = 20;
-            label9.Text = "Địa chỉ";
+            label9.Text = "Địa chỉ:";
             // 
             // lbAddress
             // 
             lbAddress.AutoSize = true;
-            lbAddress.Location = new Point(175, 448);
+            lbAddress.Font = new Font("Times New Roman", 13.8F);
+            lbAddress.ForeColor = Color.MidnightBlue;
+            lbAddress.Location = new Point(200, 500);
             lbAddress.Margin = new Padding(2, 0, 2, 0);
             lbAddress.Name = "lbAddress";
-            lbAddress.Size = new Size(55, 20);
+            lbAddress.Size = new Size(79, 26);
             lbAddress.TabIndex = 19;
             lbAddress.Text = "Địa chỉ";
             // 
@@ -269,7 +313,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(429, 520);
+            BackColor = Color.AliceBlue;
+            ClientSize = new Size(489, 628);
             Controls.Add(label9);
             Controls.Add(lbAddress);
             Controls.Add(btnExit);

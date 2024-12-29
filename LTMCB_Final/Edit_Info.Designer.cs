@@ -40,26 +40,30 @@
             // 
             // btnSave
             // 
-            btnSave.Font = new Font("Segoe UI", 12F);
-            btnSave.Location = new Point(73, 344);
+            btnSave.BackColor = Color.CornflowerBlue;
+            btnSave.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold);
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(109, 340);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(100, 40);
+            btnSave.Size = new Size(110, 50);
             btnSave.TabIndex = 3;
             btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             // 
             // tbNew
             // 
-            tbNew.Font = new Font("Segoe UI", 12F);
-            tbNew.Location = new Point(47, 162);
+            tbNew.Font = new Font("Times New Roman", 13.8F);
+            tbNew.ForeColor = Color.MidnightBlue;
+            tbNew.Location = new Point(63, 178);
             tbNew.Name = "tbNew";
-            tbNew.Size = new Size(405, 34);
+            tbNew.Size = new Size(407, 34);
             tbNew.TabIndex = 4;
             // 
             // tbComfirm
             // 
-            tbComfirm.Font = new Font("Segoe UI", 12F);
-            tbComfirm.Location = new Point(47, 251);
+            tbComfirm.Font = new Font("Times New Roman", 13.8F);
+            tbComfirm.ForeColor = Color.MidnightBlue;
+            tbComfirm.Location = new Point(63, 269);
             tbComfirm.Name = "tbComfirm";
             tbComfirm.Size = new Size(405, 34);
             tbComfirm.TabIndex = 5;
@@ -67,58 +71,66 @@
             // lbNew
             // 
             lbNew.AutoSize = true;
-            lbNew.Location = new Point(47, 139);
+            lbNew.Font = new Font("Times New Roman", 13.8F);
+            lbNew.ForeColor = Color.MidnightBlue;
+            lbNew.Location = new Point(63, 149);
             lbNew.Name = "lbNew";
-            lbNew.Size = new Size(50, 20);
+            lbNew.Size = new Size(67, 26);
             lbNew.TabIndex = 7;
             lbNew.Text = "label1";
             // 
             // lbComfirm
             // 
             lbComfirm.AutoSize = true;
-            lbComfirm.Location = new Point(47, 228);
+            lbComfirm.Font = new Font("Times New Roman", 13.8F);
+            lbComfirm.ForeColor = Color.MidnightBlue;
+            lbComfirm.Location = new Point(63, 240);
             lbComfirm.Name = "lbComfirm";
-            lbComfirm.Size = new Size(50, 20);
+            lbComfirm.Size = new Size(67, 26);
             lbComfirm.TabIndex = 8;
             lbComfirm.Text = "label1";
-            
             // 
             // comboBox1
             // 
+            comboBox1.Font = new Font("Times New Roman", 13.8F);
+            comboBox1.ForeColor = Color.MidnightBlue;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Name", "PhoneNumber", "Email", "Address" });
-            comboBox1.Location = new Point(47, 79);
+            comboBox1.Location = new Point(63, 89);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(264, 28);
+            comboBox1.Size = new Size(279, 34);
             comboBox1.TabIndex = 9;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            label1.Location = new Point(36, 24);
+            label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
+            label1.Location = new Point(63, 31);
             label1.Name = "label1";
-            label1.Size = new Size(388, 35);
+            label1.Size = new Size(407, 32);
             label1.TabIndex = 10;
             label1.Text = "Chọn Thông Tin Muốn Thay Đổi";
-          
             // 
             // btnCancel
             // 
-            btnCancel.Font = new Font("Segoe UI", 12F);
-            btnCancel.Location = new Point(287, 344);
+            btnCancel.BackColor = Color.CornflowerBlue;
+            btnCancel.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(313, 340);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(100, 40);
+            btnCancel.Size = new Size(110, 50);
             btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // Edit_Info
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(713, 437);
+            BackColor = Color.AliceBlue;
+            ClientSize = new Size(537, 418);
             Controls.Add(btnCancel);
             Controls.Add(label1);
             Controls.Add(comboBox1);
