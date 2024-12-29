@@ -131,6 +131,7 @@
             lbTotal.Size = new Size(94, 20);
             lbTotal.TabIndex = 7;
             lbTotal.Text = "Tổng số tiền:";
+            
             // 
             // label1
             // 
@@ -225,7 +226,7 @@
             // btnDropBill
             // 
             btnDropBill.Location = new Point(305, 464);
-            btnDropBill.Margin = new Padding(2, 2, 2, 2);
+            btnDropBill.Margin = new Padding(2);
             btnDropBill.Name = "btnDropBill";
             btnDropBill.Size = new Size(86, 34);
             btnDropBill.TabIndex = 17;
@@ -236,7 +237,7 @@
             // btnExit
             // 
             btnExit.Location = new Point(305, 10);
-            btnExit.Margin = new Padding(2, 2, 2, 2);
+            btnExit.Margin = new Padding(2);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(86, 34);
             btnExit.TabIndex = 18;

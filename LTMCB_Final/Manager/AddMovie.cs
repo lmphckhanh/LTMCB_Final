@@ -56,11 +56,11 @@ namespace LTMCB_Final.Manager
             string movtype = "";
             foreach(ListViewItem item in lsvCategory.SelectedItems)
             {
-                cat += @" INSERT INTO dbo.MovieOnCat(MovieID,CategoryID)VALUES('" + tbMovieID + "', '" + item.SubItems[1].Text + "');";
+                cat += @" INSERT INTO dbo.MovieOnCat(MovieID,CategoryID)VALUES('" + tbMovieID.Text + "', '" + item.SubItems[1].Text + "');";
             }
             foreach (ListViewItem item in lsvMovieType.SelectedItems)
             {
-                movtype += @" INSERT INTO	dbo.MovieOnType(MovieID,MovieTypeID)VALUES('" + tbMovieID + "', '" + item.SubItems[1].Text + "');";
+                movtype += @" INSERT INTO	dbo.MovieOnType(MovieID,MovieTypeID)VALUES('" + tbMovieID.Text + "', '" + item.SubItems[1].Text + "');";
             }
 
 
