@@ -1,4 +1,5 @@
 ﻿using LTMCB_Final.FunctionClass;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace LTMCB_Final.Login
 
         private void dtpBirthDay_ValueChanged(object sender, EventArgs e)
         {
-            tbBirthDay.Text = dtpBirthDay.Value.ToShortDateString();
+            tbBirthDay.Text = dtpBirthDay.Value.ToString("MM/dd/yyyy");
         }
 
         private bool IsValidPhone(string phone)
@@ -97,21 +98,22 @@ namespace LTMCB_Final.Login
 
             string AccountId = Guid.NewGuid().ToString();
             string pass = Encryption(tbPassword.Text);
-            string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + AccountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', " + tbBirthDay + ",DEFAULT);";
-           
+            string query = @"CINSERT INTO dbo.Account (AccountID,Name, Email, Phone, Password, BirthDay, RoleID) VALUES ('" + AccountId + "', N'" + tbUsername.Text + "', N'" + tbEmail.Text + "', N'" + tbPhone.Text + "', '" + pass + "', '" + tbBirthDay.Text + "',DEFAULT);";
+            string rs = tcp.SendAndRevceiveStr(query);
+            
             JObject json = new JObject();
-            int rs = Int32.Parse(tcp.SendAndRevceiveStr(query));
 
-            if (rs > 0)
+            if (Int32.Parse(tcp.SendAndRevceiveStr(query)) > 0)
             {
-                MessageBox.Show("Đăng ký thành công!");
+                MessageBox.Show("Đăng Ký thành công!", "Thành công");
             }
             else
             {
-                MessageBox.Show("Lỗi!Đăng ký thất bại!");
+                MessageBox.Show("Đăng Ký thất bại!", "Thất bại");
             }
 
-            this.Hide();
+
+        
 
         }
 

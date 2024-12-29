@@ -188,6 +188,7 @@
             dtpBirthDay.Name = "dtpBirthDay";
             dtpBirthDay.Size = new Size(26, 34);
             dtpBirthDay.TabIndex = 15;
+            dtpBirthDay.ValueChanged += dtpBirthDay_ValueChanged;
             // 
             // tbBirthDay
             // 

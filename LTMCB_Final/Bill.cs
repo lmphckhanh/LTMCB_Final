@@ -130,6 +130,9 @@ namespace LTMCB_Final
 
         }
 
-        
+        private void lbBillTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

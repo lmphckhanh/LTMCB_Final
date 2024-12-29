@@ -42,14 +42,18 @@ namespace LTMCB_Final
             {
                 json = JObject.Parse(rs);
                 AccountID = json.GetValue("AccountID").ToString();
-                //Thanh cong
+                MessageBox.Show("Đăng Nhập Thành Công");
+                this.Hide();
+                ChonPhim chonPhim = new ChonPhim();
+                chonPhim.Show();
+                
             }
             catch (Exception ex)
             {
-                //That bai
+                MessageBox.Show("Đăng Nhập Thất Bại!");
             }
 
-            // Kiểm tra đăng nhập từ database
+           
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

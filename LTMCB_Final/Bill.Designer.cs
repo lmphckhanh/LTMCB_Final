@@ -60,6 +60,7 @@
             lbBillTitle.Size = new Size(67, 20);
             lbBillTitle.TabIndex = 0;
             lbBillTitle.Text = "Hóa đơn";
+            lbBillTitle.Click += lbBillTitle_Click;
             // 
             // lbCustomer
             // 
@@ -131,7 +132,6 @@
             lbTotal.Size = new Size(94, 20);
             lbTotal.TabIndex = 7;
             lbTotal.Text = "Tổng số tiền:";
-            
             // 
             // label1
             // 
