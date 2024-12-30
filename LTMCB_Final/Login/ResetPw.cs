@@ -117,5 +117,11 @@ namespace LTMCB_Final.Login
             string HashPassword = BitConverter.ToString(hashBytes); //Turn byte array into string
             return HashPassword;
         }
+
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            textBox2.UseSystemPasswordChar = !textBox2.UseSystemPasswordChar;
+            textBox3.UseSystemPasswordChar = !textBox3.UseSystemPasswordChar;
+        }
     }
 }

@@ -117,5 +117,10 @@ namespace LTMCB_Final
                 MessageBox.Show("Mã xác nhận không chính xác!", "Lỗi");
             }
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

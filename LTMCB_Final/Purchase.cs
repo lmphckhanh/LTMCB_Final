@@ -63,7 +63,7 @@ namespace LTMCB_Final
             string redirectUrl = momo.redirectUrl;
             string ipnUrl = momo.ipnUrl;
             string requestType = "captureWallet";
-            string amount = momo.amount;
+            string amount = momo.amount.Split(' ')[0];
             string orderId = momo.orderId;
             string requestId = momo.requestId;
             string extraData = momo.extraData;
@@ -161,6 +161,7 @@ namespace LTMCB_Final
                     }
 
                     MessageBox.Show("Đặt vé thành công!\nChân thành cảm ơn quý khách.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
 
                 }
                 catch (Exception ex)

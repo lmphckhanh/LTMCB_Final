@@ -62,7 +62,7 @@ namespace LTMCB_Final
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ForgotPw forgotPasswordForm = new ForgotPw();
-            forgotPasswordForm.ShowDialog();
+            forgotPasswordForm.Show();
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

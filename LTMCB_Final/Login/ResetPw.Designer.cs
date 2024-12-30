@@ -35,6 +35,7 @@
             button1 = new Button();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
+            btnShowPass = new Button();
             SuspendLayout();
             // 
             // label1
@@ -97,6 +98,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(243, 39);
             textBox2.TabIndex = 0;
+            textBox2.UseSystemPasswordChar = true;
             // 
             // textBox3
             // 
@@ -107,6 +109,23 @@
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(243, 39);
             textBox3.TabIndex = 1;
+            textBox3.UseSystemPasswordChar = true;
+            // 
+            // btnShowPass
+            // 
+            btnShowPass.BackColor = Color.CornflowerBlue;
+            btnShowPass.Cursor = Cursors.Hand;
+            btnShowPass.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnShowPass.ForeColor = Color.White;
+            btnShowPass.Location = new Point(423, 266);
+            btnShowPass.Margin = new Padding(4);
+            btnShowPass.Name = "btnShowPass";
+            btnShowPass.RightToLeft = RightToLeft.No;
+            btnShowPass.Size = new Size(85, 45);
+            btnShowPass.TabIndex = 19;
+            btnShowPass.Text = "👁";
+            btnShowPass.UseVisualStyleBackColor = false;
+            btnShowPass.Click += btnShowPass_Click;
             // 
             // ResetPw
             // 
@@ -115,6 +134,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
             ClientSize = new Size(532, 403);
+            Controls.Add(btnShowPass);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(button1);
@@ -138,5 +158,6 @@
         private Button button1;
         private TextBox textBox2;
         private TextBox textBox3;
+        private Button btnShowPass;
     }
 }

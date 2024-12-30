@@ -11,9 +11,10 @@ namespace CinemaServer.FunctionClass
     {
         private static string khoidatabase = @"Data Source=LAPTOP-RK9EOKK4\MSSQLSERVER03;Initial Catalog=CinemaManagement;Integrated Security=True;Trust Server Certificate=True";
         private static string connectionString = @"Data Source=LPK;Initial Catalog=CinemaManagement;Integrated Security=True;Trust Server Certificate=True";
+        private static string cin = @"Data Source=LAPTOP-RK9EOKK4\MSSQLSERVER03;Initial Catalog=CinemaManagement2;Integrated Security=True;Trust Server Certificate=True";
         public static SqlConnection Connect()
         {
-            return new SqlConnection(khoidatabase);
+            return new SqlConnection(cin);
         }
     }
 }

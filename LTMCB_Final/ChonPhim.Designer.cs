@@ -225,7 +225,7 @@ namespace LTMCB_Final
             Margin = new Padding(4);
             Name = "ChonPhim";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Hủy lọc";
+            Text = "ChonPhim";
             FormClosed += ChonPhim_FormClosed;
             Load += ChonPhim_Load;
             tableLayoutPanel1.ResumeLayout(false);
