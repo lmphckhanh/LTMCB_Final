@@ -107,16 +107,10 @@ namespace LTMCB_Final.Manager
         private void lsvMovieList_ItemActivate(object sender, EventArgs e)
         {
             string id = lsvMovieList.SelectedItems[0].SubItems[1].Text;
-            //string name = lsvMovieList.SelectedItems[0].SubItems[0].Text;
-            //string dir = lsvMovieList.SelectedItems[0].SubItems[2].Text;
-            //string dur = lsvMovieList.SelectedItems[0].SubItems[3].Text;
-            //string reDay = lsvMovieList.SelectedItems[0].SubItems[4].Text;
-            //string lang = lsvMovieList.SelectedItems[0].SubItems[5].Text;
-            //string minAge = lsvMovieList.SelectedItems[0].SubItems[6].Text;
-            //string rate = lsvMovieList.SelectedItems[0].SubItems[7].Text;
-            //string status = lsvMovieList.SelectedItems[0].SubItems[9].Text;
-            //Image img = imageList.Images[id];
+
             MovieInfo info = new MovieInfo(id);
+            info.ShowDialog();
+
         }
 
         private void btnDeleteMovie_Click(object sender, EventArgs e)
@@ -153,6 +147,11 @@ namespace LTMCB_Final.Manager
             ChonPhim chonPhim = new ChonPhim();
             chonPhim.Show();
             this.Hide();
+        }
+
+        private void lsvMovieList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

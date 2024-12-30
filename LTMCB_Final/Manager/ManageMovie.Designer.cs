@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageMovie));
             lsvMovieList = new ListView();
             tbSearch = new TextBox();
             cbStatus = new ComboBox();
@@ -51,6 +52,7 @@
             lsvMovieList.TabIndex = 0;
             lsvMovieList.UseCompatibleStateImageBehavior = false;
             lsvMovieList.ItemActivate += lsvMovieList_ItemActivate;
+            lsvMovieList.SelectedIndexChanged += lsvMovieList_SelectedIndexChanged;
             // 
             // tbSearch
             // 
@@ -195,6 +197,7 @@
             Controls.Add(lsvMovieList);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.MidnightBlue;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ManageMovie";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ManageMovie";

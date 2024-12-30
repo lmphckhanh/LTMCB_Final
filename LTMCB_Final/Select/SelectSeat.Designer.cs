@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectSeat));
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -187,6 +188,7 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "SelectSeat";
             StartPosition = FormStartPosition.CenterScreen;

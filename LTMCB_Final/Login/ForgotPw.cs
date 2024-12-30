@@ -74,7 +74,7 @@ namespace LTMCB_Final
                 var to = new MailAddress(toEmail);
                 string pass = "llfj qmft ydtb tvrd";
                 string subject = "Đặt lại mật khẩu";
-                string body = code;
+                string body = "Mã xác nhận của bạn là: " + code;
 
                 var smtp = new SmtpClient
                 {

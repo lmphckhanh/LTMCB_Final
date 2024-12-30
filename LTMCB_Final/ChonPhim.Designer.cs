@@ -31,6 +31,7 @@ namespace LTMCB_Final
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChonPhim));
             helpProvider1 = new HelpProvider();
             tableLayoutPanel1 = new TableLayoutPanel();
             comboBox1 = new ComboBox();
@@ -220,6 +221,7 @@ namespace LTMCB_Final
             ClientSize = new Size(1211, 555);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "ChonPhim";
             StartPosition = FormStartPosition.CenterScreen;

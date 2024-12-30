@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MovieInfo));
             lbTitle = new Label();
             label1 = new Label();
             label2 = new Label();
@@ -286,6 +287,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbTitle);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "MovieInfo";
             StartPosition = FormStartPosition.CenterScreen;

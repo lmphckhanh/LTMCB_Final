@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListBillforManager));
             label1 = new Label();
             btnDeleteBill = new Button();
             btnRefresh = new Button();
@@ -252,6 +253,7 @@
             Controls.Add(btnRefresh);
             Controls.Add(lsvList);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ListBillforManager";
             Text = "ListBillforManager";
             Load += ListBillforManager_Load;

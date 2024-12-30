@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResetPw));
             label1 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -120,6 +121,7 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "ResetPw";
             StartPosition = FormStartPosition.CenterScreen;

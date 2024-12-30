@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bill));
             lbBillTitle = new Label();
             lbCustomer = new Label();
             lbMovieName = new Label();
@@ -337,6 +338,7 @@
             Controls.Add(lbMovieName);
             Controls.Add(lbCustomer);
             Controls.Add(lbBillTitle);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2, 4, 2, 4);
             Name = "Bill";
             StartPosition = FormStartPosition.CenterScreen;

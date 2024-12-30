@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectCinema));
             label1 = new Label();
             comboBox2 = new ComboBox();
             listView1 = new ListView();
@@ -54,7 +55,7 @@
             comboBox2.ForeColor = Color.MidnightBlue;
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(241, 99);
-            comboBox2.Margin = new Padding(4, 4, 4, 4);
+            comboBox2.Margin = new Padding(4);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(248, 41);
             comboBox2.TabIndex = 2;
@@ -64,7 +65,7 @@
             listView1.Font = new Font("Times New Roman", 13.8F);
             listView1.ForeColor = Color.MidnightBlue;
             listView1.Location = new Point(44, 235);
-            listView1.Margin = new Padding(4, 4, 4, 4);
+            listView1.Margin = new Padding(4);
             listView1.Name = "listView1";
             listView1.Size = new Size(445, 286);
             listView1.TabIndex = 3;
@@ -77,7 +78,7 @@
             button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
             button1.Location = new Point(168, 550);
-            button1.Margin = new Padding(4, 4, 4, 4);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
             button1.Size = new Size(219, 52);
             button1.TabIndex = 4;
@@ -121,7 +122,8 @@
             Controls.Add(listView1);
             Controls.Add(comboBox2);
             Controls.Add(label1);
-            Margin = new Padding(4, 4, 4, 4);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4);
             Name = "SelectCinema";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SelectCinema";

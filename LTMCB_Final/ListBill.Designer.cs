@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListBill));
             lsvList = new ListView();
             STT = new ColumnHeader();
             BillID = new ColumnHeader();
@@ -270,6 +271,7 @@
             Controls.Add(btnDeleteBill);
             Controls.Add(btnRefresh);
             Controls.Add(lsvList);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "ListBill";
             StartPosition = FormStartPosition.CenterScreen;

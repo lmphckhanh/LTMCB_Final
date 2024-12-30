@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddMovie));
             lsvCategory = new ListView();
             lsvMovieType = new ListView();
             label1 = new Label();
@@ -79,7 +80,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(40, 35);
             label1.Name = "label1";
-            label1.Size = new Size(95, 26);
+            label1.Size = new Size(115, 33);
             label1.TabIndex = 2;
             label1.Text = "Mã phim";
             // 
@@ -88,7 +89,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(40, 85);
             label2.Name = "label2";
-            label2.Size = new Size(102, 26);
+            label2.Size = new Size(120, 33);
             label2.TabIndex = 3;
             label2.Text = "Tên phim";
             // 
@@ -97,7 +98,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(40, 135);
             label3.Name = "label3";
-            label3.Size = new Size(97, 26);
+            label3.Size = new Size(116, 33);
             label3.TabIndex = 4;
             label3.Text = "Đạo diễn";
             // 
@@ -106,7 +107,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(40, 185);
             label4.Name = "label4";
-            label4.Size = new Size(115, 26);
+            label4.Size = new Size(140, 33);
             label4.TabIndex = 5;
             label4.Text = "Thời lượng";
             // 
@@ -115,7 +116,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(40, 235);
             label5.Name = "label5";
-            label5.Size = new Size(124, 26);
+            label5.Size = new Size(148, 33);
             label5.TabIndex = 6;
             label5.Text = "Ngày ra mắt";
             // 
@@ -124,7 +125,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(40, 285);
             label6.Name = "label6";
-            label6.Size = new Size(104, 26);
+            label6.Size = new Size(125, 33);
             label6.TabIndex = 7;
             label6.Text = "Ngôn ngữ";
             // 
@@ -133,7 +134,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(40, 335);
             label7.Name = "label7";
-            label7.Size = new Size(171, 26);
+            label7.Size = new Size(204, 33);
             label7.TabIndex = 8;
             label7.Text = "Độ tuổi nhỏ nhất";
             // 
@@ -142,7 +143,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(40, 385);
             label8.Name = "label8";
-            label8.Size = new Size(70, 26);
+            label8.Size = new Size(85, 33);
             label8.TabIndex = 9;
             label8.Text = "Poster";
             // 
@@ -151,7 +152,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(40, 435);
             label9.Name = "label9";
-            label9.Size = new Size(106, 26);
+            label9.Size = new Size(127, 33);
             label9.TabIndex = 10;
             label9.Text = "Trạng thái";
             // 
@@ -159,42 +160,42 @@
             // 
             tbMovieID.Location = new Point(249, 27);
             tbMovieID.Name = "tbMovieID";
-            tbMovieID.Size = new Size(225, 34);
+            tbMovieID.Size = new Size(225, 39);
             tbMovieID.TabIndex = 11;
             // 
             // tbMovieName
             // 
             tbMovieName.Location = new Point(249, 77);
             tbMovieName.Name = "tbMovieName";
-            tbMovieName.Size = new Size(225, 34);
+            tbMovieName.Size = new Size(225, 39);
             tbMovieName.TabIndex = 13;
             // 
             // tbDirector
             // 
             tbDirector.Location = new Point(249, 127);
             tbDirector.Name = "tbDirector";
-            tbDirector.Size = new Size(225, 34);
+            tbDirector.Size = new Size(225, 39);
             tbDirector.TabIndex = 14;
             // 
             // tbDuration
             // 
             tbDuration.Location = new Point(249, 177);
             tbDuration.Name = "tbDuration";
-            tbDuration.Size = new Size(225, 34);
+            tbDuration.Size = new Size(225, 39);
             tbDuration.TabIndex = 15;
             // 
             // tbLang
             // 
             tbLang.Location = new Point(249, 277);
             tbLang.Name = "tbLang";
-            tbLang.Size = new Size(225, 34);
+            tbLang.Size = new Size(225, 39);
             tbLang.TabIndex = 18;
             // 
             // tbPoster
             // 
             tbPoster.Location = new Point(249, 377);
             tbPoster.Name = "tbPoster";
-            tbPoster.Size = new Size(225, 34);
+            tbPoster.Size = new Size(225, 39);
             tbPoster.TabIndex = 19;
             // 
             // label10
@@ -202,7 +203,7 @@
             label10.AutoSize = true;
             label10.Location = new Point(573, 35);
             label10.Name = "label10";
-            label10.Size = new Size(88, 26);
+            label10.Size = new Size(106, 33);
             label10.TabIndex = 21;
             label10.Text = "Thể loại";
             // 
@@ -211,7 +212,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(573, 285);
             label11.Name = "label11";
-            label11.Size = new Size(107, 26);
+            label11.Size = new Size(128, 33);
             label11.TabIndex = 22;
             label11.Text = "Loại phim";
             // 
@@ -234,14 +235,14 @@
             cbStatus.Items.AddRange(new object[] { "Chưa công chiếu", "Công chiếu" });
             cbStatus.Location = new Point(249, 427);
             cbStatus.Name = "cbStatus";
-            cbStatus.Size = new Size(225, 34);
+            cbStatus.Size = new Size(225, 41);
             cbStatus.TabIndex = 24;
             // 
             // dtpReleaseDay
             // 
             dtpReleaseDay.Location = new Point(449, 227);
             dtpReleaseDay.Name = "dtpReleaseDay";
-            dtpReleaseDay.Size = new Size(25, 34);
+            dtpReleaseDay.Size = new Size(25, 39);
             dtpReleaseDay.TabIndex = 25;
             dtpReleaseDay.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -249,7 +250,7 @@
             // 
             tbReleaseDay.Location = new Point(249, 227);
             tbReleaseDay.Name = "tbReleaseDay";
-            tbReleaseDay.Size = new Size(194, 34);
+            tbReleaseDay.Size = new Size(194, 39);
             tbReleaseDay.TabIndex = 26;
             // 
             // cbMinAge
@@ -258,12 +259,12 @@
             cbMinAge.Items.AddRange(new object[] { "0+", "12+", "16+", "18+" });
             cbMinAge.Location = new Point(249, 327);
             cbMinAge.Name = "cbMinAge";
-            cbMinAge.Size = new Size(225, 34);
+            cbMinAge.Size = new Size(225, 41);
             cbMinAge.TabIndex = 27;
             // 
             // AddMovie
             // 
-            AutoScaleDimensions = new SizeF(13F, 26F);
+            AutoScaleDimensions = new SizeF(15F, 33F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
             ClientSize = new Size(1040, 581);
@@ -293,6 +294,7 @@
             Controls.Add(lsvCategory);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.MidnightBlue;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddMovie";
             Text = "AddMovie";
             ResumeLayout(false);

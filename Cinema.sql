@@ -1,7 +1,7 @@
-﻿CREATE Database CinemaManagement
---DROP DATABASE CinemaManagement
+﻿CREATE Database CinemaManagement2
+--DROP DATABASE CinemaManagement2
 Go
-Use CinemaManagement
+Use CinemaManagement2
 GO
 
 CREATE TABLE Cinema
@@ -260,15 +260,15 @@ CREATE TABLE Account
 	RoleID VARCHAR(2) NOT NULL,
 )
 
-CREATE	TABLE Comment
-(
-	CommentID VARCHAR(100) PRIMARY KEY,
-	AccountID VARCHAR(100) NOT NULL,
-	MovieID VARCHAR(6) NOT NULL,
-	Content NVARCHAR(MAX) NULL,
-	DateTime DATETIME DEFAULT GETDATE(),
-	Rate NUMERIC(2,1) NULL,
-)
+--CREATE	TABLE Comment
+--(
+--	CommentID VARCHAR(100) PRIMARY KEY,
+--	AccountID VARCHAR(100) NOT NULL,
+--	MovieID VARCHAR(6) NOT NULL,
+--	Content NVARCHAR(MAX) NULL,
+--	DateTime DATETIME DEFAULT GETDATE(),
+--	Rate NUMERIC(2,1) NULL,
+--)
 
 GO
 ---------------------------------------------
@@ -458,36 +458,35 @@ ALTER TABLE dbo.Account ADD CONSTRAINT DefaultRole DEFAULT 'KH' FOR RoleID;
 
 --Comment
 GO
-ALTER TABLE dbo.Comment ADD CONSTRAINT FK_Comment_Account FOREIGN KEY (AccountID) REFERENCES dbo.Account(AccountID);
-ALTER TABLE dbo.Comment ADD CONSTRAINT FK_Comment_Movie FOREIGN KEY (MovieID) REFERENCES dbo.Movie(MovieID);
---ALTER TABLE dbo.Comment ADD CONSTRAINT PK_Comment PRIMARY KEY (CommentID,AccountID,MovieID);
-ALTER TABLE dbo.Comment ADD CONSTRAINT Check_Comment_Rate CHECK (Rate BETWEEN 0.0 AND 5.0);
-GO
-CREATE TRIGGER Trig_Comment_Insert ON dbo.Comment
-FOR INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS
-	(SELECT * FROM Inserted WHERE ((Inserted.Content IS NULL) AND (Inserted.Rate IS NULL)))
-	BEGIN
-	    PRINT N'Bình luận không hợp lệ'
-		ROLLBACK TRAN;
-	END
+--ALTER TABLE dbo.Comment ADD CONSTRAINT FK_Comment_Account FOREIGN KEY (AccountID) REFERENCES dbo.Account(AccountID);
+--ALTER TABLE dbo.Comment ADD CONSTRAINT FK_Comment_Movie FOREIGN KEY (MovieID) REFERENCES dbo.Movie(MovieID);
+--ALTER TABLE dbo.Comment ADD CONSTRAINT Check_Comment_Rate CHECK (Rate BETWEEN 0.0 AND 5.0);
+--GO
+--CREATE TRIGGER Trig_Comment_Insert ON dbo.Comment
+--FOR INSERT, UPDATE
+--AS
+--BEGIN
+--    IF EXISTS
+--	(SELECT * FROM Inserted WHERE ((Inserted.Content IS NULL) AND (Inserted.Rate IS NULL)))
+--	BEGIN
+--	    PRINT N'Bình luận không hợp lệ'
+--		ROLLBACK TRAN;
+--	END
 
-	DECLARE @avgRate NUMERIC(2,1);
-	SELECT @avgRate = AVG(Rate) FROM dbo.Comment WHERE MovieID IN (SELECT MovieID FROM Inserted);
-	UPDATE dbo.Movie SET Rate = @avgRate WHERE MovieID IN (SELECT MovieID FROM Inserted);
-END
-GO
-CREATE TRIGGER Trig_Comment_Delete ON dbo.Comment
-FOR DELETE
-AS
-BEGIN
-	DECLARE @avgRate NUMERIC(2,1);
-	SELECT @avgRate = AVG(Rate) FROM dbo.Comment WHERE MovieID IN (SELECT MovieID FROM Deleted);
-	UPDATE dbo.Movie SET Rate = @avgRate WHERE MovieID IN (SELECT MovieID FROM Deleted);
-END
-GO
+--	DECLARE @avgRate NUMERIC(2,1);
+--	SELECT @avgRate = AVG(Rate) FROM dbo.Comment WHERE MovieID IN (SELECT MovieID FROM Inserted);
+--	UPDATE dbo.Movie SET Rate = @avgRate WHERE MovieID IN (SELECT MovieID FROM Inserted);
+--END
+--GO
+--CREATE TRIGGER Trig_Comment_Delete ON dbo.Comment
+--FOR DELETE
+--AS
+--BEGIN
+--	DECLARE @avgRate NUMERIC(2,1);
+--	SELECT @avgRate = AVG(Rate) FROM dbo.Comment WHERE MovieID IN (SELECT MovieID FROM Deleted);
+--	UPDATE dbo.Movie SET Rate = @avgRate WHERE MovieID IN (SELECT MovieID FROM Deleted);
+--END
+--GO
 
 -------DATA-----------
 ---Cinema---
@@ -539,6 +538,7 @@ INSERT INTO dbo.Category (CategoryID, CategoryName) VALUES ('EROT', N'Khiêu dâ
 INSERT INTO dbo.Category (CategoryID, CategoryName) VALUES ('DOCU', N'Tài liệu');
 INSERT INTO dbo.Category (CategoryID, CategoryName) VALUES ('SCIE', N'Khoa học');
 INSERT INTO dbo.Category (CategoryID, CategoryName) VALUES ('FAMI', N'Gia đình');
+INSERT INTO dbo.Category (CategoryID, CategoryName) VALUES ('PSYC', N'Tâm lý');
 SELECT * FROM dbo.Category;
 GO	
 ---Role---
@@ -602,6 +602,46 @@ END
 SELECT * FROM dbo.Slot;
 SELECT * FROM dbo.SlotInRoom;
 GO
+--Movie
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('404CND',N'404 – Chạy ngay đi','Pichaya Jarusboonpracha','1:44:00','2024-12-27',N'Tiếng Thái',16,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-404.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('SONIC3',N'Nhím Sonic 3','Jeff Fowler','1:50:00','2024-12-27',N'Tiếng Anh',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/s/t/sth3_poster_470x700.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('VUAST',N'MUFASA: Vua sử tử','Barry Jenkins','1:58:00','2024-12-18',N'Tiếng Anh',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/g/cgv_350x495_1_.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('LDBCPS',N'LÂU ĐÀI BAY CỦA PHÁP SƯ HOWL','Hayao Miyazaki','2:00:00','2024-12-27',N'Tiếng Nhật',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/h/o/howls-moving-castle---poster-01_1_.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('CNBX',N'CHUYỆN NHÀ BÁNH XẾP','YANG Woo-seok','1:46:00','2024-12-27',N'Tiếng Hàn',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-aboutfamily.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('BDTH',N'BIỆT ĐỘI TÍ HON','Ute von Münchow-Pohl','1:16:00','2024-12-24',N'Lồng Tiếng Việt',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/b/i/bi_t_i_t_hon-payoff_poster-kc_24.12.2024.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('MOANA2',N'HÀNH TRÌNH CỦA MOANA 2','David G. Derrick Jr.','1:39:00','2024-12-4',N'Tiếng Anh',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/g/cgv_1200x1800.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('KVH',N'KÍNH VẠN HOA',N'Võ Thanh Hòa','2:07:00','2024-12-24',N'Tiếng Việt',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-kvh.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('CTBL',N'CÔNG TỬ BẠC LIÊU',N'Lý Minh Thắng','1:53:00','2024-12-6',N'Tiếng Việt',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/_/c_ng_t_b_c_li_u_-_payoff_poster_-_kc_06.12.2024_1_.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('LM',N'LINH MIÊU',N'Lưu Thành Luân','1:49:00','2024-11-22',N'Tiếng Việt',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-linhmieu.jpg',1);
+INSERT INTO dbo.Movie (MovieID, Name, Director, Duration, ReleaseDay, Language, MinAge, Rate, Image, Status) VALUES ('KRAVEN',N'KRAVEN - THỢ SĂN THỦ LĨNH','J. C. Chandor','2:07:00','2024-12-13',N'Tiếng Anh',0,0,'https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-kraven.jpg',1);
+SELECT * FROM dbo.Movie;
+---MovieOnCat---
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('404CND', 'HORR');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('SONIC3', 'ACTI');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('VUAST', 'ANIM');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('LDBCPS', 'ANIM');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('CNBX', 'COME');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('BDTH', 'ANIM');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('MOANA2', 'ANIM');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('KVH', 'ADVE');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('CTBL', 'PSYC');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('LM', 'HORR');
+INSERT INTO dbo.MovieOnCat (MovieID, CategoryID) VALUES ('KRAVEN', 'ACTI');
+SELECT * FROM dbo.MovieOnCat;
+
+---MovieOntype---
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('CHIDAU','VS');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('404CND','TM');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('SONIC3','VS');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('VUAST','VS');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('LDBCPS','VS');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('CNBX','VS');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('BDTH','LT');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('MOANA2','LT');
+INSERT INTO dbo.MovieOnType (MovieID, MovieTypeID) VALUES ('KVH','2D');
+SELECT * FROM dbo.MovieOnType;
+
+GO
 -------------------------------------------------------------------------------------------------------------
 CREATE PROC Pro_Purchase
 @Bill VARCHAR(100), @RequestID VARCHAR(100),@TransID VARCHAR(100), @Ticket VARCHAR(100), @Account VARCHAR(100)
@@ -652,39 +692,4 @@ END
 
 GO
 --------------------------------------------------------------------------------------------------
-SELECT * FROM dbo.Cinema
-SELECT * FROM dbo.ShowTimes
-INSERT INTO dbo.ShowTimes
-(
-    MovieID,
-    ShiftID,
-    RoomID,
-    Date,
-    EndTime
-)
-VALUES
-(   'GDHH',        -- MovieID - varchar(6)
-    DEFAULT,   -- ShiftID - int
-    'RCG001',        -- RoomID - varchar(6)
-    '12/30/2024', -- Date - date
-    NULL       -- EndTime - time(7)
-    )
-	SELECT * FROM dbo.Bill
-SELECT * FROM (dbo.ShowTimes ST JOIN dbo.Shifts S ON S.ShiftID = ST.ShiftID) JOIN dbo.RoomInCinema RC ON RC.RoomID = ST.RoomID WHERE ST.MovieID = 'GDHH'  AND RC.CinemaID = 'CG001'; 
-DECLARE @d DATE = GETDATE();
-DECLARE @t TIME = GETDATE();
-DECLARE @date DATETIME = CAST(@d as DATETIME) + CAST(@t as DATETIME);
-PRINT @date
-INSERT INTO dbo.Category
-(
-    CategoryID,
-    CategoryName
-)
-VALUES
-(   'PSYC', -- CategoryID - varchar(4)
-    N'Tâm lý' -- CategoryName - nvarchar(20)
-    )
-SELECT * FROM dbo.Category
-SELECT * FROM dbo.Bill
-UPDATE dbo.Account SET RoleID = 'QL' WHERE AccountID
-SELECT DISTINCT B.BillID, A.Name AS Customer, M.Name, B.TotalPrice, B.Date, B.Time, B.Status from (((((dbo.Bill B JOIN dbo.TicketOnBill TB ON TB.BillID = B.BillID) JOIN dbo.Ticket T ON T.TicketID = TB.TicketID) JOIN dbo.ShowTimes ST ON ST.ShowTimeID = T.ShowTimeID) JOIN dbo.Movie M ON M.MovieID = ST.MovieID)JOIN dbo.Account A ON A.AccountID = B.AccountID) WHERE B.Status IN (0,1) ORDER BY B.Date, B.Time DESC;
+

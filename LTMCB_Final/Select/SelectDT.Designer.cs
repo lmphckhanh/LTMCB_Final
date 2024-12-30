@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectDT));
             label1 = new Label();
             dtpDate = new DateTimePicker();
             button1 = new Button();
@@ -218,7 +219,7 @@
             Controls.Add(button1);
             Controls.Add(dtpDate);
             Controls.Add(label1);
-            Cursor = Cursors.Default;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "SelectDT";
             StartPosition = FormStartPosition.CenterScreen;
